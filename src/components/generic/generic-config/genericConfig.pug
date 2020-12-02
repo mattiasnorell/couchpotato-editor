@@ -1,0 +1,10 @@
+div(class="px-4")
+    div(class="w-full mb-4 pb-6 border-b-2 border-gray-200")
+        label() Målmapp
+        div(class="input-group" class="w-full")
+            input-text(v-model="config.outputPath")
+
+    div(class="w-full")
+        label() Källspellista
+        div(class="input-group" class="w-full")
+            input-text(v-model="config.m3uPath")

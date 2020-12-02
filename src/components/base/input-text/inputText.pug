@@ -1,0 +1,13 @@
+div()
+    input(
+        class="border-2 p-2 rounded w-full" 
+        ref="inputField" 
+        type="text" 
+        :value="value" 
+        :placeholder="placeholder" 
+        @blur="onChange" 
+        v-on:keyup.enter="onChange" 
+        v-if="isEditing"
+        )
+    span(class="cursor-pointer border-dotted border-b-2 border-gray-200" v-if="!isEditing" @click="edit") {{ value }}
+    span(class="cursor-pointer border-dotted border-b-2 border-gray-200" v-if="!isEditing && usePlaceholderIfEmpty && !value" @click="edit") {{ placeholder }}

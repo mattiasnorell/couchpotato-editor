@@ -1,0 +1,39 @@
+div(v-if="epg")
+    div(class="flex")
+        
+        div(class="w-1/3 px-4 text-left")
+            label() Aktivera cache
+            div(class="input-group" class="w-full")
+
+                input-checkbox(v-model="epg.cache.enabled")
+
+        div(class="w-1/3 px-4")
+            label() Cachelängd
+            div(class="input-group" class="w-full")
+                input(class="border-2 p-2 rounded w-full" type="number" v-model="epg.cache.lifespan")
+
+        div(class="w-1/3 px-4")
+            label() Sökväg för cachefiler
+            div(class="input-group" class="w-full")
+                input-text(v-model="epg.cache.path" :placeholder="'/sökväg/till/fil'" :usePlaceholderIfEmpty="true")
+    
+
+    table(class="w-full table-auto")
+        tr
+            th(class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm text-left leading-5") Namn
+            th(class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm text-left leading-5") Sökväg
+            th(class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm text-left leading-5")
+
+        tr(v-for="(path, index) in epg.paths" :key="index")
+            td(class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm leading-5") {{ getEpgName(path)}}
+            td(class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm leading-5") 
+                input-text(:value="path")
+            td(class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm leading-5 text-right") 
+                button(@click="deletePath(index)")
+                    font-awesome-icon(icon="trash")
+        tr()
+            td(colspan="2" class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm leading-5")
+                input(type="string" class="border-2 p-2 rounded w-full" v-model="newPath")
+            td(class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm leading-5 text-right")
+                button(@click="addPath(index)")
+                    font-awesome-icon(icon="plus")

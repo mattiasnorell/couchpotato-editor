@@ -1,0 +1,17 @@
+div(class="flex")
+    div(class="w-1/3")
+        label() Aktivera validering
+        div(class="input-group" class="w-full")
+            input(type="checkbox" v-model="config.enabled")
+
+    div(class="w-1/3")
+        label() Visa icke korrekta
+        div(class="input-group" class="w-full")
+            input(type="checkbox" v-model="config.showInvalid")
+
+    div(class="w-1/3")
+        label() Valideringsmängd
+        div(class="input-group" class="w-full")
+            input(class="border-2 p-2 rounded w-full" type="number" v-model="config.minimumContentLength")
+
+    

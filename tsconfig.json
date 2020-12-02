@@ -1,0 +1,24 @@
+{
+  "compileOnSave": false, 
+  "compilerOptions": {
+    "target": "esnext",
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "module": "esnext",
+    // this enables stricter inference for data properties on `this`
+    "strict": true,
+    "jsx": "preserve",
+    
+    "moduleResolution": "node",
+    "strictPropertyInitialization": false,
+    "noImplicitAny": true,
+    "allowUnreachableCode": false,
+    "types": ["node"]
+  },
+  "exclude": ["./node_modules"],
+  "include": ["src/**/*.ts", "src/index.js"],
+  "paths": {
+    "_components/*": ["src/components/*"],
+    "_models/*": ["src/models/*"]
+  }
+}
