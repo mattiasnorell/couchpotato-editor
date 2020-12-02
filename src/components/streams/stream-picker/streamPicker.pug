@@ -1,0 +1,29 @@
+div(class="relative")
+
+    div(class="flex")
+        input(
+            class="w-full border-2 p-2 rounded" 
+            type="text" 
+            ref="streamPickerInput"
+            @blur="onInput" 
+            v-model="query"
+            v-on:keyup.enter="onInput" 
+            v-on:keyup="onInput" 
+            v-on:blur="onBlur"
+            @change="onInput" 
+            :class="{'border-b-none': searchResult.length > 0, 'border-r-none': isPending || searchResult.length > 0}"
+            )
+        
+        div(class="bg-white border-2 border-l-none p-2 rounded rounded-r-md items-center content-center" v-if="isPending || searchResult.length > 0")
+            span(class="mb-4" v-if="isPending")
+                font-awesome-icon(icon="spinner" spin)
+
+            span(class="mb-4 cursor-pointer" v-if="!isPending && searchResult.length > 0" @click="clear")
+                font-awesome-icon(icon="trash")
+    
+    div(class="absolute w-full shadow-lg bg-white border-2 rounded rounded-t-none" v-if="searchResult.length > 0")
+        ul
+            li(class="border-b-2 p-4 cursor-pointer hover:bg-gray-100" v-for="(item, index) in searchResult" @click="select(item)")
+                span(class="text-bold") {{ item.tvgName }}
+                br
+                span(class="text-xs text-gray-500") {{ item.groupTitle }}

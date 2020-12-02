@@ -1,0 +1,22 @@
+div(class="flex w-full")
+    div(class="w-1/4 px-4")
+        label() Aktivera validering
+        div(class="input-group" class="w-full")
+            input-checkbox(v-model="config.enabled")
+
+    div(class="w-1/4 px-4")
+        label() Visa icke korrekta
+        div(class="input-group" class="w-full")
+            input-checkbox(v-model="config.showInvalid")
+
+    div(class="w-1/4 px-4")
+        label() Sufux för icke-validerade strömmar
+        div(class="input-group" class="w-full")
+            input-text(v-model="config.invalidSufix" :placeholder="'Lägg till sufix'" :usePlaceholderIfEmpty="true")
+
+    div(class="w-1/4 px-4")
+        label() Valideringsmängd
+        div(class="input-group" class="w-full")
+            input(class="border-2 p-2 rounded w-full" type="number" v-model="config.minimumContentLength")
+
+    

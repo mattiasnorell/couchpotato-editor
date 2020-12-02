@@ -1,0 +1,20 @@
+div()
+    div(class="bg-white p-4 mb-8 rounded-l")
+        save(v-if="configuration" :configuration="configuration")
+        copy-url(class="ml-2")
+
+    collapse(class="mb-8" title="Basuppgifter" :openAtRender="false")
+        generic-config(v-if="configuration" :config="configuration")  
+
+    collapse(class="mb-8" title="Validering" :openAtRender="false")
+        validation-config(v-if="configuration" :config="configuration.validation")    
+
+    collapse(class="mb-8" title="Komprimering" :openAtRender="false")
+        compression-config(v-if="configuration" :config="configuration")    
+
+    collapse(class="mb-8" title="Epg" :openAtRender="false")
+        epg-config(v-if="configuration" :epg="configuration.epg")    
+
+    collapse(title="Streams" :openAtRender="false")
+        stream-list(v-if="configuration" :streams="configuration.streams")
+    

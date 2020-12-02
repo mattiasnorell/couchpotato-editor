@@ -1,0 +1,9 @@
+div(class="w-full rounded-md bg-white")
+    div(class="rounded-md bg-gray-600 text-gray-50 text-bold px-4 py-2 cursor-pointer" :class="{'rounded-b-none': isOpen}" @click="toggle")
+        div(class="flex justify-between items-center")
+            span() {{ title }}
+            span()
+                font-awesome-icon(icon="chevron-up" v-if="isOpen")
+                font-awesome-icon(icon="chevron-down" v-if="!isOpen")
+    div(v-show="isOpen" class="p-4")
+        slot()
