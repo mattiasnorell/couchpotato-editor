@@ -55,9 +55,7 @@ module.exports = {
               sourceMap: true,
               plugins: [
                 require('tailwindcss')(tailwindConfig),
-                require('autoprefixer')({
-                  flexbox: true
-                })
+                
               ]
             }
           },

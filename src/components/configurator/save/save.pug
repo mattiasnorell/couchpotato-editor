@@ -1,10 +1,10 @@
 button(class="bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" @click="save")
-    span(class="mr-2" v-if="!isPending && !isError && !isSuccess")
+    span(v-if="!isPending && !isError && !isSuccess")
         font-awesome-icon(icon="save")
-    span(class="mr-2" v-if="isPending")
+    span(v-if="isPending")
         font-awesome-icon(icon="spinner" spin)
-    span(class="mr-2" v-if="!isPending && isSuccess")
+    span(v-if="!isPending && isSuccess")
         font-awesome-icon(icon="thumbs-up")
-    span(class="mr-2" v-if="!isPending && isError")
+    span(v-if="!isPending && isError")
         font-awesome-icon(icon="thumbs-down")
-    span() Spara konfiguration
+    span(class="hidden md:inline-block ml-2") Spara konfiguration

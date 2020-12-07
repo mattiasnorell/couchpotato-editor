@@ -3,19 +3,19 @@ import Component from 'vue-class-component';
 import { PlaylistItem } from '../../../models/PlaylistItem';
 import { Stream } from '../../../models/Stream';
 import { $playlistRepository } from '../../../services/repositories/playlistRepository';
-import { InputText } from '../../base/input-text/inputText';
+import { InputText } from '../input-text/inputText';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { Ref } from 'vue-property-decorator';
 
 @Component({
-  name: 'StreamPicker',
-  template: require('./streamPicker.pug'),
+  name: 'GroupPicker',
+  template: require('./groupPicker.pug'),
   components: {
     InputText,
     FontAwesomeIcon
   }
 })
-export class StreamPicker extends Vue {
+export class GroupPicker extends Vue {
   private searchResult: any[] = [];
   private isPending: boolean = false;
   private query: string = '';
@@ -43,7 +43,7 @@ export class StreamPicker extends Vue {
 
     this.isPending = true;
     try {
-      const result = await $playlistRepository.search(this.query);
+      const result = await $playlistRepository.searchGroup(this.query);
       this.searchResult = result;
       this.isPending = false;
     } catch (err) {
@@ -51,15 +51,9 @@ export class StreamPicker extends Vue {
     }
   }
 
-  private select(item: PlaylistItem): void {
-    this.searchResult = [];
-
-    const stream = new Stream();
-    stream.channelId = item.tvgName;
-    stream.friendlyName = item.tvgName;
-    stream.epgId = item.tvgName;
-
-    this.$emit('onSelect', stream);
+  private select(item: string): void {
+    this.clear();
+    this.$emit('onSelect', item);
   }
 
   private clear(): void {

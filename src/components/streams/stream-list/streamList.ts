@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { Prop, PropSync } from 'vue-property-decorator';
+import { Prop } from 'vue-property-decorator';
 import { StreamListRow } from '../stream-list-row/streamListRow';
 import { AddStream } from '../add-stream/addStream';
 import { Stream } from '../../../models/Stream';
@@ -8,6 +8,7 @@ import dragula from 'dragula';
 import { $arrayHelper } from '../../../services/helpers/arrayHelper';
 import { $guidHelper } from '../../../services/helpers/guidHelper';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { TableEmptyState } from '../../base/table-empty-state/tableEmptyState';
 
 @Component({
   name: 'StreamList',
@@ -15,7 +16,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   components: {
     StreamListRow,
     AddStream,
-    FontAwesomeIcon
+    FontAwesomeIcon,
+    TableEmptyState
   }
 })
 export class StreamList extends Vue {

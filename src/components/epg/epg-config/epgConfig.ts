@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { InputText } from '../../base/input-text/inputText';
 import { Epg } from '../../../models/Epg';
 import { InputCheckbox} from '../../base/input-checkbox/inputCheckbox';
+import { TableEmptyState } from '../../base/table-empty-state/tableEmptyState';
 
 @Component({
     name: 'EpgConfig',
@@ -12,7 +13,8 @@ import { InputCheckbox} from '../../base/input-checkbox/inputCheckbox';
     components: {
       FontAwesomeIcon,
       InputText,
-      InputCheckbox
+      InputCheckbox,
+      TableEmptyState
     }
 })
 export class EpgConfig extends Vue {

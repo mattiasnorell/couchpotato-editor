@@ -4,8 +4,7 @@ import { Prop } from 'vue-property-decorator';
 import { Stream } from '../../../models/Stream';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { InputText } from '../../base/input-text/inputText';
-import { StreamPicker } from '../stream-picker/streamPicker';
-import { faLevelDownAlt } from '@fortawesome/free-solid-svg-icons';
+import { StreamPicker } from '../../base/stream-picker/streamPicker';
 
 @Component({
   name: 'StreamListRow',
@@ -20,7 +19,6 @@ export class StreamListRow extends Vue {
   @Prop()
   private stream: Stream;
   private showStreamPicker: boolean = false;
-
 
   private remove(): void {
     this.$emit('onRemove');
@@ -38,7 +36,7 @@ export class StreamListRow extends Vue {
   private onStreamPickerBlur(): void{
     this.showStreamPicker = false;
   }
-  
+
   private toggleStreamPicker(): void{
     this.showStreamPicker = !this.showStreamPicker;
   }
