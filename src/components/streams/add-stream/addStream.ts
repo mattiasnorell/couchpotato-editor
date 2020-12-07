@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Stream } from '../../../models/Stream';
-import { StreamPicker } from '../stream-picker/streamPicker';
+import { StreamPicker } from '../../base/stream-picker/streamPicker';
 import { InputText } from '../../base/input-text/inputText';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 

@@ -13,10 +13,11 @@ import {
   faCopy,
   faThumbsUp,
   faFilter,
-  faThumbsDown
+  faThumbsDown,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faTrash, faPlus, faSave, faSpinner, faChevronUp, faChevronDown, faCopy, faThumbsUp, faFilter, faThumbsDown);
+library.add(faTrash, faPlus, faSave, faSpinner, faChevronUp, faChevronDown, faCopy, faThumbsUp, faFilter, faThumbsDown, faTimes);
 
 const appElement: HTMLElement | null = document.getElementById('app');
 

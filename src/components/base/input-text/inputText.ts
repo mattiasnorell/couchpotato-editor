@@ -3,17 +3,15 @@ import Component from 'vue-class-component';
 import { Prop, Ref } from 'vue-property-decorator';
 
 @Component({
-    name: 'InputText',
-    template: require('./inputText.pug'),
-    components: {
-      
-    }
+  name: 'InputText',
+  template: require('./inputText.pug'),
+  components: {}
 })
 export class InputText extends Vue {
   @Ref('inputField')
   readonly inputElement!: HTMLInputElement;
 
-  @Prop({type: String, default: ''})
+  @Prop({ type: String, default: '' })
   public value: string;
 
   @Prop()
@@ -22,19 +20,22 @@ export class InputText extends Vue {
   @Prop()
   public usePlaceholderIfEmpty: boolean;
 
+  @Prop({type: Boolean, default: false})
+  public inline: boolean;
+
   private isEditing: boolean = false;
 
-  private edit(): void{
+  private edit(): void {
     this.isEditing = true;
     this.$nextTick(() => this.inputElement.focus());
   }
 
-  private update(value: string): void{
+  private update(value: string): void {
     this.$emit('input', value);
     this.isEditing = false;
   }
 
-  private onChange(e: any): void{
+  private onChange(e: any): void {
     this.update(e.target.value);
   }
 }

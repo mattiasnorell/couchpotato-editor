@@ -1,0 +1,24 @@
+div(class="relative")
+    input(
+        class="w-full border-2 p-2 rounded" 
+        type="text" 
+        ref="streamPickerInput"
+        @blur="onInput" 
+        v-model="query"
+        v-on:keyup.enter="onInput" 
+        v-on:keyup="onInput" 
+        v-on:blur="onBlur"
+        @change="onInput" 
+        )
+    
+    div(class="absolute flex z-10 right-0 top-0 h-full w-6 items-center content-center" v-if="isPending || searchResult.length > 0")
+        span(class="mb-4" v-if="isPending")
+            font-awesome-icon(icon="spinner" spin)
+
+        span(class="cursor-pointer" v-if="!isPending && searchResult.length > 0" @click="clear")
+            font-awesome-icon(icon="times")
+    
+    div(class="z-20 absolute w-full shadow-lg bg-white border-2 rounded rounded-t-none" v-if="searchResult.length > 0")
+        ul
+            li(class="border-b-2 p-4 cursor-pointer hover:bg-gray-100" v-for="(item, index) in searchResult" @click="select(item)")
+                span(class="text-bold") {{ item }}

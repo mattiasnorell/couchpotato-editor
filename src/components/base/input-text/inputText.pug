@@ -7,7 +7,8 @@ div()
         :placeholder="placeholder" 
         @blur="onChange" 
         v-on:keyup.enter="onChange" 
-        v-if="isEditing"
+        v-if="isEditing || !inline"
         )
-    span(class="cursor-pointer border-dotted border-b-2 border-gray-200" v-if="!isEditing" @click="edit") {{ value }}
-    span(class="cursor-pointer border-dotted border-b-2 border-gray-200" v-if="!isEditing && usePlaceholderIfEmpty && !value" @click="edit") {{ placeholder }}
+    span(v-if="inline")
+        span(class="cursor-pointer border-dotted border-b-2 border-gray-200" v-if="!isEditing" @click="edit") {{ value }}
+        span(class="cursor-pointer border-dotted border-b-2 border-gray-200" v-if="!isEditing && usePlaceholderIfEmpty && !value" @click="edit") {{ placeholder }}

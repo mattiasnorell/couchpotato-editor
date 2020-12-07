@@ -8,9 +8,10 @@ import { Prop } from 'vue-property-decorator';
 import { Configuration } from '../../models/Configuration';
 import { Collapse } from '../base/collapse/collapse';
 import { ValidationConfig } from '../validation/validation-config/validationConfig';
+import { GroupConfig } from '../group-config/groupConfig';
 import { CompressionConfig } from '../compression/compression-config/compressionConfig';
 import { GenericConfig } from '../generic/generic-config/genericConfig';
-import {CopyUrl} from './copy-url/copyUrl'; 
+import { CopyUrl } from './copy-url/copyUrl';
 import { InputCheckbox } from '../base/input-checkbox/inputCheckbox';
 
 @Component({
@@ -25,7 +26,8 @@ import { InputCheckbox } from '../base/input-checkbox/inputCheckbox';
     ValidationConfig,
     CompressionConfig,
     GenericConfig,
-    InputCheckbox
+    InputCheckbox,
+    GroupConfig
   }
 })
 export class Configurator extends Vue {

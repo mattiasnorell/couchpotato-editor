@@ -1,0 +1,26 @@
+div()
+    div(class="bg-black opacity-30 fixed left-0 top-0 bottom-0 right-0 shadow-xl" @click="ok")
+    div(class="bg-white fixed top-0 bottom-0 right-0 w-96 h-full shadow-xl")
+        div(class="relative h-full w-full")
+            div(class="bg-gray-600 text-white w-full p-4 font-bold") {{ title }}
+
+            div(class="p-4")
+                label() Lägg till exkluderad stream
+                    div(class="input-group" class="w-full")
+                        stream-picker(@onSelect="addItem")
+            
+                table(class="table-auto w-full")
+                    thead
+                        tr
+                            th(class="px-4 py-4 whitespace-no-wrap border-b border-gray-500 text-md text-left leading-5") Stream-Id
+                            th(class="px-4 py-4 whitespace-no-wrap border-b border-gray-500 text-md text-left leading-5")
+                    tbody
+                        table-empty-state(:title="'Inga streams tillagda'" :colspan="2" v-if="items.length === 0")
+                        tr(v-for="(item, index) in items" :key="index")
+                            td(class="px-4 py-4 whitespace-no-wrap border-b border-gray-500 text-md text-left leading-5") {{ item }}
+                            td(class="px-4 py-4 whitespace-no-wrap border-b border-gray-500 text-md text-right leading-5")
+                                button(@click="removeItem(index)") 
+                                    font-awesome-icon(icon="trash")
+            
+            div(class="bg-gray-300 absolute bottom-0 left-0 right-0 p-4 text-right")
+                button(class="rounded-md bg-gray-500 px-4 py-2" @click="ok") Ok

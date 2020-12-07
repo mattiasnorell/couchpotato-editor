@@ -3,27 +3,28 @@ div(class="w-full")
 
     table(class="table-auto w-full")
         tr
-            th(class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm text-left leading-5") Id
-            th(class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm text-left leading-5") Visningsnamn
-            th(class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm text-left leading-5") Grupp
-            th(class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm text-left leading-5") EPG-Id
-            th(class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm text-left leading-5") Timeshift
-            th(class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm text-right leading-5")
+            th(class="px-4 py-4 whitespace-no-wrap text-sm text-left leading-5") Id
+            th(class="px-4 py-4 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") Visningsnamn
+            th(class="px-4 py-4 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") Grupp
+            th(class="px-4 py-4 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") EPG-Id
+            th(class="px-4 py-4 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") Timeshift
+            th(class="px-4 py-4 whitespace-no-wrap text-sm text-right leading-5")
                 button(@click="toggleFilter")
                     font-awesome-icon(icon="filter")
 
-        tr(v-if="showFilter")
-            th(class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm text-left leading-5") 
+        tr(class="border-b border-gray-500" v-if="showFilter")
+            th(class="px-4 py-4 whitespace-no-wrap text-sm text-left leading-5") 
                 input(class="border-2 p-2 rounded w-full" placeholder="Filtrera på id")
-            th(class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm text-left leading-5")
+            th(class="px-4 py-4 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell")
                 input(class="border-2 p-2 rounded w-full" placeholder="Filtrera på id")
-            th(class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm text-left leading-5")
+            th(class="px-4 py-4 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell")
                 input(class="border-2 p-2 rounded w-full" placeholder="Filtrera på id")
-            th(class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm text-left leading-5")
+            th(class="px-4 py-4 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell")
                 input(class="border-2 p-2 rounded w-full" placeholder="Filtrera på id")
-            th(class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm text-left leading-5")
+            th(class="px-4 py-4 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell")
                 input(class="border-2 p-2 rounded w-full" placeholder="Filtrera på id")
-            th(class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm text-right leading-5")
+            th(class="px-4 py-4 whitespace-no-wrap text-sm text-right leading-5")
         
-        tbody(id="stream_container")
+        table-empty-state(:title="'Inga streams tillagda'" :colspan="6" v-if="streams.length === 0")
+        tbody(id="stream_container" v-if="streams.length > 0")
             stream-list-row(v-for="(stream, index) in streams" :key="uniqueId()" :stream="stream" @onRemove="removeStream(index)")

@@ -2,6 +2,6 @@
 export class PlaylistItem{
     tvgId: string = '';
     tvgName: string = '';
-    tvgLogo: String = '';
-    groupTitle: String = '';
+    tvgLogo: string = '';
+    groupTitle: string = '';
 }

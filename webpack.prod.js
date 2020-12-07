@@ -65,7 +65,7 @@ module.exports = {
                   // 1: All functional CSS starting with "tp-"
                   // 2: Font Awesome icons default sizing overrrides
                   // https://medium.com/@kyis/vue-tailwind-purgecss-the-right-way-c70d04461475
-                  whitelist: ['gu-transit', 'gu-mirror', 'gu-hide', 'gu-unselectable'],
+                  safelist: ['gu-transit', 'gu-mirror', 'gu-hide', 'gu-unselectable'],
                   defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || []
                 })
               ]

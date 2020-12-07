@@ -1,5 +1,5 @@
-import { EpgConfig } from "../components/epg/epg-config/epgConfig";
 import { Epg } from "./Epg";
+import { Group } from "./Group";
 import { Stream } from "./Stream";
 
 export class Configuration{
@@ -10,4 +10,6 @@ export class Configuration{
     epg: Epg;
     streams: Stream[];
     validation: Validation;
+    groups: Group[] = [];
 }
+

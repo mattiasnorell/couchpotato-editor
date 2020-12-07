@@ -12,6 +12,7 @@ class PlaylistRepository {
 
   public async load(): Promise<PlaylistItem[]> {
     const playlist = await axios.get(`/api/configuration?path=${encodeURIComponent(this.path)}`);
+    //const playlist = await axios.get(`/playlist.m3u`);
 
     if (playlist.status !== 200) {
       return [];
@@ -29,12 +30,28 @@ class PlaylistRepository {
     return this.playlistItems;
   }
 
-  public async search(query: string, take: number = 10): Promise<PlaylistItem[]> {
+  public async search(query: string, take: number = 25): Promise<PlaylistItem[]> {
     if (!this.playlistItems || this.playlistItems.length === 0) {
       this.playlistItems = await this.load();
     }
 
     return this.playlistItems.filter((item) => item.tvgName.toLocaleLowerCase().includes(query.toLocaleLowerCase())).splice(0, take);
+  }
+
+  public async searchGroup(query: string, take: number = 25): Promise<string[]> {
+    if (!this.playlistItems || this.playlistItems.length === 0) {
+      this.playlistItems = await this.load();
+    }
+
+    const result: string[] = [];
+
+    this.playlistItems.forEach((item) => {
+      if (item.groupTitle.toLocaleLowerCase().includes(query.toLocaleLowerCase()) && !result.includes(item.groupTitle)) {
+        result.push(item.groupTitle);
+      }
+    });
+
+    return result.splice(0, take);
   }
 }
 
