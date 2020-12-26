@@ -1,0 +1,29 @@
+div(class="modal")
+    div(class="modal-backdrop" @click="ok")
+    div(class="modal-wrapper w-11/12 md:w-6/12")
+        div(class="modal-body")
+            div(class="modal-header") {{ title }}
+
+            div(class="modal-content")
+                div(class="w-full flex flex-wrap")
+                    div(class="w-full md:w-1/3 px-4 text-left")
+                        label() {{ 'friendlyName' | translate }}
+                        input-text(:value="stream?.friendlyName" :placeholder="'Välj grupp'")
+
+                div(class="w-full flex flex-wrap mt-4")
+                    div(class="w-full md:w-1/3 px-4 text-left")
+                        label() {{ 'group' | translate }}
+                        input-text(v-model="stream.customGroupName" :placeholder="`Defaultgruppen`" :usePlaceholderIfEmpty="true")
+
+                div(class="w-full flex flex-wrap mt-4")
+                    div(class="w-full md:w-1/3 px-4 text-left")
+                        label() {{ 'epgId' | translate }}
+                        input-text(v-model="stream.epgId" :placeholder="'Ej angivet'" :usePlaceholderIfEmpty="true")
+
+                div(class="w-full flex flex-wrap mt-4")
+                    div(class="w-full md:w-1/3 px-4 text-left")
+                        label() {{ 'timeshift' | translate }}
+                        input-text(v-model="stream.epgTimeshift" :placeholder="'0000'" :usePlaceholderIfEmpty="true")
+
+            div(class="modal-footer")
+                button(class="rounded-md bg-gray-500 px-4 py-2" @click="ok") Ok

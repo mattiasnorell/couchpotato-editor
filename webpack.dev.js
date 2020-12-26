@@ -90,4 +90,3 @@ module.exports = {
     })
   ]
 };
-console.log(path.resolve(__dirname, './'), '/node_modules');

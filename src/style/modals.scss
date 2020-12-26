@@ -1,0 +1,25 @@
+.modal{
+    .modal-backdrop{
+        @apply bg-black opacity-30 fixed left-0 top-0 bottom-0 right-0 shadow-xl;
+    }
+
+    .modal-wrapper{
+        @apply bg-white fixed top-0 bottom-0 right-0 h-full shadow-xl;
+    }
+
+    .modal-body{
+        @apply relative h-full w-full flex flex-col;
+    }
+
+    .modal-header{
+        @apply bg-gray-600 text-white w-full p-4 font-bold;
+    }
+
+    .modal-content{
+        @apply p-4 pb-8 overflow-y-auto;
+    }
+
+    .modal-footer{
+        @apply bg-gray-600 absolute bottom-0 left-0 right-0 p-2 text-right;
+    }
+}

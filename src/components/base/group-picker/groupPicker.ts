@@ -5,7 +5,7 @@ import { Stream } from '../../../models/Stream';
 import { $playlistRepository } from '../../../services/repositories/playlistRepository';
 import { InputText } from '../input-text/inputText';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { Ref } from 'vue-property-decorator';
+import { Prop, Ref } from 'vue-property-decorator';
 
 @Component({
   name: 'GroupPicker',
@@ -23,6 +23,9 @@ export class GroupPicker extends Vue {
   @Ref('streamPickerInput')
   readonly streamPickerInput!: HTMLInputElement;
 
+  @Prop()
+  public placeholder: string;
+  
   private created() {
     this.$nextTick(() => this.streamPickerInput.focus());
   }

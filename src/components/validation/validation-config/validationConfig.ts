@@ -4,6 +4,7 @@ import { Prop } from 'vue-property-decorator';
 import { InputText } from '../../base/input-text/inputText';
 import { InputCheckbox} from '../../base/input-checkbox/inputCheckbox';
 import { Fallbacks } from '../fallbacks/fallbacks';
+import { Validation } from '../../../models/Validation';
 
 @Component({
     name: 'ValidationConfig',

@@ -11,8 +11,14 @@ class PlaylistRepository {
   }
 
   public async load(): Promise<PlaylistItem[]> {
-    const playlist = await axios.get(`/api/configuration?path=${encodeURIComponent(this.path)}`);
-    //const playlist = await axios.get(`/playlist.m3u`);
+    axios.defaults.headers = {
+      'Cache-Control': 'no-cache',
+      'Pragma': 'no-cache',
+      'Expires': '0',
+    };
+
+    //const playlist = await axios.get(`/api/configuration?path=${encodeURIComponent(this.path)}`);
+    const playlist = await axios.get(`/playlist.m3u`);
 
     if (playlist.status !== 200) {
       return [];

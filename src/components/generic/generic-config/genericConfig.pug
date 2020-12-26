@@ -1,10 +1,15 @@
 div(class="px-4")
     div(class="w-full mb-4 pb-6 border-b-2 border-gray-200")
-        label() Målmapp
+        label() {{ 'targetFolder' | translate }}
         div(class="input-group" class="w-full")
             input-text(v-model="config.outputPath")
 
-    div(class="w-full")
-        label() Källspellista
+    div(class="w-full mb-4 ")
+        label() {{ 'sourcePlaylist' | translate }}
         div(class="input-group" class="w-full")
             input-text(v-model="config.m3uPath" :inline="true")
+
+    div(class="w-full")
+        label() {{ 'couchpotatoPath' | translate }}
+        div(class="input-group" class="w-full")
+            input-text(v-model="couchpotatoPath" :placeholder="'setCouchpotatoPath' | translate" :usePlaceholderIfEmpty="true" @input="onInputCouchpotatoPath" :inline="true")

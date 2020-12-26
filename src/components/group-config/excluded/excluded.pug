@@ -1,13 +1,13 @@
-div()
-    div(class="bg-black opacity-30 fixed left-0 top-0 bottom-0 right-0 shadow-xl" @click="ok")
-    div(class="bg-white fixed top-0 bottom-0 right-0 w-96 h-full shadow-xl")
-        div(class="relative h-full w-full")
-            div(class="bg-gray-600 text-white w-full p-4 font-bold") {{ title }}
+div(class="modal")
+    div(class="modal-backdrop" @click="ok")
+    div(class="modal-wrapper w-11/12 md:w-6/12")
+        div(class="modal-body")
+            div(class="modal-header") {{ title }}
 
-            div(class="p-4")
+            div(class="modal-content")
                 label() Lägg till exkluderad stream
                     div(class="input-group" class="w-full")
-                        stream-picker(@onSelect="addItem")
+                        stream-picker(:placeholder="'Sök ström'" @onSelect="addItem")
             
                 table(class="table-auto w-full")
                     thead
@@ -22,5 +22,5 @@ div()
                                 button(@click="removeItem(index)") 
                                     font-awesome-icon(icon="trash")
             
-            div(class="bg-gray-300 absolute bottom-0 left-0 right-0 p-4 text-right")
+            div(class="modal-footer")
                 button(class="rounded-md bg-gray-500 px-4 py-2" @click="ok") Ok

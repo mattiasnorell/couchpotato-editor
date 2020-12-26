@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './modals.scss';
+
+
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+
 /*! purgecss start ignore */
 .gu-mirror {
   position: fixed !important;

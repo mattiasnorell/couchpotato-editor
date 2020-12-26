@@ -1,0 +1,28 @@
+div(class="modal")
+    div(class="modal-backdrop" @click="ok")
+    div(class="modal-wrapper w-11/12 md:w-6/12")
+        div(class="modal-body")
+            div(class="modal-header") {{ title }}
+
+            div(class="modal-content")
+                span(v-if="isPending")
+                    font-awesome-icon(icon="spinner" spin)
+                    span(class="ml-2") Laddar
+                
+                input-select(:options="groupOptions" :placeholder="'Välj grupp'" @onChange="onChange" v-if="!isPending")
+                table(class="table-fixed w-full" v-if="groupItems.length > 0")
+                    tr(class="border-b border-gray-500")
+                        th(class="w-20 px-2 py-4 whitespace-no-wrap text-sm text-left leading-5") Lägg till
+                        th(class="px-2 py-4 whitespace-no-wrap text-sm text-left leading-5") Stream-Id
+                        
+                    tr(class="border-b border-gray-500" v-for="(groupItem, streamIndex) in groupItems" :key="'catalogue-group-item-'+streamIndex")
+                        td(class="px-2 py-4")
+                            input-checkbox(
+                                v-model="groupItem.selected"
+                                @input="onToggleItem(groupItem)"
+                                )
+                        td(class="px-2 py-4 whitespace-no-wrap text-sm text-left font-normal") {{ groupItem.tvgName }}
+
+
+            div(class="modal-footer")
+                button(class="rounded-md bg-gray-500 px-4 py-2" @click="ok") Ok

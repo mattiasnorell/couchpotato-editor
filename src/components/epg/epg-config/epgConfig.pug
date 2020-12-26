@@ -1,18 +1,18 @@
 div(v-if="epg")
     div(class="w-full flex flex-wrap")
         div(class="w-full md:w-1/3 px-4 text-left")
-            label() Aktivera cache
+            label() {{ 'activateCache' | translate }}
             div(class="input-group" class="w-full")
 
                 input-checkbox(v-model="epg.cache.enabled")
 
         div(class="w-full md:w-1/3 px-4")
-            label() Cachelängd
+            label() {{ 'cacheLifespan' | translate }}
             div(class="input-group" class="w-full")
                 input(class="border-2 p-2 rounded w-full" type="number" v-model="epg.cache.lifespan")
 
         div(class="w-full md:w-1/3 px-4")
-            label() Sökväg för cachefiler
+            label() {{ 'cachePath' | translate }}
             div(class="input-group" class="w-full")
                 input-text(v-model="epg.cache.path" :placeholder="'/sökväg/till/fil'" :usePlaceholderIfEmpty="true")
     

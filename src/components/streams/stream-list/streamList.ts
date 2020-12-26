@@ -9,6 +9,10 @@ import { $arrayHelper } from '../../../services/helpers/arrayHelper';
 import { $guidHelper } from '../../../services/helpers/guidHelper';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { TableEmptyState } from '../../base/table-empty-state/tableEmptyState';
+import { StreamCatalogue } from '../stream-catalogue/streamCatalogue';
+import StreamCatalogueProps from '../stream-catalogue/StreamCatalogueProps';
+import { $modalHelper } from '../../../services/helpers/modalHelper';
+import { PlaylistItem } from '../../../models/PlaylistItem';
 
 @Component({
   name: 'StreamList',
@@ -32,7 +36,7 @@ export class StreamList extends Vue {
   private toggleFilter(): void {
     this.showFilter = !this.showFilter;
   }
-  
+
   private addStream(stream: Stream) {
     this.streams.unshift(stream);
   }
@@ -69,5 +73,22 @@ export class StreamList extends Vue {
         $arrayHelper.moveToIndex(this.streams, startPosition, index);
       });
     }
+  }
+
+  private openCatalogue(): void {
+    const props: StreamCatalogueProps = new StreamCatalogueProps();
+    props.title = 'Katalog';
+
+    $modalHelper.create<typeof StreamCatalogue>(StreamCatalogue, props, (items: PlaylistItem[]) => {
+      items.forEach((item) => {
+        const isAdded = this.streams.some((streamItem) => streamItem.channelId === item.tvgName);
+        if (!isAdded) {
+          const stream = new Stream();
+          stream.channelId = item.tvgName;
+          stream.group = item.groupTitle;
+          this.streams.unshift(stream);
+        }
+      });
+    });
   }
 }

@@ -2,7 +2,7 @@ tr(class="border-b border-gray-500 last:border-b-0")
     td(class="px-4 py-4 whitespace-no-wrap text-sm leading-5")
         span(class="cursor-pointer border-dotted border-b-2 border-gray-200" v-if="!showStreamPicker" @click="toggleStreamPicker") {{ stream.channelId }}
         span(v-if="showStreamPicker")
-            stream-picker(@onSelect="updateStreamId" @onBlur="onStreamPickerBlur")
+            stream-picker(:placeholder="'Sök ström'" @onSelect="updateStreamId" @onBlur="onStreamPickerBlur")
 
     td(class="px-4 py-4 whitespace-no-wrap text-sm leading-5 hidden md:table-cell")
         input-text(v-model="stream.friendlyName" :placeholder="stream.channelId" :usePlaceholderIfEmpty="true")
@@ -15,6 +15,10 @@ tr(class="border-b border-gray-500 last:border-b-0")
 
     td(class="px-4 py-4 whitespace-no-wrap text-sm leading-5 hidden md:table-cell")
         input-text(v-model="stream.epgTimeshift" :placeholder="'0000'" :usePlaceholderIfEmpty="true")
+
+    td(class="px-4 py-4 whitespace-no-wrap text-sm leading-5 md:hidden")
+        button(@click="openEditModal" class="text-gray-500")
+            font-awesome-icon(icon="info")
 
     td(class="px-4 py-4 whitespace-no-wrap text-sm leading-5 text-right") 
         button(@click="remove" class="text-gray-500")

@@ -5,7 +5,7 @@ import { Stream } from '../../../models/Stream';
 import { $playlistRepository } from '../../../services/repositories/playlistRepository';
 import { InputText } from '../../base/input-text/inputText';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { Ref } from 'vue-property-decorator';
+import { Prop, Ref } from 'vue-property-decorator';
 
 @Component({
   name: 'StreamPicker',
@@ -22,6 +22,9 @@ export class StreamPicker extends Vue {
 
   @Ref('streamPickerInput')
   readonly streamPickerInput!: HTMLInputElement;
+
+  @Prop()
+  public placeholder: string;
 
   private created() {
     this.$nextTick(() => this.streamPickerInput.focus());

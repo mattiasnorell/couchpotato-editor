@@ -40,6 +40,10 @@ export class FullGroupIncludeRow extends Vue {
   }
 
   private openExcludeModal(): void{
+    if(!this.group.exclude){
+      this.group.exclude = [];
+    }
+    
     const excludedProps: ExcludedProps = new ExcludedProps();
     excludedProps.title = 'Excludera stream från grupp';
     excludedProps.items = this.group.exclude;

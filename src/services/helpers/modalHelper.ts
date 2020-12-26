@@ -7,6 +7,7 @@ export class ModalService {
     modalWrapper.id = wrapperId;
 
     document.body.appendChild(modalWrapper);
+    document.body.style.overflow = 'hidden';
 
     const ctor = Vue.extend(component);
     const vm = new ctor({
@@ -16,6 +17,8 @@ export class ModalService {
     window.addEventListener('closeModal', (payload: any) => {
       vm.$destroy();
       vm?.$el?.parentNode?.removeChild(vm.$el);
+
+      document.body.style.overflow = 'scroll';
 
       if (onClose) {
         onClose(payload.detail);
