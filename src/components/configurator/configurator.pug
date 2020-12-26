@@ -3,21 +3,24 @@ div(class="row")
         div(class="bg-white p-4 mb-8 rounded-l")
             save(v-if="configuration" :configuration="configuration")
             copy-url(class="ml-2")
+            import-configuration(class="ml-2" @onImport="onImport")
+            export-configuration(class="ml-2" :configuration="configuration")
+            trigger-couchpotato(class="ml-2")
 
         collapse(class="mb-8" title="Basuppgifter" :openAtRender="false")
             generic-config(v-if="configuration" :config="configuration")  
 
-        collapse(class="mb-8" title="Validering" :openAtRender="false")
+        collapse(class="mb-8" :title="'validation' | translate" :openAtRender="false")
             validation-config(v-if="configuration" :config="configuration.validation")    
 
-        collapse(class="mb-8" title="Komprimering" :openAtRender="false")
+        collapse(class="mb-8" :title="'compression' | translate" :openAtRender="false")
             compression-config(v-if="configuration" :config="configuration")    
 
-        collapse(class="mb-8" title="Epg" :openAtRender="false")
+        collapse(class="mb-8" :title="'epg' | translate" :openAtRender="false")
             epg-config(v-if="configuration" :epg="configuration.epg")
 
-        collapse(class="mb-8" title="Grupper" :openAtRender="false")
+        collapse(class="mb-8" :title="'groups' | translate" :openAtRender="false")
             group-config(v-if="configuration" :config="configuration")    
 
-        collapse(title="Streams" :openAtRender="false")
+        collapse(:title="'streams' | translate" :openAtRender="false")
             stream-list(v-if="configuration" :streams="configuration.streams")

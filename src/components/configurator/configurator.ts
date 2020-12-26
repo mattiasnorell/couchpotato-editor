@@ -12,7 +12,10 @@ import { GroupConfig } from '../group-config/groupConfig';
 import { CompressionConfig } from '../compression/compression-config/compressionConfig';
 import { GenericConfig } from '../generic/generic-config/genericConfig';
 import { CopyUrl } from './copy-url/copyUrl';
+import { ImportConfiguration } from './import/importConfiguration';
 import { InputCheckbox } from '../base/input-checkbox/inputCheckbox';
+import { ExportConfiguration } from './export/exportConfiguration';
+import { TriggerCouchpotato } from './trigger-couchpotato/triggerCouchpotato';
 
 @Component({
   name: 'Configurator',
@@ -27,10 +30,21 @@ import { InputCheckbox } from '../base/input-checkbox/inputCheckbox';
     CompressionConfig,
     GenericConfig,
     InputCheckbox,
-    GroupConfig
+    GroupConfig,
+    ImportConfiguration,
+    ExportConfiguration,
+    TriggerCouchpotato
   }
 })
 export class Configurator extends Vue {
   @Prop()
   public configuration: Configuration;
+
+  private onImport(data: Configuration): void{
+    if(!data){
+      return;
+    }
+    
+    this.$emit('onConfigurationUpdate', data);
+  }
 }

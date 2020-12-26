@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import { App } from './components/app/app';
 import './style/style.scss';
+import { $filters } from './filters';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -14,10 +15,31 @@ import {
   faThumbsUp,
   faFilter,
   faThumbsDown,
-  faTimes
+  faTimes,
+  faFileImport,
+  faFileExport,
+  faPlay,
+  faInfo
 } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faTrash, faPlus, faSave, faSpinner, faChevronUp, faChevronDown, faCopy, faThumbsUp, faFilter, faThumbsDown, faTimes);
+Vue.use($filters);
+library.add(
+  faTrash,
+  faPlus,
+  faSave,
+  faSpinner,
+  faChevronUp,
+  faChevronDown,
+  faCopy,
+  faThumbsUp,
+  faFilter,
+  faThumbsDown,
+  faTimes,
+  faFileImport,
+  faFileExport,
+  faPlay,
+  faInfo
+);
 
 const appElement: HTMLElement | null = document.getElementById('app');
 

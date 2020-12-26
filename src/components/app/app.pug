@@ -1,2 +1,2 @@
 div()
-    configurator(v-if="configuration" :configuration="configuration")
+    configurator(v-if="configuration" :configuration="configuration" @onConfigurationUpdate="updateConfiguration")

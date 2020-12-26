@@ -1,0 +1,13 @@
+div()
+    div(class="bg-black opacity-30 fixed left-0 top-0 bottom-0 right-0 shadow-xl" @click="ok")
+    div(class="bg-white fixed top-0 bottom-0 right-0 w-96 h-full shadow-xl")
+        div(class="relative h-full w-full")
+            div(class="bg-gray-600 text-white w-full p-4 font-bold") {{ title }}
+
+            div(class="p-4")
+                label() Fälj fil
+                    div(class="input-group" class="w-full")
+                        input(type="file" @change="loadFile")
+                        
+            div(class="bg-gray-300 absolute bottom-0 left-0 right-0 p-4 text-right")
+                button(class="rounded-md bg-gray-500 px-4 py-2" @click="ok") Ok

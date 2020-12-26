@@ -5,6 +5,7 @@ div(class="relative")
         ref="streamPickerInput"
         @blur="onInput" 
         v-model="query"
+        :placeholder="placeholder"
         v-on:keyup.enter="onInput" 
         v-on:keyup="onInput" 
         v-on:blur="onBlur"

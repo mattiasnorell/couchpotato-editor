@@ -1,15 +1,21 @@
 div(class="w-full")
-    add-stream(@onAdd="addStream")
+    div(class="flex")
+        div(class="w-3/4")
+            add-stream(@onAdd="addStream")
+        
+        div(class="w-1/4 text-right")
+            button(class="rounded bg-gray-300 px-2 py-2" @click="openCatalogue") Visa streamkatalog
+
 
     table(class="table-auto w-full")
         tr
-            th(class="px-4 py-4 whitespace-no-wrap text-sm text-left leading-5") Id
-            th(class="px-4 py-4 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") Visningsnamn
-            th(class="px-4 py-4 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") Grupp
-            th(class="px-4 py-4 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") EPG-Id
-            th(class="px-4 py-4 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") Timeshift
+            th(class="px-4 py-4 whitespace-no-wrap text-sm text-left leading-5") {{ 'id' | translate }}
+            th(class="px-4 py-4 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") {{ 'friendlyName' | translate }}
+            th(class="px-4 py-4 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") {{ 'group' | translate }}
+            th(class="px-4 py-4 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") {{ 'epgId' | translate }}
+            th(class="px-4 py-4 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") {{ 'timeshift' | translate }}
             th(class="px-4 py-4 whitespace-no-wrap text-sm text-right leading-5")
-                button(@click="toggleFilter")
+                button(v-if="false" @click="toggleFilter")
                     font-awesome-icon(icon="filter")
 
         tr(class="border-b border-gray-500" v-if="showFilter")

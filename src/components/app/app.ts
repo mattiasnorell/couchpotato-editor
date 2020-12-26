@@ -16,20 +16,24 @@ import { Configurator } from '../configurator/configurator';
 export class App extends Vue {
   private configuration: Configuration | null = null;
 
+  private updateConfiguration(configuration: Configuration): void {
+    this.configuration = configuration;
+  }
+
   public async created() {
     const id = $urlHelper.getQueryString('id');
 
     if (id) {
       const result = await $configurationProvider.load(id);
 
-      if(!result){
+      if (!result) {
         return;
       }
 
       $playlistRepository.init(result.m3uPath);
+
       this.configuration = result;
     } else {
-      console.log('Inget id');
     }
   }
 }

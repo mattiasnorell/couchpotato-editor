@@ -5,6 +5,8 @@ import { Stream } from '../../../models/Stream';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { InputText } from '../../base/input-text/inputText';
 import { StreamPicker } from '../../base/stream-picker/streamPicker';
+import { StreamEdit, StreamEditProps } from '../stream-edit/streamEdit';
+import { $modalHelper } from '../../../services/helpers/modalHelper';
 
 @Component({
   name: 'StreamListRow',
@@ -39,5 +41,15 @@ export class StreamListRow extends Vue {
 
   private toggleStreamPicker(): void{
     this.showStreamPicker = !this.showStreamPicker;
+  }
+
+  private openEditModal(): void {
+    const props: StreamEditProps = new StreamEditProps();
+    props.title = `Redigera ${this.stream.channelId}`;
+    props.stream = this.stream;
+
+    $modalHelper.create<typeof StreamEdit>(StreamEdit, props, () => {
+    
+    });
   }
 }

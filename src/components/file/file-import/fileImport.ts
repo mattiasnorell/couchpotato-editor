@@ -9,6 +9,6 @@ export class FileUpload extends Vue {
   private importUrl: string = '';
 
   private import() {
-    console.log('Importing ', this.importUrl);
+    
   }
 }

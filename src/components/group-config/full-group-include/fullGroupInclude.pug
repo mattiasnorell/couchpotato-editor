@@ -10,4 +10,4 @@ div()
         full-group-include-row(v-for="(group, index) in config" :key="index" :group="group" @onDelete="onDelete(index)" v-if="config.length > 0")
     
     div(class="w-full mt-4")
-        group-picker(@onSelect="onSelect")
+        group-picker(:placeholder="'Sök grupp'" @onSelect="onSelect")
