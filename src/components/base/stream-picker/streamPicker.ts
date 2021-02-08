@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { PlaylistItem } from '../../../models/PlaylistItem';
-import { Stream } from '../../../models/Stream';
-import { $playlistRepository } from '../../../services/repositories/playlistRepository';
-import { InputText } from '../../base/input-text/inputText';
+import { PlaylistItem } from '_models/PlaylistItem';
+import { Stream } from '_models/Stream';
+import { $playlistRepository } from '_services/repositories/playlistRepository';
+import { InputText } from '_components/base/input-text/inputText';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { Prop, Ref } from 'vue-property-decorator';
 

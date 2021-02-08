@@ -1,0 +1,42 @@
+layout()
+    div(class="p-4 w-full")
+        div(class="flex-row mb-4")
+            div(class="col w-full")
+                button(class="btn" @click="onCreate") 
+                    span(class="mr-1")
+                        font-awesome-icon(icon="plus")
+                    span() Skapa ny
+
+        table(class="w-full table-auto border border-gray-300 bg-white")
+            thead()
+                tr(class="border-b border-gray-300 bg-gray-300")
+                    th(class="px-4 py-2 whitespace-no-wrap text-md text-left leading-5") Namn
+                    th(class="px-4 py-2 whitespace-no-wrap text-md text-left leading-5") Senast ändrad
+                    th(class="px-4 py-2 whitespace-no-wrap text-md text-left leading-5 hidden md:table-cell") Kör
+                    th(class="px-4 py-2 whitespace-no-wrap text-md text-left leading-5 hidden md:table-cell") {{ 'actions' | translate }}
+            tbody()
+                tr(class="border-b border-gray-300" v-for="(config, index) in configurations")
+                    td(class="px-4 py-2 whitespace-no-wrap text-md leading-5 capitalize") 
+                        router-link(:to="`/editor/${config.name}`") {{ config.name}}
+                    td(class="px-4 py-2 whitespace-no-wrap text-md leading-5") 
+                        span() {{ config.updatedAt | dateTime }}
+                    td(class="px-4 py-2 whitespace-no-wrap text-md leading-5 hidden md:table-cell") 
+                        trigger-couchpotato(:configurationId="config.name")
+                    td(class="px-4 py-2 hidden md:table-cell")
+                        span(class="mr-4 truncate")
+                            router-link(class="btn" :to="`/editor/${config.name}`")
+                                font-awesome-icon(icon="edit")
+                                span(class="ml-1") Redigera
+                        
+                        span(class="mr-4")    
+                            button(class="btn" @click="onCopy(config)")
+                                font-awesome-icon(icon="copy")
+                                span(class="ml-1") Kopiera
+
+                        span(class="mr-4")
+                            rename(:configurationId="config.name" @onChange="onRename")
+
+                        span()    
+                            button(class="btn" @click="onDelete(config)")
+                                font-awesome-icon(icon="trash")
+                                span(class="ml-1") Radera

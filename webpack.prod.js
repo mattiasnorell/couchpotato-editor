@@ -14,8 +14,8 @@ module.exports = {
     couchpotato: path.join(__dirname, 'src', 'index.ts')
   },
   output: {
-    filename: '[name].js',
-    chunkFilename: '[name].js',
+    filename: '[name][hash].js',
+    chunkFilename: '[name][hash].js',
     path: path.resolve(__dirname, 'dist')
   },
   devServer: {
@@ -65,7 +65,8 @@ module.exports = {
                   // 1: All functional CSS starting with "tp-"
                   // 2: Font Awesome icons default sizing overrrides
                   // https://medium.com/@kyis/vue-tailwind-purgecss-the-right-way-c70d04461475
-                  safelist: ['gu-transit', 'gu-mirror', 'gu-hide', 'gu-unselectable'],
+                  safelist: ['flex-row','h-full','router-link-exact-active','active-class','gu-transit', 'gu-mirror', 'gu-hide', 'gu-unselectable'],
+                  allowlistPatterns: [/w-+/g],
                   defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || []
                 })
               ]
@@ -88,7 +89,9 @@ module.exports = {
     alias: {
       vue$: 'vue/dist/vue.esm.js',
       _components: path.resolve(__dirname, 'src/components'),
-      _models: path.resolve(__dirname, 'src/models')
+      _models: path.resolve(__dirname, 'src/models'),
+      _services: path.resolve(__dirname, 'src/services'),
+      _pages: path.resolve(__dirname, 'src/pages')
     }
   },
   plugins: [

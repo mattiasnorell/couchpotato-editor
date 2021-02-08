@@ -1,0 +1,27 @@
+div(class="w-full")
+    div(class="rounded-md text-md flex items-center" v-if="isPending") 
+        span(class="bg-green-500 rounded-full text-white w-10 h-10 flex items-center justify-center")
+            font-awesome-icon(icon="spinner" spin)
+
+    div(class="rounded-md text-md flex items-center" v-if="hasError && !isPending") 
+        div(class="flex items-center")
+            span(class="bg-red-500 rounded-full text-white w-10 h-10 flex items-center justify-center")
+                font-awesome-icon(icon="exclamation-triangle")
+            div(class="ml-2 flex flex-wrap")
+                span(class="w-full") Kan inte hämta versionsinformation
+
+    div(class="rounded-md text-md" v-if="!hasNewVersion && !isPending && !hasError") 
+        div(class="flex items-center")
+            span(class="bg-green-500 rounded-full text-white w-10 h-10 flex items-center justify-center")
+                font-awesome-icon(icon="thumbs-up")
+            div(class="ml-2 flex flex-wrap")
+                span(class="w-full") Senaste versionen installerad!
+                span(class="text-xs") version {{ localVersion }}
+
+    div(class="rounded-md text-md"  v-if="hasNewVersion && !isPending") 
+        div(class="flex items-center")
+            span(class="bg-yellow-500 rounded-full text-white w-10 h-10 flex items-center justify-center")
+                font-awesome-icon(icon="exclamation-triangle")
+            div(class="ml-2 flex flex-wrap")
+                span(class="w-full") Ny version finns.
+                router-link(to="/settings" class="text-xs") {{'goToLocalResourceSettings' | translate}}

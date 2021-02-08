@@ -1,9 +1,8 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import { Configuration } from '../../../models/Configuration';
-import { $urlHelper } from '../../../services/helpers/urlHelper';
-import { $configurationProvider } from '../../../services/providers/configurationProvider';
+import { Configuration } from '_models/Configuration';
+import { $configurationProvider } from '_services/providers/configurationProvider';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 @Component({
@@ -16,21 +15,24 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 export class Save extends Vue {
   @Prop()
   private configuration: Configuration;
+
+  @Prop()
+  public configurationId: string;
+
   private isPending: boolean = false;
   private isError: boolean = false;
   private isSuccess: boolean = false;
 
   private async save(): Promise<void> {
-    const id = $urlHelper.getQueryString('id');
 
-    if (!id) {
+    if (!this.configurationId) {
       return;
     }
 
     this.isPending = true;
 
     try {
-      await $configurationProvider.save(id, this.configuration);
+      await $configurationProvider.save(this.configurationId, this.configuration);
       this.isPending = false;
       this.isSuccess = true;
       setTimeout(() => {

@@ -1,27 +1,28 @@
-div(class="w-full flex flex-wrap")
-    div(class="w-full md:w-1/2 md:w-1/5 px-4")
-        label() Aktivera validering av enskilda
-        div(class="input-group" class="w-full")
-            input-checkbox(v-model="config.singleEnabled")
+div(class="w-full")
+    div(class="flex-row mb-4")
+        div(class="col w-full md:w-1/5")
+            label() Aktivera för enskilda
+            div(class="input-group" class="w-full")
+                input-checkbox(v-model="config.singleEnabled")
+    
+        div(class="col w-full md:w-1/5")
+            label() Aktivera för grupper
+            div(class="input-group" class="w-full")
+                input-checkbox(v-model="config.groupEnabled")
 
-    div(class="w-full md:w-1/2 md:w-1/5 px-4")
-        label() Aktivera validering av grupper
-        div(class="input-group" class="w-full")
-            input-checkbox(v-model="config.groupEnabled")
+        div(class="col w-full md:w-1/5")
+            label() Visa ej validerade
+            div(class="input-group" class="w-full")
+                input-checkbox(v-model="config.showInvalid")
 
-    div(class="w-full md:w-1/2 md:w-1/5 px-4")
-        label() Visa ej validerade streams
-        div(class="input-group" class="w-full")
-            input-checkbox(v-model="config.showInvalid")
+        div(class="col w-full md:w-1/5")
+            label() Sufux
+            div(class="input-group" class="w-full")
+                input-text(v-model="config.invalidSufix" :placeholder="'Lägg till sufix'" :usePlaceholderIfEmpty="true")
 
-    div(class="w-full md:w-1/5 px-4")
-        label() Sufux för ej validerade strömmar
-        div(class="input-group" class="w-full")
-            input-text(v-model="config.invalidSufix" :placeholder="'Lägg till sufix'" :usePlaceholderIfEmpty="true")
-
-    div(class="w-full md:w-1/5 px-4")
-        label() Valideringsmängd i byte
-        div(class="input-group" class="w-full")
-            input(class="border-2 p-2 rounded w-full" type="number" v-model="config.minimumContentLength")
+        div(class="col w-full md:w-1/5")
+            label() Valideringsmängd
+            div(class="input-group" class="w-full")
+                input(class="border-2 p-2 rounded w-full" type="number" v-model="config.minimumContentLength")
 
     fallbacks(:fallbacks="config.defaultFallbacks")

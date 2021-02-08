@@ -2,31 +2,35 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { StreamListRow } from '../stream-list-row/streamListRow';
-import { AddStream } from '../add-stream/addStream';
-import { Stream } from '../../../models/Stream';
+import { Stream } from '_models/Stream';
 import dragula from 'dragula';
-import { $arrayHelper } from '../../../services/helpers/arrayHelper';
-import { $guidHelper } from '../../../services/helpers/guidHelper';
+import { $arrayHelper } from '_services/helpers/arrayHelper';
+import { $guidHelper } from '_services/helpers/guidHelper';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { TableEmptyState } from '../../base/table-empty-state/tableEmptyState';
-import { StreamCatalogue } from '../stream-catalogue/streamCatalogue';
-import StreamCatalogueProps from '../stream-catalogue/StreamCatalogueProps';
-import { $modalHelper } from '../../../services/helpers/modalHelper';
-import { PlaylistItem } from '../../../models/PlaylistItem';
+import { TableEmptyState } from '_components/base/table-empty-state/tableEmptyState';
+import { StreamCatalogue } from '_components/streams/stream-catalogue/streamCatalogue';
+import StreamCatalogueProps from '_components/streams/stream-catalogue/StreamCatalogueProps';
+import { $modalHelper } from '_services/helpers/modalHelper';
+import { StreamPicker } from '_components/base/stream-picker/streamPicker';
+import StreamCatalogueResult from '../stream-catalogue/StreamCatalogueResult';
 
 @Component({
   name: 'StreamList',
   template: require('./streamList.pug'),
   components: {
     StreamListRow,
-    AddStream,
     FontAwesomeIcon,
-    TableEmptyState
+    TableEmptyState,
+    StreamPicker
   }
 })
 export class StreamList extends Vue {
   @Prop()
   private streams: Stream[];
+
+  private get hasSelected(): boolean {
+    return this.streams.some((item) => item.isSelected);
+  }
 
   private showFilter: boolean = false;
   public mounted() {
@@ -47,6 +51,22 @@ export class StreamList extends Vue {
 
   private uniqueId(): string {
     return $guidHelper.generate();
+  }
+
+  private deleteSelected(): void {
+    const selected = this.streams.filter((item) => item.isSelected);
+    selected.forEach((item) => {
+      const index = $arrayHelper.indexOf(this.streams, item);
+      $arrayHelper.removeAtIndex(this.streams, index);
+    });
+  }
+
+  private uncheckAll(): void {
+    this.streams.forEach((item) => {
+      if (item.isSelected) {
+        item.isSelected = false;
+      }
+    });
   }
 
   private initDragula(): void {
@@ -70,7 +90,20 @@ export class StreamList extends Vue {
 
       drake.on('drop', (el: Element, target: Element, source: Element, sibling: Element): void => {
         const index = $arrayHelper.indexOf(target.children, el);
-        $arrayHelper.moveToIndex(this.streams, startPosition, index);
+        if (this.hasSelected && window.confirm('Vill du flytta alla markerade?')) {
+          let selected = this.streams.filter((item) => item.isSelected);
+
+          if (index < startPosition) {
+            selected = selected.reverse();
+          }
+
+          selected.forEach((item, selectedIndex) => {
+            const selectedItemIndex = $arrayHelper.indexOf(this.streams, item);
+            $arrayHelper.moveToIndex(this.streams, selectedItemIndex, index);
+          });
+        } else {
+          $arrayHelper.moveToIndex(this.streams, startPosition, index);
+        }
       });
     }
   }
@@ -78,9 +111,14 @@ export class StreamList extends Vue {
   private openCatalogue(): void {
     const props: StreamCatalogueProps = new StreamCatalogueProps();
     props.title = 'Katalog';
+    props.addedStreams = this.streams.map((stream) => stream.channelId);
 
-    $modalHelper.create<typeof StreamCatalogue>(StreamCatalogue, props, (items: PlaylistItem[]) => {
-      items.forEach((item) => {
+    $modalHelper.create<typeof StreamCatalogue>(StreamCatalogue, props, (result: StreamCatalogueResult) => {
+      if (!result) {
+        return;
+      }
+
+      result.itemsToAdd.forEach((item) => {
         const isAdded = this.streams.some((streamItem) => streamItem.channelId === item.tvgName);
         if (!isAdded) {
           const stream = new Stream();
@@ -88,6 +126,10 @@ export class StreamList extends Vue {
           stream.group = item.groupTitle;
           this.streams.unshift(stream);
         }
+      });
+
+      result.itemsToRemove.forEach((item) => {
+        $arrayHelper.removeItem(this.streams, item);
       });
     });
   }

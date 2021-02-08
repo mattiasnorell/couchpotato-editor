@@ -1,10 +1,12 @@
 .modal{
+    @apply z-40;
+
     .modal-backdrop{
-        @apply bg-black opacity-30 fixed left-0 top-0 bottom-0 right-0 shadow-xl;
+        @apply bg-black opacity-30 fixed left-0 top-0 bottom-0 right-0;
     }
 
     .modal-wrapper{
-        @apply bg-white fixed top-0 bottom-0 right-0 h-full shadow-xl;
+        @apply bg-white fixed top-0 bottom-0 right-0 h-full shadow-lg;
     }
 
     .modal-body{
@@ -20,6 +22,6 @@
     }
 
     .modal-footer{
-        @apply bg-gray-600 absolute bottom-0 left-0 right-0 p-2 text-right;
+        @apply bg-gray-600 absolute bottom-0 left-0 right-0 px-4 py-2 flex;
     }
 }

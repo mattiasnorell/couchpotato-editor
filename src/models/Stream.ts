@@ -5,4 +5,5 @@ export class Stream{
     group: String = '';
     epgId: String = '';
     EpgTimeshift: string = '';
+    isSelected: boolean = false;
 }

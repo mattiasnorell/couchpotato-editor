@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import { InputText } from '../../base/input-text/inputText';
-import { InputCheckbox} from '../../base/input-checkbox/inputCheckbox';
-import { Fallbacks } from '../fallbacks/fallbacks';
-import { Validation } from '../../../models/Validation';
+import { InputText } from '_components/base/input-text/inputText';
+import { InputCheckbox} from '_components/base/input-checkbox/inputCheckbox';
+import { Fallbacks } from '_components/validation/fallbacks/fallbacks';
+import { Validation } from '_models/Validation';
 
 @Component({
     name: 'ValidationConfig',

@@ -1,0 +1,57 @@
+div()
+    div(class="flex-row mb-4")
+        div(class="col w-full md:w-1/4 px-4 text-left")
+            button(class="btn" @click="save") Spara
+        
+        div(class="col w-full md:w-1/4 px-4 text-left")
+            //label()
+                input-checkbox(v-model="showInactive" @input="loadJobs")
+                span() Visa endast Coucnpotatojobb
+
+            label()
+                input-checkbox(v-model="showInactive" @input="loadJobs")
+                span(class="ml-2") Visa inaktiva jobb
+
+    table(class="w-full table-fixed border border-gray-300 bg-white")
+            thead()
+                tr(class="border-b border-gray-300 bg-gray-300")
+                    th(class="w-32 px-4 py-2 whitespace-no-wrap border-b border-gray-300 text-md text-left leading-5") Tid
+                    th(class="px-4 py-2 whitespace-no-wrap border-b border-gray-300 text-md text-left leading-5") Kommando
+                    th(class="w-24 px-4 py-2 whitespace-no-wrap border-b border-gray-300 text-md text-left leading-5") Aktivt
+                    th(class="w-8 py-2 whitespace-no-wrap border-b border-gray-300 text-md text-left leading-5 text-right")
+                    th(class="w-8 py-2 whitespace-no-wrap border-b border-gray-300 text-md text-left leading-5 text-right")
+                        
+            tbody()
+                tr(v-for="(job, index) in jobs")
+                    td(class="w-32 px-4 py-2 whitespace-no-wrap border-b border-gray-300 text-md leading-5") 
+                        div(class="input-group flex items-center")
+                            input-text(v-model="job.hour")
+                            span(class="px-2") : 
+                            input-text(v-model="job.minute")
+                    td(class="px-4 py-2 whitespace-no-wrap border-b border-gray-300 text-md leading-5") 
+                        input-text(class="w-full" v-model="job.command")
+
+                    td(class="w-24 px-4 py-2 whitespace-no-wrap border-b border-gray-300 text-md leading-5") 
+                        input-checkbox(v-model="job.active")
+
+                    td(class="w-8 py-2 whitespace-no-wrap border-b border-gray-300 text-md leading-5 text-center")
+                        button(@click="runCronJob(job)")
+                            font-awesome-icon(icon="play")
+                    td(class="w-8 py-2 whitespace-no-wrap border-b border-gray-300 text-md leading-5 text-center") 
+                        button(@click="deleteCronJob(job)")
+                            font-awesome-icon(icon="trash")
+
+                
+                tr(class="bg-gray-100")
+                    td(class="w-32 px-4 py-2 whitespace-no-wrap border-b border-gray-300 text-md leading-5") 
+                        div(class="input-group flex items-center")
+                            input-text(v-model="newJob.hour")
+                            span(class="px-2") : 
+                            input-text(v-model="newJob.minute")
+                    td(class="px-4 py-2 whitespace-no-wrap border-b border-gray-300 text-md leading-5") 
+                        input-text(class="w-full" v-model="newJob.command")
+                    td(class="w-8 py-2 whitespace-no-wrap border-b border-gray-300 text-md leading-5 text-center")
+                        
+                    td(class="w-8 py-2 whitespace-no-wrap border-b border-gray-300 text-md leading-5 text-center" colspan="2")
+                        button(@click="createCronJob()")
+                            font-awesome-icon(icon="plus")

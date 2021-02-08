@@ -1,5 +1,3 @@
-import { faWindowRestore } from '@fortawesome/free-solid-svg-icons';
-
 interface ILocalStorageRepository {
   read<T>(key: string): T | null;
   write<T>(key: string, value: T): void;
@@ -18,6 +16,10 @@ class LocalStorageRepository implements ILocalStorageRepository {
 
   write<T>(key: string, value: T): void {
     window.localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  clear(key: string): void {
+    window.localStorage.removeItem(key);
   }
 }
 

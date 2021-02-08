@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import { Configuration } from '../../../models/Configuration';
-import { $urlHelper } from '../../../services/helpers/urlHelper';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 @Component({
@@ -14,14 +12,19 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 })
 export class CopyUrl extends Vue {
   @Prop()
-  private configuration: Configuration;
+  private configurationId: string;
 
   private showCopySuccessful: boolean = false;
 
   private copy(): void {
-    const id = $urlHelper.getQueryString('id');
     const configFolder = 'config';
-    const path = `${window.location.protocol}//${window.location.hostname}/${configFolder}/${id}.json`;
+    const path = `${window.location.protocol}//${window.location.hostname}/${configFolder}/${this.configurationId}.json`;
+
+    if(!navigator.clipboard){
+      window.prompt('Kopiera från fältet', path);
+      return;
+    }
+
     navigator.clipboard.writeText(path);
 
     this.showCopySuccessful = true;

@@ -1,6 +1,7 @@
 {
   "compileOnSave": false, 
   "compilerOptions": {
+    "baseUrl": "./",
     "target": "esnext",
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
@@ -13,12 +14,13 @@
     "strictPropertyInitialization": false,
     "noImplicitAny": true,
     "allowUnreachableCode": false,
-    "types": ["node"]
-  },
-  "exclude": ["./node_modules"],
-  "include": ["src/**/*.ts", "src/index.js"],
-  "paths": {
-    "_components/*": ["src/components/*"],
-    "_models/*": ["src/models/*"]
+    "types": ["node"],
+    "paths": {
+      "_components/*": ["src/components/*"],
+      "_models/*": ["src/models/*"],
+      "_services/*": ["src/services/*"],
+      "_pages/*": ["src/pages/*"],
+    }
   }
+  
 }

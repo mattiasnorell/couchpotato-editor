@@ -1,0 +1,39 @@
+.menu {
+  @apply w-full bg-gray-300;
+
+  @media (max-width: 767px) {
+    @apply fixed w-11/12 shadow-xl invisible z-30 h-full;
+  }
+
+  @media (min-width: 768px) {
+    @apply block;
+  }
+
+  &.open {
+    @apply visible;
+  }
+
+  .menu-wrapper {
+    @apply w-full;
+
+    .menu-contents {
+      @apply flex w-full flex-wrap;
+
+      .menu-item {
+        @apply px-4 py-2;
+
+        @media (max-width: 768px) {
+          @apply w-full;
+        }
+      }
+    }
+
+    .active-class {
+      @apply font-bold;
+
+      &.router-link-exact-active {
+        @apply font-bold;
+      }
+    }
+  }
+}

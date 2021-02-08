@@ -1,9 +1,10 @@
 html()
-    head
+    head()
         meta(charset="utf-8")
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        link(rel="icon" type="image/png" href="http://couchpotato.automagiskdatabehandling.se/favicon.png")
         title() Couchpotato Editor
         
-    body(class="bg-gray-100 p-4 pt-8")
+    body(class="bg-gray-100")
         div(id="app")
             router-view(:key="$route.fullPath")

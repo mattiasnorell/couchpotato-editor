@@ -1,0 +1,67 @@
+layout()
+    div(class="p-4")
+        div(class="bg-red-500 p-4 mb-8 rounded-md text-white text-md" v-if="hasConnectionError") 
+            font-awesome-icon(class="mr-2" icon="exclamation-triangle")
+            span() {{'localResourcesNoConnection' | translate}}
+
+        collapse(class="mb-4" title="Lokala resurser" :openAtRender="false")
+            div(class="flex-row")
+                div(class="col w-full md:w-1/3 px-4 text-left")
+                    label() {{ 'couchpotatoWebsocketPath' | translate }}
+                    div(class="input-group" class="w-full")
+                        input-text(v-model="couchpotatoWebsocketPath" :placeholder="'setPath' | translate" :usePlaceholderIfEmpty="true" @input="onInputCouchpotatoWebsocketPath")
+                div(class="col w-full md:w-1/3 px-4 text-left")
+                    label() {{ 'couchpotatoApiPath' | translate }}
+                    div(class="input-group" class="w-full")
+                        input-text(v-model="couchpotatoApiPath" :placeholder="'setPath' | translate" :usePlaceholderIfEmpty="true" @input="onInputCouchpotatoApiPath")
+
+                div(class="col w-full md:w-1/3 px-4 text-left")    
+                    label() {{ 'couchpotatoAccessToken' | translate }}
+                    div(class="input-group" class="w-full")
+                        input-text(v-model="couchpotatoAccessToken" :placeholder="'setAccessToken' | translate" :usePlaceholderIfEmpty="true" @input="onInputCouchpotatoToken")
+
+        collapse(class="mb-4" title="GitHub" :openAtRender="false")
+            div(class="flex-row")
+                div(class="col w-full md:w-1/3 px-4 text-left")
+                    label() {{ 'setAccessToken' | translate }}
+                    div(class="input-group" class="w-full")
+                        input-text(v-model="githubToken" :placeholder="'setAccessToken' | translate" :usePlaceholderIfEmpty="true" @input="onInputGithubToken")
+
+        collapse(class="mb-4" title="Cron" :openAtRender="false")
+            cron-jobs()
+
+        collapse(class="mb-4" title="Plugins" :openAtRender="false")
+            couchpotato-plugins()
+
+        collapse(class="mb-4" title="Loggar" :openAtRender="false")
+            couchpotato-logs()
+
+        collapse(class="mb-4" title="System" :openAtRender="false")
+            div(class="flex")
+                div(class="w-full md:w-1/4")
+                    div(class="flex-row")
+                        div(class="col w-full")
+                            label() {{ 'restart' | translate }}
+
+                            div(class="flex-row")
+                                div(class="col")
+                                    div(class="input-group" class="w-full")
+                                        restart-backend(class="mr-2 mb-2 md:mb-0")
+                                        restart-cron()
+                                    
+
+                div(class="w-full md:w-1/4")
+                    div(class="flex-row")
+                        div(class="col")
+                            label() {{ 'update' | translate }}
+
+                            div(class="flex-row")
+                                div(class="col")
+                                    div(class="input-group" class="w-full")
+                                        update-backend(class="mr-2 mb-2 md:mb-0")
+                                    
+                                        button(class="btn" :disabled="!couchpotatoWebsocketPath" @click="updateCouchpotato")
+                                            span(class="mr-1")
+                                                font-awesome-icon(icon="sync-alt")
+                                            span() Uppdatera Couchpotato
+                                                    

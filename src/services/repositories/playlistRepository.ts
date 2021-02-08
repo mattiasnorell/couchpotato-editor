@@ -1,10 +1,11 @@
-import { PlaylistItem } from '../../models/PlaylistItem';
-import { $playlistParser } from '../parsers/playlistParser';
+import { PlaylistItem } from '_models/PlaylistItem';
+import { $playlistParser } from '_services/parsers/playlistParser';
 import axios from 'axios';
 
 class PlaylistRepository {
   private playlistItems: PlaylistItem[] = [];
   private path: string;
+  private apiBasePath: string = 'http://couchpotato.automagiskdatabehandling.se/api';
 
   public init(path: string): void {
     this.path = path;
@@ -17,8 +18,7 @@ class PlaylistRepository {
       'Expires': '0',
     };
 
-    //const playlist = await axios.get(`/api/configuration?path=${encodeURIComponent(this.path)}`);
-    const playlist = await axios.get(`/playlist.m3u`);
+    const playlist = await axios.get(`${this.apiBasePath}/download?path=${encodeURIComponent(this.path)}`);
 
     if (playlist.status !== 200) {
       return [];

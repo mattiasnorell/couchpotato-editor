@@ -1,13 +1,14 @@
-div()
-    table(class="w-full table-auto")
-        tr
-            th(class="px-4 py-4 whitespace-no-wrap border-b border-gray-500 text-md text-left leading-5") Grupp-Id
-            th(class="px-4 py-4 whitespace-no-wrap border-b border-gray-500 text-md text-left leading-5") Namn
-            th(class="px-4 py-4 whitespace-no-wrap border-b border-gray-500 text-md text-left leading-5") Exkluderade streams
-            th(class="px-4 py-4 whitespace-no-wrap border-b border-gray-500 text-md text-left leading-5") 
-        
-        table-empty-state(:title="'Inga grupper tillagda'" :colspan="4" v-if="config.length === 0")
-        full-group-include-row(v-for="(group, index) in config" :key="index" :group="group" @onDelete="onDelete(index)" v-if="config.length > 0")
+div(class="w-full")
+    table(class="w-full table-fixed border border-gray-300 bg-white")
+        thead()
+            tr(class="border-b border-gray-300 bg-gray-300")
+                th(class="px-4 py-2 whitespace-no-wrap border-b border-gray-300 text-md text-left leading-5") Id
+                th(class="px-4 py-2 whitespace-no-wrap border-b border-gray-300 text-md text-left leading-5") Namn
+                th(class="px-4 py-2 whitespace-no-wrap border-b border-gray-300 text-md text-left leading-5 truncate") Exkluderade
+                th(class="w-8 px-4 py-2 whitespace-no-wrap border-b border-gray-300 text-md text-left leading-5") 
+        tbody()
+            table-empty-state(:title="'Inga grupper tillagda'" :colspan="4" v-if="config.length === 0")
+            full-group-include-row(v-for="(group, index) in config" :key="index" :group="group" @onDelete="onDelete(index)" v-if="config.length > 0")
     
     div(class="w-full mt-4")
-        group-picker(:placeholder="'Sök grupp'" @onSelect="onSelect")
+        group-picker(:placeholder="'searchGroupPlaceholder' | translate" @onSelect="onSelect")

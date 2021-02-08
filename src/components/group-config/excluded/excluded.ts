@@ -2,11 +2,11 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { InputCheckbox } from '../../base/input-checkbox/inputCheckbox';
-import { TableEmptyState } from '../../base/table-empty-state/tableEmptyState';
-import { Stream } from '../../../models/Stream';
-import { StreamPicker } from '../../base/stream-picker/streamPicker';
-import { ModalService } from '../../../services/helpers/modalHelper';
+import { InputCheckbox } from '_components/base/input-checkbox/inputCheckbox';
+import { TableEmptyState } from '_components/base/table-empty-state/tableEmptyState';
+import { Stream } from '_models/Stream';
+import { StreamPicker } from '_components/base/stream-picker/streamPicker';
+import { ModalBase } from '_models/modalBase';
 
 @Component({
   name: 'Excluded',
@@ -18,7 +18,7 @@ import { ModalService } from '../../../services/helpers/modalHelper';
     StreamPicker
   }
 })
-export class Excluded extends Vue {
+export class Excluded extends ModalBase {
   @Prop()
   public title: string;
 
@@ -42,8 +42,7 @@ export class Excluded extends Vue {
   }
 
   private ok(): void {
-    const event = new CustomEvent('closeModal', { detail: { asd: true } });
-    window.dispatchEvent(event);
+    super.closeModal(true);
   }
 }
 

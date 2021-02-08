@@ -1,0 +1,8 @@
+div(class="w-full")
+    table(class="w-full table-auto  bg-white")
+        tbody()
+            tr(class="border-gray-300 border-b last:border-b-0" v-for="(config, index) in configurations")
+                td(class="px-4 py-2 whitespace-no-wrap text-md capitalize") 
+                    router-link(:to="`/editor/${config.name}`") {{ config.name}}
+                td(class="px-4 py-2 whitespace-no-wrap text-md text-right") 
+                    trigger-couchpotato(:configurationId="config.name" :disabled="!isWebsocketAvaliable")

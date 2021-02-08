@@ -1,25 +1,25 @@
-div(class="row")
-    div(class="container mx-auto")
-        div(class="bg-white p-4 mb-8 rounded-l")
-            save(v-if="configuration" :configuration="configuration")
-            copy-url(class="ml-2")
-            import-configuration(class="ml-2" @onImport="onImport")
-            export-configuration(class="ml-2" :configuration="configuration")
-            trigger-couchpotato(class="ml-2")
+div()
+    div(class="bg-gray-200 px-4 py-2 mb-4 rounded-l flex")
+        save(v-if="configuration" :configurationId="configurationId" :configuration="configuration")
+        copy-url(class="ml-2" :configurationId="configurationId")
+        import-configuration(class="ml-2" @onImport="onImport")
+        export-configuration(class="ml-2" :configuration="configuration")
+        trigger-couchpotato(class="ml-auto" :configurationId="configurationId")
 
-        collapse(class="mb-8" title="Basuppgifter" :openAtRender="false")
+    div(class="p-4")
+        collapse(class="mb-4" title="Basuppgifter" :openAtRender="false")
             generic-config(v-if="configuration" :config="configuration")  
 
-        collapse(class="mb-8" :title="'validation' | translate" :openAtRender="false")
+        collapse(class="mb-4" :title="'validation' | translate" :openAtRender="false")
             validation-config(v-if="configuration" :config="configuration.validation")    
 
-        collapse(class="mb-8" :title="'compression' | translate" :openAtRender="false")
+        collapse(class="mb-4" :title="'compression' | translate" :openAtRender="false")
             compression-config(v-if="configuration" :config="configuration")    
 
-        collapse(class="mb-8" :title="'epg' | translate" :openAtRender="false")
+        collapse(class="mb-4" :title="'epg' | translate" :openAtRender="false")
             epg-config(v-if="configuration" :epg="configuration.epg")
 
-        collapse(class="mb-8" :title="'groups' | translate" :openAtRender="false")
+        collapse(class="mb-4" :title="'groups' | translate" :openAtRender="false")
             group-config(v-if="configuration" :config="configuration")    
 
         collapse(:title="'streams' | translate" :openAtRender="false")

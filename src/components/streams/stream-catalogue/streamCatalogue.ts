@@ -1,12 +1,14 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import { $playlistRepository } from '../../../services/repositories/playlistRepository';
-import { Collapse } from '../../base/collapse/collapse';
-import { InputCheckbox } from '../../base/input-checkbox/inputCheckbox';
-import { InputSelect, SelectOption } from '../../base/input-select/inputSelect';
+import { $playlistRepository } from '_services/repositories/playlistRepository';
+import { Collapse } from '_components/base/collapse/collapse';
+import { InputCheckbox } from '_components/base/input-checkbox/inputCheckbox';
+import { InputSelect, SelectOption } from '_components/base/input-select/inputSelect';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import StreamCatalogueItem from './StreamCatalogueItem';
+import StreamCatalogueResult from './StreamCatalogueResult';
+import { ModalBase } from '_models/modalBase';
 
 @Component({
   name: 'StreamCatalogue',
@@ -18,13 +20,17 @@ import StreamCatalogueItem from './StreamCatalogueItem';
     InputSelect
   }
 })
-export class StreamCatalogue extends Vue {
+export class StreamCatalogue extends ModalBase {
   @Prop()
   public title: string;
+
+  @Prop({ default: [] })
+  public addedStreams: string[];
 
   private groups: StreamCatalogueGroup[] = [];
   private isPending: boolean = false;
   private itemsToAdd: StreamCatalogueItem[] = [];
+  private itemsToRemove: StreamCatalogueItem[] = [];
 
   private groupOptions: SelectOption<string>[] = [];
   private groupItems: StreamCatalogueItem[] = [];
@@ -52,7 +58,9 @@ export class StreamCatalogue extends Vue {
       streamCatalogueItem.tvgId = item.tvgId;
       streamCatalogueItem.tvgName = item.tvgName;
 
-      streamCatalogueItem.selected = false;
+      const isAdded = this.addedStreams.includes(item.tvgName);
+      streamCatalogueItem.selected = isAdded;
+      streamCatalogueItem.isAdded = isAdded;
 
       groups[item.groupTitle].push(streamCatalogueItem);
     }
@@ -68,6 +76,10 @@ export class StreamCatalogue extends Vue {
     this.groupOptions = mappedGroups;
   }
 
+  private get hasItems(): boolean {
+    return this.itemsToAdd.length > 0 || this.itemsToRemove.length > 0;
+  }
+
   private onChange(items: string): void {
     if (!items) {
       this.groupItems = [];
@@ -79,15 +91,30 @@ export class StreamCatalogue extends Vue {
   private onToggleItem(value: StreamCatalogueItem) {
     if (value.selected) {
       this.itemsToAdd.push(value);
+
+      const index = this.itemsToRemove.indexOf(value);
+      this.itemsToRemove.splice(index, 1);
+
     } else {
       const index = this.itemsToAdd.indexOf(value);
       this.itemsToAdd.splice(index, 1);
+
+      if (value.isAdded) {
+        this.itemsToRemove.push(value);
+      }
     }
   }
 
   private ok(): void {
-    const event = new CustomEvent('closeModal', { detail: this.itemsToAdd });
-    window.dispatchEvent(event);
+    const detail = new StreamCatalogueResult();
+    detail.itemsToAdd = this.itemsToAdd;
+    detail.itemsToRemove = this.itemsToRemove;
+
+    super.closeModal(detail);
+  }
+
+  private close(): void {
+    super.closeModal();
   }
 }
 
