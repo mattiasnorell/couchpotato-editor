@@ -1,0 +1,11 @@
+div(class="modal")
+    div(class="modal-backdrop")
+    div(class="modal-wrapper w-11/12 md:w-5/12")
+        div(class="modal-body")
+            div(class="modal-header") {{ title }}
+
+            div(class="modal-content flex h-full border" ref="content")
+                textarea(class="w-full h-full p-2 border" v-model="contents")
+
+            div(class="modal-footer")
+                button(class="btn ml-auto" @click="close") {{ 'close' | translate }}

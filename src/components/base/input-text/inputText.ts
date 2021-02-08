@@ -11,8 +11,8 @@ export class InputText extends Vue {
   @Ref('inputField')
   readonly inputElement!: HTMLInputElement;
 
-  @Prop({ type: String, default: '' })
-  public value: string;
+  @Prop()
+  public value: string | number;
 
   @Prop()
   public placeholder: string;

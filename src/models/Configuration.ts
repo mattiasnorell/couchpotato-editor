@@ -1,7 +1,7 @@
-import { Epg } from "./Epg";
-import { Group } from "./Group";
-import { Stream } from "./Stream";
-import { Validation } from "./Validation";
+import { Epg } from "_models/Epg";
+import { Group } from "_models/Group";
+import { Stream } from "_models/Stream";
+import { Validation } from "_models/Validation";
 
 export class Configuration{
     constructor(){
@@ -11,6 +11,7 @@ export class Configuration{
     m3uPath: string = '';
     outputPath: string = '';
     defaultGroup: string = '';
+    outputFilename: string = '';
     
     epg: Epg;
     streams: Stream[];

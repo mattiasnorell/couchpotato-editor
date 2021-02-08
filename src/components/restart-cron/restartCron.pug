@@ -1,0 +1,10 @@
+button(class="btn" :disabled="disabled" @click="onClick")
+    span(v-if="!isPending && !isError && !isSuccess")
+        font-awesome-icon(icon="sync-alt")
+    span(v-if="isPending")
+        font-awesome-icon(icon="sync-alt" spin)
+    span(v-if="!isPending && isSuccess")
+        font-awesome-icon(icon="thumbs-up")
+    span(v-if="!isPending && isError")
+        font-awesome-icon(icon="thumbs-down")
+    span(class="ml-1") {{ 'restartCron' | translate}}

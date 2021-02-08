@@ -1,0 +1,31 @@
+div(class="modal")
+    div(class="modal-backdrop" @click="ok")
+    div(class="modal-wrapper w-11/12 md:w-6/12")
+        div(class="modal-body")
+            div(class="modal-header") {{ title }}
+
+            div(class="modal-content")
+                label() Lägg till fallbackvärde
+                div(class="input-group flex w-full")
+                    input-text(class="flex-1" v-model="newItem" :placeholder="'Lägg till'" :usePlaceholderIfEmpty="true")
+                
+                    button(class="rounded-md bg-gray-500 px-4 py-2 rounded-l-none" @click="addItem")
+                        span() Lägg till
+
+            
+                table(class="table-auto w-full")
+                    thead
+                        tr
+                            th(class="px-2 py-4 whitespace-no-wrap border-b border-gray-500 text-md text-left leading-5") Värde
+                            th(class="px-2 py-4 whitespace-no-wrap border-b border-gray-500 text-md text-left leading-5")
+                    tbody(id="fallback_values_container")
+                        table-empty-state(:title="'Inga värden tillagda'" :colspan="2" v-if="items.length === 0")
+                        tr(v-for="(item, index) in items" :key="uniqueId()")
+                            td(class="px-2 py-4 whitespace-no-wrap border-b border-gray-500 text-md text-left leading-5")
+                                input-text(v-model="items[index]")
+                            td(class="px-2 py-4 whitespace-no-wrap border-b border-gray-500 text-md text-right leading-5")
+                                button(@click="removeItem(index)") 
+                                    font-awesome-icon(icon="trash")
+            
+            div(class="modal-footer")
+                button(class="btn ml-auto" @click="ok") Ok

@@ -1,9 +1,9 @@
-import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import { InputText } from '../../base/input-text/inputText';
+import { InputText } from '_components/base/input-text/inputText';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { Stream } from '../../../models/Stream';
+import { Stream } from '_models/Stream';
+import { ModalBase } from '_models/modalBase';
 
 @Component({
   name: 'StreamEdit',
@@ -13,7 +13,7 @@ import { Stream } from '../../../models/Stream';
     InputText
   }
 })
-export class StreamEdit extends Vue {
+export class StreamEdit extends ModalBase {
   @Prop()
   public title: string;
 
@@ -26,8 +26,7 @@ export class StreamEdit extends Vue {
   }
 
   private ok(): void {
-    const event = new CustomEvent('closeModal');
-    window.dispatchEvent(event);
+    super.closeModal();
   }
 }
 

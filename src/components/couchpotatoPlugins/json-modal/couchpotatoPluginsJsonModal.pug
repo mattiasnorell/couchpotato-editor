@@ -1,0 +1,13 @@
+div(class="modal")
+    div(class="modal-backdrop")
+    div(class="modal-wrapper w-11/12 md:w-5/12")
+        div(class="modal-body")
+            div(class="modal-header") {{ title }}
+
+            div(class="modal-content flex h-full border" ref="content")
+                textarea(class="w-full h-full p-2 border" v-model="contents")
+
+            div(class="modal-footer")
+                button(class="btn" @click="cancel" :disabled="isPending") {{ 'cancel' | translate }}
+                button(class="btn ml-auto mr-2" @click="prettify" :disabled="isPending") {{ 'format' | translate }}
+                button(class="btn" @click="save" :disabled="isPending") {{ 'save' | translate }}

@@ -1,0 +1,20 @@
+div(class="h-full")
+    div(class="w-full flex")
+        div(class="bg-gray-500 w-full p-4 font-bold text-white flex items-center")
+            div()
+                span(class="mr-2") 
+                    font-awesome-icon(icon="couch")
+                span() Couchpotato Editor
+            div(class="ml-auto")
+                button(class="btn visible md:invisible" @click="showMenu = !showMenu")
+                    font-awesome-icon(icon="hamburger")
+
+
+    
+    div(class="w-full")
+        div(class="menu" :class="{'open':showMenu}")
+            div(class="menu-wrapper")
+                main-menu()
+    
+    div(class="w-full")            
+        slot()

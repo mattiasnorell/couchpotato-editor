@@ -1,6 +1,7 @@
 div(class="flex")
     div(class="w-full")
-        div(class="w-full px-4 text-left")
-            label() Aktivera komprimering
-            div(class="input-group" class="w-full")
-                input-checkbox(v-model="config.compress")
+        div(class="flex-row mb-4")
+            div(class="col w-full md:w-1/3")
+                label() Aktivera komprimering
+                div(class="input-group" class="w-full")
+                    input-checkbox(v-model="config.compress")

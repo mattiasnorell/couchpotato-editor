@@ -1,0 +1,18 @@
+div(class="menu-contents")
+    div(class="menu-item" v-for="(item, index) in menuItems" v-if="item.meta.showInMenu")
+        router-link(class="" :to="item.path")
+            span(class="mr-2" v-if="item.meta.menuIcon")
+                font-awesome-icon(:icon="item.meta.menuIcon")
+            span() {{ item.meta.menuTranslationKey | translate }}
+
+        div(class="bg-gray-300 px-4 py-2" v-for="(childItem, index) in item.children" v-if="childItem.meta.showInMenu && isActive(item.path)")
+           
+            router-link(class="" :to="item.path + '/' + childItem.path")
+                span(class="mr-2" v-if="item.meta.menuIcon")
+                    font-awesome-icon(:icon="item.meta.menuIcon")
+                span() {{ childItem.meta.menuTranslationKey | translate }}
+    
+    div(class="menu-item ml-auto")
+        span(class="mr-2")
+            font-awesome-icon(icon="sign-out-alt")
+        button(@click="logout") {{ 'logout' | translate }}

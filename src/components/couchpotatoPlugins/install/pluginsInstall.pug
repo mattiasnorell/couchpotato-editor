@@ -1,0 +1,29 @@
+div(class="modal")
+    div(class="modal-backdrop")
+    div(class="modal-wrapper w-11/12 md:w-6/12")
+        div(class="modal-body")
+            div(class="modal-header") {{ title }}
+
+            div(class="modal-content" ref="content")
+                table(class="w-full table-auto border border-gray-300 bg-white")
+                    thead()
+                        tr(class="border-b border-gray-300 bg-gray-300")
+                            th(class="px-4 py-4 whitespace-no-wrap text-md text-left leading-5" colspan="2") {{ 'plugin' | translate }}
+                            
+                    tbody()
+                        tr(class="border-b border-gray-300" v-for="(item, index) in githubPlugins")
+                            td( class="px-4 py-4 whitespace-no-wrap truncate") {{ item.name }}
+                            td()
+                                button(class="btn mr-2" @click="openPluginInstaller(item)")
+                                    span(class="mr-1")
+                                        font-awesome-icon(icon="plus")
+                                    span() {{'install' | translate}}
+                                
+                                button(class="btn" @click="openPluginInformation(item)")
+                                    span(class="mr-1")
+                                        font-awesome-icon(icon="info")
+                                    span() {{'information' | translate}}
+
+
+            div(class="modal-footer")
+                button(class="btn ml-auto" @click="close") {{ 'close' | translate }}

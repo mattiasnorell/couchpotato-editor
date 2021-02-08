@@ -1,11 +1,16 @@
 import Vue from 'vue';
-import { App } from './components/app/app';
+import VueRouter from 'vue-router';
+
 import './style/style.scss';
 import { $filters } from './filters';
-
+import { router } from './routes/initRoutes';
 import { library } from '@fortawesome/fontawesome-svg-core';
+import '_services/interceptors/axiosAuthInterceptor';
+import '_services/interceptors/axiosErrorInterceptor';
+
 import {
   faTrash,
+  faEdit,
   faPlus,
   faSave,
   faSpinner,
@@ -19,13 +24,33 @@ import {
   faFileImport,
   faFileExport,
   faPlay,
-  faInfo
+  faHome,
+  faInfo,
+  faArchive,
+  faHamburger,
+  faTools,
+  faCouch,
+  faSyncAlt,
+  faDownload,
+  faFileSignature,
+  faCog,
+  faExclamationTriangle,
+  faList,
+  faSignOutAlt,
+  faSignInAlt,
+  faCheckSquare,
+  faEye
 } from '@fortawesome/free-solid-svg-icons';
 
 Vue.use($filters);
+Vue.use(VueRouter);
+
 library.add(
+  faArchive,
   faTrash,
+  faHome,
   faPlus,
+  faEdit,
   faSave,
   faSpinner,
   faChevronUp,
@@ -38,17 +63,27 @@ library.add(
   faFileImport,
   faFileExport,
   faPlay,
+  faInfo,
+  faHamburger,
+  faTools,
+  faCouch,
+  faSyncAlt,
+  faDownload,
+  faFileSignature,
+  faCog,
+  faExclamationTriangle,
+  faList,
+  faSignOutAlt,
+  faSignInAlt,
+  faCheckSquare,
+  faEye,
   faInfo
 );
 
 const appElement: HTMLElement | null = document.getElementById('app');
 
 if (appElement) {
-  let app: Vue | null = new App();
-
-  if (app) {
-    app.$mount(appElement);
-  } else {
-    console.warn(`Cant start app.`);
-  }
+  new Vue({
+    router
+  }).$mount(appElement);
 }

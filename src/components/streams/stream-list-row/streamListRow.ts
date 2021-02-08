@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import { Stream } from '../../../models/Stream';
+import { Stream } from '_models/Stream';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { InputText } from '../../base/input-text/inputText';
-import { StreamPicker } from '../../base/stream-picker/streamPicker';
-import { StreamEdit, StreamEditProps } from '../stream-edit/streamEdit';
-import { $modalHelper } from '../../../services/helpers/modalHelper';
+import { InputText } from '_components/base/input-text/inputText';
+import { StreamPicker } from '_components/base/stream-picker/streamPicker';
+import { StreamEdit, StreamEditProps } from '_components/streams/stream-edit/streamEdit';
+import { $modalHelper } from '_services/helpers/modalHelper';
 
 @Component({
   name: 'StreamListRow',

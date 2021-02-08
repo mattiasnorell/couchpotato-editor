@@ -1,9 +1,7 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { Prop } from 'vue-property-decorator';
-import { Configuration } from '../../../models/Configuration';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { $modalHelper } from '../../../services/helpers/modalHelper';
+import { $modalHelper } from '_services/helpers/modalHelper';
 import { ImportForm, ImportFormProps } from './import-form/importForm';
 
 @Component({

@@ -1,4 +1,4 @@
-import { $languageRepository } from '../services/repositories/languageRepository';
+import { $languageRepository } from '_services/repositories/languageRepository';
 
 const TranslateFilter = (key: string) => {
     return $languageRepository.get(key);

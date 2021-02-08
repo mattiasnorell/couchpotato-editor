@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import { Configuration } from '../../../models/Configuration';
+import { Configuration } from '_models/Configuration';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { $urlHelper } from '../../../services/helpers/urlHelper';
+import { $urlHelper } from '_services/helpers/urlHelper';
 
 @Component({
   name: 'ExportConfiguration',

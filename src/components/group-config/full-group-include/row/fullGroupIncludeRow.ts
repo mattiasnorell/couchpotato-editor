@@ -2,11 +2,11 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { Group } from '../../../../models/Group';
-import { InputText } from '../../../base/input-text/inputText';
-import { GroupPicker } from '../../../base/group-picker/groupPicker';
-import { $modalHelper } from '../../../../services/helpers/modalHelper';
-import { Excluded, ExcludedProps } from '../../excluded/excluded';
+import { Group } from '_models/Group';
+import { InputText } from '_components/base/input-text/inputText';
+import { GroupPicker } from '_components/base/group-picker/groupPicker';
+import { $modalHelper } from '_services/helpers/modalHelper';
+import { Excluded, ExcludedProps } from '_components/group-config/excluded/excluded';
 
 @Component({
   name: 'FullGroupIncludeRow',

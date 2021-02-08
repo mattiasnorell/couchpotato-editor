@@ -1,4 +1,4 @@
-import { PlaylistItem } from '../../models/PlaylistItem';
+import { PlaylistItem } from '_models/PlaylistItem';
 
 class PlaylistParser {
   private playlistItems: PlaylistItem[] = [];

@@ -1,0 +1,25 @@
+div(class="modal")
+    div(class="modal-backdrop" @click="ok")
+    div(class="modal-wrapper w-11/12 md:w-5/12")
+        div(class="modal-body")
+            div(class="modal-header") {{ title }}
+
+            div(class="modal-content" ref="content")
+                div(class="bg-red-500 p-4 mb-8 rounded-md text-white text-md" v-if="hasConnectionError") 
+                    font-awesome-icon(class="mr-2" icon="exclamation-triangle")
+                    span() {{'localResourcesNoConnection' | translate}}
+                    
+                button(class="btn w-full" @click="run" :disabled="isPending" v-if="!hasConnectionError")
+                    span() Kör
+
+                div(class="mt-8 pb-24 text-sm")
+                    ul
+                        li(class="border-dotted border-b-2 border-gray-300 py-1" v-for="(item, index) in logItems") {{ item }}
+
+                    div(class="mt-2" v-if="isPending")
+                        span(class="mr-2")
+                            font-awesome-icon(icon="spinner" spin)
+                        span() {{ 'couchpotatoRunning' | translate }} 
+
+            div(class="modal-footer")
+                button(class="btn ml-auto" @click="ok" :disabled="isPending") {{ 'close' | translate }}

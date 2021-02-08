@@ -1,11 +1,10 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import { Configuration } from '../../models/Configuration';
+import { Configuration } from '_models/Configuration';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { Group } from '../../models/Group';
-import { InputText } from '../base/input-text/inputText';
-import { GroupPicker } from '../base/group-picker/groupPicker';
+import { InputText } from '_components/base/input-text/inputText';
+import { GroupPicker } from '_components/base/group-picker/groupPicker';
 import { FullGroupInclude } from './full-group-include/fullGroupInclude';
 
 @Component({
