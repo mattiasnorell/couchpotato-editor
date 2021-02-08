@@ -5,16 +5,20 @@ export interface IMarkdownHelper {
 export class MarkdownHelper implements IMarkdownHelper {
   public parse(input: any): string {
     const parsedContent: string = input
-      .replace(/\/n$/gim, '</br>')
       .replace(/^# (.*$)/gim, '<h1>$1</h1>')
       .replace(/^## (.*$)/gim, '<h2>$1</h2>')
       .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-      .replace(/^```([^]*)```/gm, '<pre>$1</pre>')
+      .replace(/^#### (.*$)/gim, '<h4>$1</h4>')
+      .replace(/^##### (.*$)/gim, '<h5>$1</h5>')
+      .replace(/^###### (.*$)/gim, '<h6>$1</h6>')
+      .replace(/```([a-z]*)([^]*?)```/gm, '<pre>$2</pre>')
+      .replace(/^\> (.*$)/gim, '<blockquote>$1</blockquote>')
       .replace(/^!\[(.*?)\]\((.*?)(\".*?\")\)/gim, '<img src="$2" alt="$1"/>')
-      .replace(/^\[(.*?)\]\((.*?)\)/gim, '<a href="$1">$2</a>')
+      .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2">$1</a>')
       .replace(/^\|([^]*)\|/gm, (e: string) => {
         return this.parseTable(e);
-      });
+      })
+      .replace(/\/n$/gim, '</br>');
 
     return parsedContent;
   }
