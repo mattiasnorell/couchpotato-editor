@@ -2,7 +2,7 @@ import { $dateHelper } from "_services/helpers/dateHelper";
 import { $localStorageRepository } from "_services/repositories/localStorageRepository";
 
 class AuthProvider {
-  private allowedUsers: string[] = [];
+  private allowedUsers: string[] = ['calid', 'mattias'];
 
   public checkAuth(username: string): boolean {
     

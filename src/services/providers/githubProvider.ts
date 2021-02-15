@@ -5,7 +5,30 @@ export class GitHubRepositoryContent {
   path: string;
   size: number;
   url: string;
+  git_url: string;
   type: string;
+}
+
+export class GitHubRepositoryTree {
+  tree: GitHubRepositoryTreeItem[];
+}
+
+export class GitHubRepositoryTreeItem {
+  path: string;
+  model: string;
+  type: string;
+  sha: string;
+  size: number;
+  url: string;
+}
+
+export class GitHubRepositoryBlob {
+  path: string;
+  model: string;
+  type: string;
+  sha: string;
+  size: number;
+  url: string;
 }
 
 class GitHubProvider {
@@ -17,6 +40,40 @@ class GitHubProvider {
     };
     const result = await axios.get<GitHubRepositoryContent[]>(
       `https://api.github.com/repos/mattiasnorell/${repositoryId}/contents/`,
+      config
+    );
+    if (result.status !== 200) {
+      return [];
+    }
+    
+    return result.data;
+  }
+
+  public async getRepositoryTreeContent(path: string, accessToken: string): Promise<GitHubRepositoryTree  | null> {
+    const config: AxiosRequestConfig = {
+      headers: {
+        authorization: `token ${accessToken}`
+      }
+    };
+    const result = await axios.get<GitHubRepositoryTree>(
+      path,
+      config
+    );
+    if (result.status !== 200) {
+      return null;
+    }
+    
+    return result.data;
+  }
+
+  public async getRepositoryBlobContent(path: string, accessToken: string): Promise<GitHubRepositoryBlob[]> {
+    const config: AxiosRequestConfig = {
+      headers: {
+        authorization: `token ${accessToken}`
+      }
+    };
+    const result = await axios.get<GitHubRepositoryBlob[]>(
+      path,
       config
     );
     if (result.status !== 200) {
@@ -42,7 +99,7 @@ class GitHubProvider {
     return version ? version[1] : '';
   }
 
-  public async getReadme(pluginId: string, accessToken: string): Promise<string>{
+  public async getReadme(path: string, accessToken: string): Promise<string>{
     const config: AxiosRequestConfig = {
       headers: {
         authorization: `token ${accessToken}`
@@ -50,7 +107,7 @@ class GitHubProvider {
     };
     const result = await axios.get<any>(
       
-      `https://api.github.com/repos/mattiasnorell/couchpotato-plugins/git/blobs/513b8f1514c5cb90d66cc78374ac1b66c53bc74a`,
+      path,
       config
     );
     if (result.status !== 200) {
