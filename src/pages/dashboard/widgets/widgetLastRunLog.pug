@@ -10,14 +10,14 @@ div(class="w-full flex")
             font-awesome-icon(icon="thumbs-up")
         span(class="ml-2") {{'widgetLastRunNoProblem' | translate}}
 
-    div(class="w-1/3" v-if="log?.missingStreams.length > 0")
+    div(class="w-full md:w-1/3" v-if="log?.missingStreams.length > 0")
         p(class="font-bold") {{'widgetLastRunMissingChanels' | translate}}
         div(v-for="(item, index) in log?.missingStreams") {{ item }}
 
-    div(class="w-1/3" v-if="log?.validationErrors.length > 0")
+    div(class="w-full md:w-1/3" v-if="log?.validationErrors.length > 0")
         p(class="font-bold") {{'widgetLastRunValidationErrors' | translate}}
         div(v-for="(item, index) in log?.validationErrors") {{ item }}
 
-    div(class="w-1/3" v-if="log?.epgErrors.length > 0")
+    div(class="w-full md:w-1/3" v-if="log?.epgErrors.length > 0")
         p(class="font-bold") {{'widgetLastRunMissingEpg' | translate}}
         div(v-for="(item, index) in log?.epgErrors") {{ item }}

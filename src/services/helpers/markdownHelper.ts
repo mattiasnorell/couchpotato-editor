@@ -26,17 +26,17 @@ export class MarkdownHelper implements IMarkdownHelper {
   private parseTable(input: string): string {
     const lines = input.split('\n');
 
-    let parsedTable: string = '<table>';
+    let parsedTable: HTMLTableElement = document.createElement('table');
 
     if (lines.length === 0) {
       return '';
     }
 
-    const hasHeader = lines.length > 1 && lines[1].includes(':---');
-
     for (let i = 0; i < lines.length; i++) {
+      const hasHeader = lines.length > i + 1 && lines[i + 1].includes(':---');
       let line = lines[i].trim();
-      parsedTable += '<tr>';
+      const tableRow = document.createElement('tr');
+      parsedTable.appendChild(tableRow);
 
       if (line.startsWith('|')) {
         line = line.slice(1, line.length);
@@ -49,21 +49,19 @@ export class MarkdownHelper implements IMarkdownHelper {
       const cols = line.split(' | ');
 
       for (let ii = 0; ii < cols.length; ii++) {
-        parsedTable += i === 0 && hasHeader ? '<th>' : '<td>';
-        parsedTable += cols[ii];
-        parsedTable += i === 0 && hasHeader ? '</th>' : '</td>';
+        const col: HTMLTableHeaderCellElement | HTMLTableDataCellElement = hasHeader
+          ? document.createElement('th')
+          : document.createElement('td');
+        col.innerText = cols[ii];
+        tableRow.appendChild(col);
       }
 
-      parsedTable += '</tr>';
-
-      if (i === 0 && hasHeader) {
+      if (hasHeader) {
         i++;
       }
     }
 
-    parsedTable += '</table>';
-
-    return parsedTable;
+    return parsedTable.outerHTML;
   }
 }
 

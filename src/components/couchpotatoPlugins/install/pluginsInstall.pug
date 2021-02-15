@@ -13,7 +13,7 @@ div(class="modal")
                     tbody()
                         tr(class="border-b border-gray-300" v-for="(item, index) in githubPlugins")
                             td( class="px-4 py-4 whitespace-no-wrap truncate") {{ item.name }}
-                            td()
+                            td(class="text-right pr-4")
                                 button(class="btn mr-2" @click="openPluginInstaller(item)")
                                     span(class="mr-1")
                                         font-awesome-icon(icon="plus")

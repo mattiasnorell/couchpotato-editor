@@ -22,22 +22,32 @@ export class PluginsReadme extends ModalBase {
   @Prop()
   public pluginId: string;
 
-
   private contents: string = '';
 
   public async created(): Promise<void> {
     const githubToken = $localStorageRepository.read<string>('githubToken');
     if (githubToken) {
-      
-      const result = await $githubProvider.getReadme(this.pluginId, githubToken);
-      const parsedContent = $markdownHelper.parse(result);
+      const repoContent = await $githubProvider.getRepositoryContent('couchpotato-plugins', githubToken);
+      const repo = repoContent.find((r) => r.name === this.pluginId);
+      console.log(repo?.git_url);
 
-      this.contents = parsedContent;
-        
+      if (repo?.git_url) {
+        const tree = await $githubProvider.getRepositoryTreeContent(repo?.git_url, githubToken);
+        if (tree) {
+          const readme = tree.tree.find((item) => item.path === 'README.md');
+
+          if (readme?.url) {
+            const blob = await $githubProvider.getReadme(readme?.url, githubToken);
+            const parsedContent = $markdownHelper.parse(blob);
+
+            this.contents = parsedContent;
+          }
+        }
+      }
     }
   }
 
-  private close(): void{
+  private close(): void {
     super.closeModal();
   }
 }

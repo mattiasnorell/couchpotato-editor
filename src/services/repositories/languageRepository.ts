@@ -82,7 +82,8 @@ class LanguageRepository implements ILanguageRepository {
     pluginInactivate: 'Inaktivera',
     active: 'Aktiv',
     format: 'Formatera',
-    information: 'Info'
+    information: 'Info',
+    plugin: 'Plugin'
 
   };
 

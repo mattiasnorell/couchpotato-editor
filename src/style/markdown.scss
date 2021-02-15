@@ -1,0 +1,32 @@
+.markdown {
+  @apply mb-12;
+
+  h1 {
+    @apply my-4 mb-2 font-bold text-2xl;
+  }
+  h2 {
+    @apply my-4 mb-2 font-bold text-xl;
+  }
+  h3 {
+    @apply my-4 mb-2 font-bold text-lg;
+  }
+  h4 {
+    @apply my-4 mb-2 font-bold text-lg;
+  }
+
+  pre{
+      @apply p-4 mb-4 bg-gray-100 rounded overflow-x-auto w-full text-sm;
+  }
+
+  table {
+    @apply table-fixed w-full;
+
+    th {
+      @apply px-4 py-2 bg-gray-300 text-left border border-gray-300;
+    }
+
+    td {
+      @apply px-4 py-2 border border-gray-300;
+    }
+  }
+}
