@@ -69,6 +69,23 @@ export class StreamList extends Vue {
     });
   }
 
+  private updateScrollOnDrag(e: MouseEvent): void {
+    const scrollPadding = 100;
+    const scrollSpeed = 20;
+
+    if (e.clientY < scrollPadding) {
+      window.scroll({
+        top: window.scrollY - scrollSpeed
+      });
+    }
+
+    if (e.clientY > window.innerHeight - scrollPadding) {
+      window.scroll({
+        top: window.scrollY + scrollSpeed
+      });
+    }
+  }
+
   private initDragula(): void {
     let startPosition = 0;
 
@@ -85,10 +102,14 @@ export class StreamList extends Vue {
           return;
         }
 
+        document.addEventListener('mousemove', this.updateScrollOnDrag);
+
         startPosition = $arrayHelper.indexOf(el.parentNode.children, el);
       });
 
       drake.on('drop', (el: Element, target: Element, source: Element, sibling: Element): void => {
+        document.removeEventListener('mousemove', this.updateScrollOnDrag);
+
         const index = $arrayHelper.indexOf(target.children, el);
         if (this.hasSelected && window.confirm('Vill du flytta alla markerade?')) {
           let selected = this.streams.filter((item) => item.isSelected);
