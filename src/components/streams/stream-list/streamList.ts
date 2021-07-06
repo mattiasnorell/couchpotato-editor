@@ -107,11 +107,15 @@ export class StreamList extends Vue {
         startPosition = $arrayHelper.indexOf(el.parentNode.children, el);
       });
 
+      drake.on('cancel', (el: Element, source: Element): void => {
+        document.removeEventListener('mousemove', this.updateScrollOnDrag);
+      });
+
       drake.on('drop', (el: Element, target: Element, source: Element, sibling: Element): void => {
         document.removeEventListener('mousemove', this.updateScrollOnDrag);
 
         const index = $arrayHelper.indexOf(target.children, el);
-        if (this.hasSelected && window.confirm('Vill du flytta alla markerade?')) {
+        if (this.hasSelected && window.confirm(this.$options?.filters?.translate('confirmMoveAll'))) {
           let selected = this.streams.filter((item) => item.isSelected);
 
           if (index < startPosition) {
@@ -131,7 +135,7 @@ export class StreamList extends Vue {
 
   private openCatalogue(): void {
     const props: StreamCatalogueProps = new StreamCatalogueProps();
-    props.title = 'Katalog';
+    props.title = this.$options?.filters?.translate('catalogueModalTitle');
     props.addedStreams = this.streams.map((stream) => stream.channelId);
 
     $modalHelper.create<typeof StreamCatalogue>(StreamCatalogue, props, (result: StreamCatalogueResult) => {

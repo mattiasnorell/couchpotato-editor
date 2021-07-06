@@ -20,6 +20,12 @@ div(class="modal")
                         label() {{ 'epgId' | translate }}
                         input-text(v-model="stream.epgId" :placeholder="'Ej angivet'" :usePlaceholderIfEmpty="true")
 
+                
+                div(class="w-full flex flex-wrap mt-4")
+                    div(class="w-full md:w-1/3 px-4 text-left")
+                        label() {{ 'customLogo' | translate }}
+                        input-text(v-model="stream.customLogo" :placeholder="'Standard'" :usePlaceholderIfEmpty="true")
+
                 div(class="w-full flex flex-wrap mt-4")
                     div(class="w-full md:w-1/3 px-4 text-left")
                         label() {{ 'timeshift' | translate }}

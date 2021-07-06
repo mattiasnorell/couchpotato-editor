@@ -20,6 +20,7 @@
       "_models/*": ["src/models/*"],
       "_services/*": ["src/services/*"],
       "_pages/*": ["src/pages/*"],
+      "_config/*": ["src/config/*"],
     }
   }
   

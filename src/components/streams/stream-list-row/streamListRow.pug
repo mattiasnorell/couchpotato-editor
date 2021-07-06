@@ -18,6 +18,9 @@ tr(class="border-b border-gray-300 last:border-b-0")
     td(class="px-4 py-1 whitespace-no-wrap text-sm leading-5 hidden md:table-cell")
         input-text(v-model="stream.epgTimeshift" :placeholder="'0000'" :usePlaceholderIfEmpty="true")
 
+    td(class="px-4 py-1 whitespace-no-wrap text-sm leading-5 hidden md:table-cell")
+        input-text(v-model="stream.customLogo" :placeholder="'Standard'" :usePlaceholderIfEmpty="true")
+
     td(class="px-4 py-1 whitespace-no-wrap text-sm leading-5 md:hidden")
         button(@click="openEditModal" class="text-gray-500")
             font-awesome-icon(icon="info")
