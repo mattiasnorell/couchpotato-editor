@@ -28,7 +28,7 @@ class PlaylistParser {
   }
 
   private GetValueForAttribute(item: string, attributeName: string): string {
-    const regex = new RegExp(attributeName + '="([A-Za-zåäöÅÄÖ.\\[\\]\\(\\)&\/0-9 _:\-]*)"');
+    const regex = new RegExp(attributeName + '="([A-Za-zåäöÅÄÖ.\\[\\]\\(\\)&/0-9 _:-]*)"');
     const match = regex.exec(item);
 
     if (!match) {

@@ -4,9 +4,10 @@ div(class="h-full")
             div()
                 span(class="mr-2") 
                     font-awesome-icon(icon="couch")
-                span() Couchpotato Editor
-            div(class="ml-auto")
-                button(class="btn visible md:invisible" @click="showMenu = !showMenu")
+                span() {{'applicationTitle' | translate }}
+            span(class="ml-2 md:ml-auto font-normal text-xs") v.{{ version }}
+            div(class="ml-auto block md:hidden")
+                button(class="btn " @click="showMenu = !showMenu")
                     font-awesome-icon(icon="hamburger")
 
 

@@ -4,23 +4,28 @@ interface ILanguageRepository {
 
 class LanguageRepository implements ILanguageRepository {
   private translations: { [key: string]: string } = {
+    applicationTitle: 'Couchpotato Editor',
     cancel: 'Avbryt',
     loading: 'Laddar',
     delete: 'Ta bort',
     areYouSure: 'Är du säker?',
+    confirmMoveAll: 'Vill du flytta alla markerade?',
     ok: 'Ok',
     save: 'Spara konfiguration',
     copy: 'Kopiera länk',
     compression: 'Komprimering',
     validation: 'Validering',
+    customLogo: 'Custom-logo',
     epg: 'EPG',
     name: 'Namn',
     close: 'Stäng',
+    logo: 'Logo',
     actions: 'Åtgärder',
     groups: 'Grupper',
-    streams: "Strömmar",
-    targetFolder: "Målmapp",
-    sourcePlaylist: "Spellista",
+    streams: 'Strömmar',
+    targetFolder: 'Målmapp',
+    sourcePlaylist: 'Spellista',
+    catalogueModalTitle: 'Katalog',
     cachePath: 'Sökväg för cachefiler',
     activateCache: 'Aktivera cache',
     cacheLifespan: 'Tid för cache',
@@ -84,7 +89,6 @@ class LanguageRepository implements ILanguageRepository {
     format: 'Formatera',
     information: 'Info',
     plugin: 'Plugin'
-
   };
 
   get(key: string): string {

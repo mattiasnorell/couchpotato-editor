@@ -20,10 +20,7 @@ export class StreamEdit extends ModalBase {
   @Prop()
   public stream: Stream;
 
-
-  public async created(): Promise<void> {
-   
-  }
+  public async created(): Promise<void> {}
 
   private ok(): void {
     super.closeModal();

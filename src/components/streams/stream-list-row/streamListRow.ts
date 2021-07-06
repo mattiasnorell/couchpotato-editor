@@ -35,11 +35,11 @@ export class StreamListRow extends Vue {
     this.showStreamPicker = false;
   }
 
-  private onStreamPickerBlur(): void{
+  private onStreamPickerBlur(): void {
     this.showStreamPicker = false;
   }
 
-  private toggleStreamPicker(): void{
+  private toggleStreamPicker(): void {
     this.showStreamPicker = !this.showStreamPicker;
   }
 
@@ -48,8 +48,6 @@ export class StreamListRow extends Vue {
     props.title = `Redigera ${this.stream.channelId}`;
     props.stream = this.stream;
 
-    $modalHelper.create<typeof StreamEdit>(StreamEdit, props, () => {
-    
-    });
+    $modalHelper.create<typeof StreamEdit>(StreamEdit, props, () => {});
   }
 }
