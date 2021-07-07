@@ -39,7 +39,8 @@ import {
   faSignOutAlt,
   faSignInAlt,
   faCheckSquare,
-  faEye
+  faEye,
+  faArrowsAlt
 } from '@fortawesome/free-solid-svg-icons';
 
 Vue.use($filters);
@@ -61,6 +62,7 @@ library.add(
   faThumbsDown,
   faTimes,
   faFileImport,
+  faArrowsAlt,
   faFileExport,
   faPlay,
   faInfo,
