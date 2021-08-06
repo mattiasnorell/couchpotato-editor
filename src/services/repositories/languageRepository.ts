@@ -18,6 +18,9 @@ class LanguageRepository implements ILanguageRepository {
         customLogo: 'Custom-logo',
         epg: 'EPG',
         name: 'Namn',
+        importExportSettings: 'Importera / Exportera inställningar',
+        importFromFile: 'Importera från fil',
+        importFromJson: 'Importera från JSON',
         close: 'Stäng',
         logo: 'Logo',
         actions: 'Åtgärder',
@@ -88,6 +91,8 @@ class LanguageRepository implements ILanguageRepository {
         active: 'Aktiv',
         format: 'Formatera',
         information: 'Info',
+        exportToFile: 'Exportera fil',
+        copyToJson: 'Kopiera som JSON',
         plugin: 'Plugin'
     };
 

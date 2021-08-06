@@ -11,6 +11,8 @@ import { $languageRepository } from '_services/repositories/languageRepository';
 import { CouchpotatoPlugins } from '_components/couchpotatoPlugins/couchpotatoPlugins';
 import { RestartBackend } from '_components/restart-backend/restartBackend';
 import { RestartCron } from '_components/restart-cron/restartCron';
+import { SettingsExport } from '_components/settings-export/settingsExport';
+import { SettingsImport } from '_components/settings-import/settingsImport';
 import { UpdateBackend } from '_components/update-backend/updateBackend';
 import { CronJobs } from '_components/cronJobs/cronJobs';
 import { CouchpotatoLogs } from '_components/couchpotatoLogs/couchpotatoLogs';
@@ -31,6 +33,8 @@ import { RequireTokenDecorator } from 'src/decorators/RequireTokenDecorator';
     RestartCron,
     FontAwesomeIcon,
     UpdateBackend,
+    SettingsImport,
+    SettingsExport,
     CouchpotatoLogs
   }
 })
@@ -44,12 +48,15 @@ export default class Settings extends Vue {
   private githubToken: string | null = '';
 
   public async created(): Promise<void> {
+    this.loadSettings();
+    this.checkConnection();
+  }
+
+  private loadSettings():void{
     this.couchpotatoWebsocketPath = $localStorageRepository.read<string>('couchpotatoWebsocketPath');
     this.couchpotatoApiPath = $localStorageRepository.read<string>('couchpotatoApiPath');
     this.couchpotatoAccessToken = $localStorageRepository.read<string>('couchpotatoAccessToken');
     this.githubToken = $localStorageRepository.read<string>('githubToken');
-
-    this.checkConnection();
   }
 
   private async checkConnection(): Promise<void> {
@@ -86,8 +93,12 @@ export default class Settings extends Vue {
     const props: WebSocketModalProps = new WebSocketModalProps();
     props.title = $languageRepository.get('updateCouchpotato');
     props.action = 'reinstall';
-    props.accessToken = this.couchpotatoAccessToken;
+    props.accessToken = this.githubToken;
 
     $modalHelper.create<typeof WebSocketModal>(WebSocketModal, props);
+  }
+
+  private onSettingsImport():void{
+    this.loadSettings();
   }
 }

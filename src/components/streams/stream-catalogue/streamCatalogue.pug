@@ -14,6 +14,7 @@ div(class="modal")
                     tr(class="border-b border-gray-500")
                         th(class="w-20 px-2 py-4 whitespace-no-wrap text-sm text-left leading-5") Lägg till
                         th(class="px-2 py-4 whitespace-no-wrap text-sm text-left leading-5") Stream-Id
+                        th(class="px-2 py-4 whitespace-no-wrap text-sm text-left leading-5")
                         
                     tr(class="border-b border-gray-500" v-for="(groupItem, streamIndex) in groupItems" :key="'catalogue-group-item-'+streamIndex")
                         td(class="px-2 py-4")
@@ -22,6 +23,8 @@ div(class="modal")
                                 @input="onToggleItem(groupItem)"
                                 )
                         td(class="px-2 py-4 whitespace-no-wrap text-sm text-left font-normal") {{ groupItem.tvgName }}
+                        td(class="px-2 py-4 whitespace-no-wrap text-sm text-right font-normal")
+                            copy-stream-url(:url="groupItem.url")
 
 
             div(class="modal-footer")

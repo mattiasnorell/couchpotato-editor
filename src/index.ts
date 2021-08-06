@@ -33,6 +33,7 @@ import {
   faSyncAlt,
   faDownload,
   faFileSignature,
+  faUpload,
   faCog,
   faExclamationTriangle,
   faList,
@@ -40,6 +41,7 @@ import {
   faSignInAlt,
   faCheckSquare,
   faEye,
+  faFile,
   faArrowsAlt
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -49,9 +51,11 @@ Vue.use(VueRouter);
 library.add(
   faArchive,
   faTrash,
+  faUpload,
   faHome,
   faPlus,
   faEdit,
+  faFile,
   faSave,
   faSpinner,
   faChevronUp,

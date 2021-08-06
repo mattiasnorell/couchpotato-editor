@@ -20,14 +20,6 @@ module.exports = (env = {}) => {
       chunkFilename: '[name][hash].js',
       path: path.resolve(__dirname, 'dist')
     },
-    devServer: {
-      contentBase: wwwFolder,
-
-      port: 8000,
-      hot: true,
-      open: false,
-      compress: true
-    },
     module: {
       rules: [
         {
