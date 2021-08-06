@@ -1,8 +1,6 @@
 import { PlaylistItem } from '_models/PlaylistItem';
 
 class PlaylistParser {
-  private playlistItems: PlaylistItem[] = [];
-
   public parse(playlist: string): PlaylistItem[] {
     const items: PlaylistItem[] = [];
 
@@ -10,6 +8,7 @@ class PlaylistParser {
     for (var line = 0; line < lines.length; line++) {
       if (lines[line].startsWith('#EXTINF')) {
         const parsedLine = this.parseLine(lines[line]);
+        parsedLine.url = lines[line + 1];
         items.push(parsedLine);
       }
     }
