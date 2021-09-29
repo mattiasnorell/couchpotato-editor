@@ -1,9 +1,20 @@
 import axios, { CancelToken } from 'axios';
-import { $localStorageRepository } from '_services/repositories/localStorageRepository';
+import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { injectable, inject } from 'inversify-props';
 
-class CouchpotatoConnector {
+export interface ICouchpotatoConnector{
+  ping(): Promise<boolean>;
+  restartBackend(): Promise<boolean>;
+  updateBackend(): Promise<boolean>;
+  restartCron(): Promise<boolean>;
+}
+
+@injectable()
+export class CouchpotatoConnector {
+  @inject() public localStorageRepository: ILocalStorageRepository;
+
   public ping(): Promise<boolean> {
-    const url = $localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
     const timeout = axios.CancelToken.source();
     setTimeout(() => {
       timeout.cancel();
@@ -20,7 +31,7 @@ class CouchpotatoConnector {
   }
 
   public restartBackend(): Promise<boolean> {
-    const url = $localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
 
     return axios
       .get(`${url}/restartbackend/`)
@@ -33,7 +44,7 @@ class CouchpotatoConnector {
   }
 
   public updateBackend(): Promise<boolean> {
-    const url = $localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
 
     return axios
       .get(`${url}/backend/update/`)
@@ -46,7 +57,7 @@ class CouchpotatoConnector {
   }
 
   public restartCron(): Promise<boolean> {
-    const url = $localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
 
     return axios
       .get(`${url}/cron/restart/`)
@@ -58,6 +69,3 @@ class CouchpotatoConnector {
       });
   }
 }
-
-const $couchpotatoConnector = new CouchpotatoConnector();
-export { $couchpotatoConnector };

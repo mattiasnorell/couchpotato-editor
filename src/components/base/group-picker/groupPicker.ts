@@ -1,11 +1,10 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { PlaylistItem } from '../../../models/PlaylistItem';
-import { Stream } from '../../../models/Stream';
-import { $playlistRepository } from '../../../services/repositories/playlistRepository';
+import { IPlaylistRepository } from '_services/repositories/playlistRepository';
 import { InputText } from '../input-text/inputText';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { Prop, Ref } from 'vue-property-decorator';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'GroupPicker',
@@ -16,6 +15,8 @@ import { Prop, Ref } from 'vue-property-decorator';
   }
 })
 export class GroupPicker extends Vue {
+  @inject() private playlistRepository: IPlaylistRepository;
+
   private searchResult: any[] = [];
   private isPending: boolean = false;
   private query: string = '';
@@ -46,7 +47,7 @@ export class GroupPicker extends Vue {
 
     this.isPending = true;
     try {
-      const result = await $playlistRepository.searchGroup(this.query);
+      const result = await this.playlistRepository.searchGroup(this.query);
       this.searchResult = result;
       this.isPending = false;
     } catch (err) {

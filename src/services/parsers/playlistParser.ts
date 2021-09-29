@@ -1,6 +1,10 @@
 import { PlaylistItem } from '_models/PlaylistItem';
 
-class PlaylistParser {
+export interface IPlaylistParser {
+  parse(playlist: string): PlaylistItem[];
+}
+
+export class PlaylistParser {
   private playlistItems: PlaylistItem[] = [];
 
   public parse(playlist: string): PlaylistItem[] {
@@ -38,6 +42,3 @@ class PlaylistParser {
     return match[1];
   }
 }
-
-const $playlistParser = new PlaylistParser();
-export { $playlistParser };

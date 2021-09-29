@@ -1,93 +1,109 @@
 import axios from 'axios';
-import { $localStorageRepository } from '_services/repositories/localStorageRepository';
+import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { injectable, inject } from 'inversify-props';
 
-export class CouchpotatoPlugin{
+export class CouchpotatoPlugin {
   public name: string = '';
   public version: string = '';
   public active: boolean = false;
 }
 
-class CouchpotatoPluginConnector {
+export interface ICouchpotatoPluginConnector {
+  getInstalled(): Promise<CouchpotatoPlugin[]>;
+  getSettings(pluginId: string): Promise<{ [key: string]: any }>;
+  activate(pluginId: string): Promise<boolean>;
+  deactivate(pluginId: string): Promise<boolean>;
+  saveSettings(pluginId: string, settings: { [key: string]: any }): Promise<{ [key: string]: any }>;
+  getSettingsFile(path: string): Promise<string>;
+  saveSettingsFile(path: string, contents: string): Promise<boolean>;
+  uninstall(pluginId: string): Promise<boolean>;
+}
+
+@injectable()
+export class CouchpotatoPluginConnector {
+  @inject() private localStorageRepository: ILocalStorageRepository;
+
+
   public async getInstalled(): Promise<CouchpotatoPlugin[]> {
-    const url = $localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
 
     return axios
       .get(`${url}/plugins/installed/`)
       .then((response) => {
         return response.data;
       })
-      .catch((error) => {
+      .catch(() => {
         return [];
       });
   }
 
   public async getSettings(pluginId: string): Promise<{ [key: string]: any }> {
-    const url = $localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
 
     return axios
       .get(`${url}/plugins/settings/${pluginId}`)
       .then((response) => {
         return response.data;
       })
-      .catch((error) => {
+      .catch(() => {
         return [];
       });
   }
 
   public async activate(pluginId: string): Promise<boolean> {
-    const url = $localStorageRepository.read<string>('couchpotatoApiPath');
-    
+    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+
     return axios
       .get(`${url}/plugins/activate/${pluginId}`)
       .then((response) => {
         return response.data;
       })
-      .catch((error) => {
+      .catch(() => {
         return false;
       });
   }
 
   public async deactivate(pluginId: string): Promise<boolean> {
-    const url = $localStorageRepository.read<string>('couchpotatoApiPath');
-    
+    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+
     return axios
       .get(`${url}/plugins/deactivate/${pluginId}`)
       .then((response) => {
         return response.data;
       })
-      .catch((error) => {
+      .catch(() => {
         return false;
       });
   }
 
   public async saveSettings(pluginId: string, settings: { [key: string]: any }): Promise<{ [key: string]: any }> {
-    const url = $localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
 
     return axios
       .post(`${url}/plugins/settings/${pluginId}`, settings)
       .then((response) => {
         return response.data;
       })
-      .catch((error) => {
+      .catch(() => {
         return [];
       });
   }
 
   public async getSettingsFile(path: string): Promise<string> {
-    const url = $localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
 
     return axios
       .get(`${url}/plugins/settings/file/?path=${encodeURIComponent(path)}`)
       .then((response) => {
         return response.data;
       })
-      .catch((error) => {
+      .catch(() => {
         return [];
       });
   }
 
   public async saveSettingsFile(path: string, contents: string): Promise<boolean> {
-    const url = $localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
     const settings = {
       path: path,
       contents: contents
@@ -95,27 +111,24 @@ class CouchpotatoPluginConnector {
 
     return axios
       .post(`${url}/plugins/settings/file/`, settings)
-      .then((response) => {
+      .then(() => {
         return true;
       })
-      .catch((error) => {
+      .catch(() => {
         return false;
       });
   }
 
   public async uninstall(pluginId: string): Promise<boolean> {
-    const url = $localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
 
     return axios
       .get(`${url}/plugins/uninstall/${pluginId}`)
-      .then((response) => {
+      .then(() => {
         return true;
       })
-      .catch((error) => {
+      .catch(() => {
         return false;
       });
   }
 }
-
-const $couchpotatoPluginConnector = new CouchpotatoPluginConnector();
-export { $couchpotatoPluginConnector };

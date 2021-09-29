@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import { $playlistRepository } from '_services/repositories/playlistRepository';
+import { IPlaylistRepository } from '_services/repositories/playlistRepository';
 import { Collapse } from '_components/base/collapse/collapse';
 import { InputCheckbox } from '_components/base/input-checkbox/inputCheckbox';
 import { InputSelect, SelectOption } from '_components/base/input-select/inputSelect';
@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import StreamCatalogueItem from './StreamCatalogueItem';
 import StreamCatalogueResult from './StreamCatalogueResult';
 import { ModalBase } from '_models/modalBase';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'StreamCatalogue',
@@ -21,6 +22,8 @@ import { ModalBase } from '_models/modalBase';
   }
 })
 export class StreamCatalogue extends ModalBase {
+  @inject() public playlistRepository: IPlaylistRepository;
+  
   @Prop()
   public title: string;
 
@@ -38,7 +41,7 @@ export class StreamCatalogue extends ModalBase {
 
   public async created(): Promise<void> {
     this.isPending = true;
-    const items = await $playlistRepository.getAll();
+    const items = await this.playlistRepository.getAll();
     this.isPending = false;
 
     const groups: { [key: string]: StreamCatalogueItem[] } = {};

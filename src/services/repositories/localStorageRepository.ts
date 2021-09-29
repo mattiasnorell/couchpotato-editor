@@ -1,9 +1,13 @@
-interface ILocalStorageRepository {
+import { injectable } from "inversify";
+
+export interface ILocalStorageRepository {
   read<T>(key: string): T | null;
   write<T>(key: string, value: T): void;
+  clear(key: string): void;
 }
 
-class LocalStorageRepository implements ILocalStorageRepository {
+@injectable()
+export class LocalStorageRepository implements ILocalStorageRepository {
   read<T>(key: string): T | null {
     const lsValue = window.localStorage.getItem(key);
 
@@ -22,6 +26,3 @@ class LocalStorageRepository implements ILocalStorageRepository {
     window.localStorage.removeItem(key);
   }
 }
-
-const $localStorageRepository = new LocalStorageRepository();
-export { $localStorageRepository };

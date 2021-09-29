@@ -1,9 +1,10 @@
-import Vue from 'vue';
+ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { Layout } from '_components/base/layout/layout';
-import { $couchpotatoConnector } from '_services/connectors/couchpotatoConnector';
+import { ICouchpotatoConnector } from '_services/connectors/couchpotatoConnector';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'RestartCron',
@@ -14,6 +15,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   }
 })
 export class RestartCron extends Vue {
+  @inject() private couchpotatoConnector: ICouchpotatoConnector;
+
   @Prop({ type: Boolean, default: false })
   public disabled: boolean;
 
@@ -25,7 +28,7 @@ export class RestartCron extends Vue {
 
   private async onClick(): Promise<void> {
     this.isPending = true;
-    const result = await $couchpotatoConnector.restartCron();
+    const result = await this.couchpotatoConnector.restartCron();
 
     if (result) {
       this.isPending = false;

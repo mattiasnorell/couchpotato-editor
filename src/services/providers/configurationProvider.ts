@@ -1,8 +1,20 @@
 import axios from 'axios';
 import { Configuration } from '_models/Configuration';
 import { ConfigurationListItem } from '_models/ConfigurationListItem';
+import { injectable } from 'inversify-props';
 
-class ConfigurationProvider {
+export interface IConfigurationProvider {
+  getAllForUser(id: string): Promise<ConfigurationListItem[]>;
+  load(id: string): Promise<Configuration | null>;
+  save(id: string, config: Configuration): Promise<string | null>;
+  create(id: string): Promise<Configuration | null>;
+  rename(id: string, newName: string): Promise<string | null>;
+  delete(id: string): Promise<void>;
+  copy(id: string): Promise<string | null>;
+}
+
+@injectable()
+export class ConfigurationProvider {
   private apiBasePath: string = 'http://couchpotato.automagiskdatabehandling.se/api';
 
   public async getAllForUser(id: string): Promise<ConfigurationListItem[]> {
@@ -15,7 +27,7 @@ class ConfigurationProvider {
     if (result.status !== 200) {
       return [];
     }
-    
+
     return result.data;
   }
 
@@ -106,6 +118,3 @@ class ConfigurationProvider {
     return result.data;
   }
 }
-
-const $configurationProvider = new ConfigurationProvider();
-export { $configurationProvider };

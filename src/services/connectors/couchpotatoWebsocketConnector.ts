@@ -1,8 +1,16 @@
-import { $localStorageRepository } from '_services/repositories/localStorageRepository';
+import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { inject, injectable } from 'inversify-props';
 
-class CouchpotatoWebsocketConnector {
+export interface ICouchpotatoWebsocketConnector {
+  ping(timeout?: number): Promise<boolean>
+}
+
+@injectable()
+export class CouchpotatoWebsocketConnector {
+  @inject() public localStorageRepository: ILocalStorageRepository;
+
   public ping(timeout: number = 1000): Promise<boolean> {
-    const url = $localStorageRepository.read<string>('couchpotatoWebsocketPath');
+    const url = this.localStorageRepository.read<string>('couchpotatoWebsocketPath');
 
     return new Promise((resolve, reject) => {
       if (!url) {
@@ -24,11 +32,11 @@ class CouchpotatoWebsocketConnector {
       });
 
       ws.addEventListener('close', (e: any) => {
-        
+
       });
 
       ws.addEventListener('error', (e: any) => {
-        if (e?.target?.readyState === 3) {
+        if (e ?.target ?.readyState === 3) {
           ws.close();
           resolve(false);
         }
@@ -36,6 +44,3 @@ class CouchpotatoWebsocketConnector {
     });
   }
 }
-
-const $couchpotatoWebsocketConnector = new CouchpotatoWebsocketConnector();
-export { $couchpotatoWebsocketConnector };

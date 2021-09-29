@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import { $configurationProvider } from '_services/providers/configurationProvider';
+import { IConfigurationProvider } from '_services/providers/configurationProvider';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'Rename',
@@ -12,6 +13,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   }
 })
 export class Rename extends Vue {
+  @inject() configurationProvider: IConfigurationProvider;
+  
   @Prop()
   public configurationId: string;
 
@@ -33,7 +36,7 @@ export class Rename extends Vue {
     this.isPending = true;
 
     try {
-      await $configurationProvider.rename(this.configurationId, newName);
+      await this.configurationProvider.rename(this.configurationId, newName);
       this.isPending = false;
       this.isSuccess = true;
       setTimeout(() => {

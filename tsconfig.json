@@ -5,6 +5,7 @@
     "target": "esnext",
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "module": "esnext",
     // this enables stricter inference for data properties on `this`
     "strict": true,
@@ -14,7 +15,7 @@
     "strictPropertyInitialization": false,
     "noImplicitAny": true,
     "allowUnreachableCode": false,
-    "types": ["node"],
+    "types": ["node","reflect-metadata"],
     "paths": {
       "_components/*": ["src/components/*"],
       "_models/*": ["src/models/*"],

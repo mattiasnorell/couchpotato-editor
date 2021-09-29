@@ -1,9 +1,18 @@
 import axios from 'axios';
-import { $localStorageRepository } from '_services/repositories/localStorageRepository';
+import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { inject, injectable } from 'inversify-props';
 
-class CouchpotatoProvider {
+export interface ICouchpotatoProvider{
+  getCouchpotatoVersion(): Promise<string>;
+  getCouchpotatoLastRun(): Promise<LastRunResult | null>;
+}
+
+@injectable()
+export class CouchpotatoProvider {
+  @inject() public localStorageRepository: ILocalStorageRepository;
+  
   public async getCouchpotatoVersion(): Promise<string> {
-    const url = $localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
     const timeout = axios.CancelToken.source();
     setTimeout(() => {
       timeout.cancel();
@@ -19,7 +28,7 @@ class CouchpotatoProvider {
   }
 
   public async getCouchpotatoLastRun(): Promise<LastRunResult | null> {
-    const url = $localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
     const timeout = axios.CancelToken.source();
     setTimeout(() => {
       timeout.cancel();
@@ -40,6 +49,3 @@ export class LastRunResult {
   public validationErrors: string[] = [];
   public epgErrors: string[] = [];
 }
-
-const $couchpotatoProvider = new CouchpotatoProvider();
-export { $couchpotatoProvider };

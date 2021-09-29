@@ -3,7 +3,8 @@ import { Prop } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { InputText } from '_components/base/input-text/inputText';
 import { ModalBase } from '_models/modalBase';
-import { $logProvider } from '_services/providers/logProvider';
+import { ILogProvider } from '_services/providers/logProvider';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'LogModal',
@@ -14,6 +15,8 @@ import { $logProvider } from '_services/providers/logProvider';
   }
 })
 export class LogModal extends ModalBase {
+  @inject() private logProvider: ILogProvider;
+
   @Prop()
   public logId: string;
 
@@ -21,7 +24,7 @@ export class LogModal extends ModalBase {
   private contents: string = '';
 
   private async created(): Promise<void> {
-    const result = await $logProvider.get(this.logId);
+    const result = await this.logProvider.get(this.logId);
 
     if (result) {
       this.contents = typeof result === 'string' ? result : JSON.stringify(result, undefined, 3);

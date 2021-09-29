@@ -1,3 +1,5 @@
+import { injectable } from "inversify-props";
+
 export interface IUrlHelper {
     getQueryString(key: string): string | null;
     setQueryString(key: string, value: string): Promise<string>;
@@ -6,6 +8,7 @@ export interface IUrlHelper {
     getPageUrl(): string;
   }
   
+  @injectable()
   export class UrlHelper implements IUrlHelper {
     public getPageUrl(): string{
       return window.location.href?.split('?')[0];
@@ -33,7 +36,5 @@ export interface IUrlHelper {
       window.history.replaceState({}, title, path);
     }
   }
-  
-  const $urlHelper: IUrlHelper = new UrlHelper();
-  export { $urlHelper };
+
   

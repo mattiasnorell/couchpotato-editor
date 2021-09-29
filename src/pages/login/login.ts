@@ -3,7 +3,8 @@ import Component from 'vue-class-component';
 import { Layout } from '_components/base/layout/layout';
 import { InputText } from '_components/base/input-text/inputText';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { $authProvider } from '_services/providers/authProvider';
+import { $authProvider, IAuthProvider } from '_services/providers/authProvider';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'Login',
@@ -15,12 +16,15 @@ import { $authProvider } from '_services/providers/authProvider';
   }
 })
 export default class Login extends Vue {
+  @inject()
+  private authProvider: IAuthProvider;
+  
   private username: string = '';
-
+  
   public created() {}
 
   private login(): void {
-    const isAuth = $authProvider.checkAuth(this.username);
+    const isAuth = this.authProvider.checkAuth(this.username);
 
     if(isAuth){
       this.$router.push('dashboard');

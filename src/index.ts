@@ -1,85 +1,19 @@
+import "reflect-metadata";
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import './style/style.scss';
 import { $filters } from './filters';
 import { router } from './routes/initRoutes';
-import { library } from '@fortawesome/fontawesome-svg-core';
 import '_services/interceptors/axiosAuthInterceptor';
 import '_services/interceptors/axiosErrorInterceptor';
-
-import {
-  faTrash,
-  faEdit,
-  faPlus,
-  faSave,
-  faSpinner,
-  faChevronUp,
-  faChevronDown,
-  faCopy,
-  faThumbsUp,
-  faFilter,
-  faThumbsDown,
-  faTimes,
-  faFileImport,
-  faFileExport,
-  faPlay,
-  faHome,
-  faInfo,
-  faArchive,
-  faHamburger,
-  faTools,
-  faCouch,
-  faSyncAlt,
-  faDownload,
-  faFileSignature,
-  faCog,
-  faExclamationTriangle,
-  faList,
-  faSignOutAlt,
-  faSignInAlt,
-  faCheckSquare,
-  faEye
-} from '@fortawesome/free-solid-svg-icons';
+import buildContainer from './config/ioc';
+import '_services/helpers/fontAwesomeHelper';
 
 Vue.use($filters);
 Vue.use(VueRouter);
 
-library.add(
-  faArchive,
-  faTrash,
-  faHome,
-  faPlus,
-  faEdit,
-  faSave,
-  faSpinner,
-  faChevronUp,
-  faChevronDown,
-  faCopy,
-  faThumbsUp,
-  faFilter,
-  faThumbsDown,
-  faTimes,
-  faFileImport,
-  faFileExport,
-  faPlay,
-  faInfo,
-  faHamburger,
-  faTools,
-  faCouch,
-  faSyncAlt,
-  faDownload,
-  faFileSignature,
-  faCog,
-  faExclamationTriangle,
-  faList,
-  faSignOutAlt,
-  faSignInAlt,
-  faCheckSquare,
-  faEye,
-  faInfo
-);
-
+buildContainer();
 const appElement: HTMLElement | null = document.getElementById('app');
 
 if (appElement) {

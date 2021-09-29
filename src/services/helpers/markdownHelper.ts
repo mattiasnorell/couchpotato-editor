@@ -1,7 +1,10 @@
+import { injectable } from "inversify-props";
+
 export interface IMarkdownHelper {
   parse(input: string): string;
 }
 
+@injectable()
 export class MarkdownHelper implements IMarkdownHelper {
   public parse(input: any): string {
     const parsedContent: string = input
@@ -64,6 +67,3 @@ export class MarkdownHelper implements IMarkdownHelper {
     return parsedTable.outerHTML;
   }
 }
-
-const $markdownHelper: MarkdownHelper = new MarkdownHelper();
-export { $markdownHelper };

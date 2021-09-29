@@ -16,8 +16,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist')
   },
   devServer: {
-    contentBase: wwwFolder,
-
+    static: wwwFolder,
     port: 8000,
     hot: true,
     open: false,
@@ -27,7 +26,7 @@ module.exports = {
     rules: [
       {
         test: /\.ts?$/,
-        use: 'awesome-typescript-loader',
+        use: 'ts-loader',
         exclude: /node_modules/
       },
       {

@@ -1,7 +1,10 @@
+import { injectable } from "inversify-props";
+
 export interface IGuidHelper {
   generate(): string;
 }
 
+@injectable()
 export class GuidHelper implements IGuidHelper {
   public generate(): string {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -11,6 +14,3 @@ export class GuidHelper implements IGuidHelper {
     });
   }
 }
-
-const $guidHelper: GuidHelper = new GuidHelper();
-export { $guidHelper };

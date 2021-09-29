@@ -2,8 +2,9 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { Layout } from '_components/base/layout/layout';
-import { $couchpotatoConnector } from '_services/connectors/couchpotatoConnector';
+import { ICouchpotatoConnector } from '_services/connectors/couchpotatoConnector';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'UpdateBackend',
@@ -14,6 +15,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   }
 })
 export class UpdateBackend extends Vue {
+  @inject() private couchpotatoConnector: ICouchpotatoConnector;
+
   @Prop({ type: Boolean, default: false })
   public disabled: boolean;
 
@@ -28,7 +31,7 @@ export class UpdateBackend extends Vue {
     let iteration: number = 0;
 
     this.isPending = true;
-    const result = await $couchpotatoConnector.updateBackend();
+    const result = await this.couchpotatoConnector.updateBackend();
 
     if (result) {
       this.isPending = false;

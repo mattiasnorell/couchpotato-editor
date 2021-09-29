@@ -3,9 +3,10 @@ import { Prop } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { InputText } from '_components/base/input-text/inputText';
 import { ModalBase } from '_models/modalBase';
-import { $localStorageRepository } from '_services/repositories/localStorageRepository';
-import { $githubProvider } from '_services/providers/githubProvider';
-import { $markdownHelper } from '_services/helpers/markdownHelper';
+import { IGitHubProvider } from '_services/providers/githubProvider';
+import { IMarkdownHelper } from '_services/helpers/markdownHelper';
+import { inject } from 'inversify-props';
+import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
 
 @Component({
   name: 'PluginsReadme',
@@ -16,6 +17,10 @@ import { $markdownHelper } from '_services/helpers/markdownHelper';
   }
 })
 export class PluginsReadme extends ModalBase {
+  @inject() public localStorageRepository: ILocalStorageRepository;
+  @inject() public gitHubProvider: IGitHubProvider;
+  @inject() public markdownHelper: IMarkdownHelper;
+  
   @Prop()
   public title: string;
 
@@ -25,20 +30,19 @@ export class PluginsReadme extends ModalBase {
   private contents: string = '';
 
   public async created(): Promise<void> {
-    const githubToken = $localStorageRepository.read<string>('githubToken');
+    const githubToken = this.localStorageRepository.read<string>('githubToken');
     if (githubToken) {
-      const repoContent = await $githubProvider.getRepositoryContent('couchpotato-plugins', githubToken);
+      const repoContent = await this.gitHubProvider.getRepositoryContent('couchpotato-plugins', githubToken);
       const repo = repoContent.find((r) => r.name === this.pluginId);
-      console.log(repo?.git_url);
 
-      if (repo?.git_url) {
-        const tree = await $githubProvider.getRepositoryTreeContent(repo?.git_url, githubToken);
+      if (repo && repo.git_url) {
+        const tree = await this.gitHubProvider.getRepositoryTreeContent(repo?.git_url, githubToken);
         if (tree) {
           const readme = tree.tree.find((item) => item.path === 'README.md');
 
           if (readme?.url) {
-            const blob = await $githubProvider.getReadme(readme?.url, githubToken);
-            const parsedContent = $markdownHelper.parse(blob);
+            const blob = await this.gitHubProvider.getReadme(readme?.url, githubToken);
+            const parsedContent = this.markdownHelper.parse(blob);
 
             this.contents = parsedContent;
           }

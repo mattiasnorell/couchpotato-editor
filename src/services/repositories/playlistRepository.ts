@@ -1,8 +1,21 @@
 import { PlaylistItem } from '_models/PlaylistItem';
-import { $playlistParser } from '_services/parsers/playlistParser';
+import { IPlaylistParser } from '_services/parsers/playlistParser';
 import axios from 'axios';
+import { injectable, inject } from 'inversify-props';
 
-class PlaylistRepository {
+export interface IPlaylistRepository {
+  init(path: string): void
+  load(): Promise<PlaylistItem[]>
+  getAll(): Promise<PlaylistItem[]>
+  search(query: string, take?: number): Promise<PlaylistItem[]>
+  searchGroup(query: string, take?: number): Promise<string[]>
+}
+
+@injectable()
+export class PlaylistRepository {
+  @inject()
+  private playlistParser: IPlaylistParser;
+
   private playlistItems: PlaylistItem[] = [];
   private path: string;
   private apiBasePath: string = 'http://couchpotato.automagiskdatabehandling.se/api';
@@ -24,7 +37,7 @@ class PlaylistRepository {
       return [];
     }
 
-    const items = $playlistParser.parse(playlist.data);
+    const items = this.playlistParser.parse(playlist.data);
     return items;
   }
 
@@ -60,6 +73,3 @@ class PlaylistRepository {
     return result.splice(0, take);
   }
 }
-
-const $playlistRepository = new PlaylistRepository();
-export { $playlistRepository };

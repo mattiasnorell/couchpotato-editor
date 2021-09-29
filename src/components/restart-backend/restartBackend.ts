@@ -2,8 +2,9 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { Layout } from '_components/base/layout/layout';
-import { $couchpotatoConnector } from '_services/connectors/couchpotatoConnector';
+import { ICouchpotatoConnector } from '_services/connectors/couchpotatoConnector';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'RestartBackend',
@@ -14,6 +15,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   }
 })
 export class RestartBackend extends Vue {
+  @inject() public couchpotatoConnector: ICouchpotatoConnector;
+
   @Prop({ type: Boolean, default: false })
   public disabled: boolean;
 
@@ -28,7 +31,7 @@ export class RestartBackend extends Vue {
     let iteration: number = 0;
 
     this.isPending = true;
-    await $couchpotatoConnector.restartBackend();
+    await this.couchpotatoConnector.restartBackend();
 
     const interval = setInterval(async () => {
       if (maxRetry < iteration) {
@@ -38,7 +41,7 @@ export class RestartBackend extends Vue {
       }
 
       iteration++;
-      const result = await $couchpotatoConnector.ping();
+      const result = await this.couchpotatoConnector.ping();
 
       if (result) {
         this.isPending = false;

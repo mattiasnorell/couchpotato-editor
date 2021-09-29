@@ -2,8 +2,9 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { Configuration } from '_models/Configuration';
-import { $configurationProvider } from '_services/providers/configurationProvider';
+import { IConfigurationProvider } from '_services/providers/configurationProvider';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'Save',
@@ -13,6 +14,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   }
 })
 export class Save extends Vue {
+  @inject() configurationProvider: IConfigurationProvider;
+  
   @Prop()
   private configuration: Configuration;
 
@@ -32,7 +35,7 @@ export class Save extends Vue {
     this.isPending = true;
 
     try {
-      await $configurationProvider.save(this.configurationId, this.configuration);
+      await this.configurationProvider.save(this.configurationId, this.configuration);
       this.isPending = false;
       this.isSuccess = true;
       setTimeout(() => {

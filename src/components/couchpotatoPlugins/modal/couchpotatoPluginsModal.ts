@@ -2,12 +2,13 @@ import Component from 'vue-class-component';
 import { Prop, Ref } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { InputText } from '_components/base/input-text/inputText';
-import { $couchpotatoPluginConnector } from '_services/connectors/couchpotatoPluginConnector';
-import { $arrayHelper } from '_services/helpers/arrayHelper';
-import { $guidHelper } from '_services/helpers/guidHelper';
+import { ICouchpotatoPluginConnector } from '_services/connectors/couchpotatoPluginConnector';
+import { IArrayHelper } from '_services/helpers/arrayHelper';
+import { IGuidHelper } from '_services/helpers/guidHelper';
 import { CouchpotatoPluginsJsonModal, JsonModalProps } from '../json-modal/couchpotatoPluginsJsonModal';
-import { $modalHelper } from '_services/helpers/modalHelper';
+import { IModalHelper } from '_services/helpers/modalHelper';
 import { ModalBase } from '_models/modalBase';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'CouchpotatoPluginsModal',
@@ -18,6 +19,11 @@ import { ModalBase } from '_models/modalBase';
   }
 })
 export class CouchpotatoPluginsModal extends ModalBase {
+  @inject() private couchpotatoPluginConnector: ICouchpotatoPluginConnector;
+  @inject() private arrayHelper: IArrayHelper;
+  @inject() private guidHelper: IGuidHelper;
+  @inject() private modalHelper: IModalHelper;
+
   @Prop()
   public title: string;
 
@@ -50,14 +56,14 @@ export class CouchpotatoPluginsModal extends ModalBase {
       settings[item.key] = item.value;
     });
 
-    await $couchpotatoPluginConnector.saveSettings(this.pluginId, settings);
+    await this.couchpotatoPluginConnector.saveSettings(this.pluginId, settings);
     this.isPending = false;
 
     super.closeModal();
   }
 
   private onDelete(index: number): void{
-    $arrayHelper.removeAtIndex(this.settingsList, index);
+    this.arrayHelper.removeAtIndex(this.settingsList, index);
   }
 
   private onAdd(): void{
@@ -70,7 +76,7 @@ export class CouchpotatoPluginsModal extends ModalBase {
   }
 
   private uniqueId(): string {
-    return $guidHelper.generate();
+    return this.guidHelper.generate();
   }
 
   private editJsonFile(path: string): void {
@@ -78,7 +84,7 @@ export class CouchpotatoPluginsModal extends ModalBase {
     props.title = `Installera plugin`;
     props.path = path;
 
-    $modalHelper.create<typeof CouchpotatoPluginsJsonModal>(CouchpotatoPluginsJsonModal, props, async () => {
+    this.modalHelper.create<typeof CouchpotatoPluginsJsonModal>(CouchpotatoPluginsJsonModal, props, async () => {
       
     });
   }

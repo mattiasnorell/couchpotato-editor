@@ -1,8 +1,11 @@
-interface ILanguageRepository {
+import { injectable } from "inversify";
+
+export interface ILanguageRepository {
   get(key: string): string;
 }
 
-class LanguageRepository implements ILanguageRepository {
+@injectable()
+export class LanguageRepository implements ILanguageRepository {
   private translations: { [key: string]: string } = {
     cancel: 'Avbryt',
     loading: 'Laddar',
@@ -84,7 +87,6 @@ class LanguageRepository implements ILanguageRepository {
     format: 'Formatera',
     information: 'Info',
     plugin: 'Plugin'
-
   };
 
   get(key: string): string {
@@ -95,6 +97,3 @@ class LanguageRepository implements ILanguageRepository {
     return `No translation found for "${key}"`;
   }
 }
-
-const $languageRepository = new LanguageRepository();
-export { $languageRepository };

@@ -2,8 +2,9 @@ import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { InputText } from '_components/base/input-text/inputText';
-import { $couchpotatoPluginConnector } from '_services/connectors/couchpotatoPluginConnector';
+import { ICouchpotatoPluginConnector } from '_services/connectors/couchpotatoPluginConnector';
 import { ModalBase } from '_models/modalBase';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'CouchpotatoPluginsJsonModal',
@@ -14,6 +15,8 @@ import { ModalBase } from '_models/modalBase';
   }
 })
 export class CouchpotatoPluginsJsonModal extends ModalBase {
+  @inject() private couchpotatoPluginConnector: ICouchpotatoPluginConnector;
+  
   @Prop()
   public title: string;
 
@@ -24,7 +27,7 @@ export class CouchpotatoPluginsJsonModal extends ModalBase {
   private contents: string = '';
 
   private async created(): Promise<void> {
-    const result = await $couchpotatoPluginConnector.getSettingsFile(this.path);
+    const result = await this.couchpotatoPluginConnector.getSettingsFile(this.path);
     this.contents = JSON.stringify(result, undefined, 4);
   }
 
@@ -38,7 +41,7 @@ export class CouchpotatoPluginsJsonModal extends ModalBase {
     }
 
     const contents = JSON.parse(this.contents);
-    await $couchpotatoPluginConnector.saveSettingsFile(this.path, contents);
+    await this.couchpotatoPluginConnector.saveSettingsFile(this.path, contents);
     this.isPending = false;
 
     super.closeModal();

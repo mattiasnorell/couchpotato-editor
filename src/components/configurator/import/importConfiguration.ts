@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { $modalHelper } from '_services/helpers/modalHelper';
+import { IModalHelper } from '_services/helpers/modalHelper';
 import { ImportForm, ImportFormProps } from './import-form/importForm';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'ImportConfiguration',
@@ -12,7 +13,8 @@ import { ImportForm, ImportFormProps } from './import-form/importForm';
   }
 })
 export class ImportConfiguration extends Vue {
-  
+  @inject() private modalHelper: IModalHelper;
+
   private isPending: boolean = false;
   private isError: boolean = false;
   private isSuccess: boolean = false;
@@ -20,7 +22,7 @@ export class ImportConfiguration extends Vue {
   private async openModal(): Promise<void> {
     const props: ImportFormProps = new ImportFormProps();
     props.title = 'Importera konfiguration';
-    $modalHelper.create<typeof ImportForm>(ImportForm, props, (evt: any) => {
+    this.modalHelper.create<typeof ImportForm>(ImportForm, props, (evt: any) => {
       this.$emit('onImport', evt);
     });
   }

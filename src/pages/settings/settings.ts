@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Layout } from '_components/base/layout/layout';
-import { $localStorageRepository } from '_services/repositories/localStorageRepository';
+import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
 import { InputText } from '_components/base/input-text/inputText';
 import { Collapse } from '_components/base/collapse/collapse';
-import { $modalHelper } from '_services/helpers/modalHelper';
+import { IModalHelper } from '_services/helpers/modalHelper';
 import WebSocketModalProps, { WebSocketModal } from '_components/websocket-modal/webSocketModal';
-import { $couchpotatoConnector } from '_services/connectors/couchpotatoConnector';
-import { $languageRepository } from '_services/repositories/languageRepository';
+import { ICouchpotatoConnector } from '_services/connectors/couchpotatoConnector';
+import { ILanguageRepository } from '_services/repositories/languageRepository';
 import { CouchpotatoPlugins } from '_components/couchpotatoPlugins/couchpotatoPlugins';
 import { RestartBackend } from '_components/restart-backend/restartBackend';
 import { RestartCron } from '_components/restart-cron/restartCron';
@@ -16,6 +16,7 @@ import { CronJobs } from '_components/cronJobs/cronJobs';
 import { CouchpotatoLogs } from '_components/couchpotatoLogs/couchpotatoLogs';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { RequireTokenDecorator } from 'src/decorators/RequireTokenDecorator';
+import { inject } from 'inversify-props';
 
 
 @Component({
@@ -36,46 +37,50 @@ import { RequireTokenDecorator } from 'src/decorators/RequireTokenDecorator';
 })
 @RequireTokenDecorator()
 export default class Settings extends Vue {
+  @inject() public languageRepository: ILanguageRepository;
+  @inject() public localStorageRepository: ILocalStorageRepository;
+  @inject() public couchpotatoConnector: ICouchpotatoConnector;
+  @inject() public modalHelper: IModalHelper;
+  
   private hasConnectionError: boolean = false;
-
   private couchpotatoApiPath: string | null = '';
   private couchpotatoWebsocketPath: string | null = '';
   private couchpotatoAccessToken: string | null = '';
   private githubToken: string | null = '';
 
   public async created(): Promise<void> {
-    this.couchpotatoWebsocketPath = $localStorageRepository.read<string>('couchpotatoWebsocketPath');
-    this.couchpotatoApiPath = $localStorageRepository.read<string>('couchpotatoApiPath');
-    this.couchpotatoAccessToken = $localStorageRepository.read<string>('couchpotatoAccessToken');
-    this.githubToken = $localStorageRepository.read<string>('githubToken');
+    this.couchpotatoWebsocketPath = this.localStorageRepository.read<string>('couchpotatoWebsocketPath');
+    this.couchpotatoApiPath = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    this.couchpotatoAccessToken = this.localStorageRepository.read<string>('couchpotatoAccessToken');
+    this.githubToken = this.localStorageRepository.read<string>('githubToken');
 
     this.checkConnection();
   }
 
   private async checkConnection(): Promise<void> {
-    const result = await $couchpotatoConnector.ping();
+    const result = await this.couchpotatoConnector.ping();
     this.hasConnectionError = !result;
   }
 
   private onInputCouchpotatoApiPath(value: string): void {
-    $localStorageRepository.write<string>('couchpotatoApiPath', value);
-    this.couchpotatoApiPath = $localStorageRepository.read<string>('couchpotatoApiPath');
+    this.localStorageRepository.write<string>('couchpotatoApiPath', value);
+    this.couchpotatoApiPath = this.localStorageRepository.read<string>('couchpotatoApiPath');
     this.checkConnection();
   }
 
   private onInputCouchpotatoWebsocketPath(value: string): void {
-    $localStorageRepository.write<string>('couchpotatoWebsocketPath', value);
-    this.couchpotatoWebsocketPath = $localStorageRepository.read<string>('couchpotatoWebsocketPath');
+    this.localStorageRepository.write<string>('couchpotatoWebsocketPath', value);
+    this.couchpotatoWebsocketPath = this.localStorageRepository.read<string>('couchpotatoWebsocketPath');
   }
 
   private onInputCouchpotatoToken(value: string): void {
-    $localStorageRepository.write<string>('couchpotatoAccessToken', value);
-    this.couchpotatoAccessToken = $localStorageRepository.read<string>('couchpotatoAccessToken');
+    this.localStorageRepository.write<string>('couchpotatoAccessToken', value);
+    this.couchpotatoAccessToken = this.localStorageRepository.read<string>('couchpotatoAccessToken');
   }
 
   private onInputGithubToken(value: string): void {
-    $localStorageRepository.write<string>('githubToken', value);
-    this.githubToken = $localStorageRepository.read<string>('githubToken');
+    this.localStorageRepository.write<string>('githubToken', value);
+    this.githubToken = this.localStorageRepository.read<string>('githubToken');
   }
 
   private get hasCouchpotatoPath(): boolean {
@@ -84,10 +89,10 @@ export default class Settings extends Vue {
 
   private updateCouchpotato(): void {
     const props: WebSocketModalProps = new WebSocketModalProps();
-    props.title = $languageRepository.get('updateCouchpotato');
+    props.title = this.languageRepository.get('updateCouchpotato');
     props.action = 'reinstall';
     props.accessToken = this.couchpotatoAccessToken;
 
-    $modalHelper.create<typeof WebSocketModal>(WebSocketModal, props);
+    this.modalHelper.create<typeof WebSocketModal>(WebSocketModal, props);
   }
 }

@@ -3,7 +3,8 @@ import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { Configuration } from '_models/Configuration';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { $urlHelper } from '_services/helpers/urlHelper';
+import { IUrlHelper } from '_services/helpers/urlHelper';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'ExportConfiguration',
@@ -13,6 +14,8 @@ import { $urlHelper } from '_services/helpers/urlHelper';
   }
 })
 export class ExportConfiguration extends Vue {
+  @inject() private urlHelper: IUrlHelper;
+
   @Prop()
   public configuration: Configuration;
   private isPending: boolean = false;
@@ -20,7 +23,7 @@ export class ExportConfiguration extends Vue {
   private isSuccess: boolean = false;
 
   private onClick(): void {
-    const id = $urlHelper.getQueryString('id');
+    const id = this.urlHelper.getQueryString('id');
     const fileName = id ? `${id}.json}` : 'couchpotato.json';
     const a = document.createElement('a');
     const content = JSON.stringify(this.configuration);

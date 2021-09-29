@@ -1,11 +1,14 @@
 import { createDecorator } from "vue-class-component";
 import { VNode } from "vue";
-import { $authProvider } from "_services/providers/authProvider";
+import { IAuthProvider } from "_services/providers/authProvider";
+import { container, cid } from "inversify-props";
 
 export function AuthDecorator(): ClassDecorator {
+    const authProvider = container.get<IAuthProvider>(cid.IAuthProvider);
+    
     return createDecorator((compOptions, handler) => {
         compOptions.beforeCreate = function(this:Vue) {
-            const isLoggedIn = $authProvider.checkToken();
+            const isLoggedIn = authProvider.checkToken();
             
             if(!isLoggedIn){
                 return;

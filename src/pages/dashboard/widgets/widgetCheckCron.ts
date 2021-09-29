@@ -2,8 +2,9 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { TriggerCouchpotato } from '_components/trigger-couchpotato/triggerCouchpotato';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { $couchpotatoConnector } from '_services/connectors/couchpotatoConnector';
-import { $cronConnector } from '_services/connectors/cronConnector';
+import { ICouchpotatoConnector } from '_services/connectors/couchpotatoConnector';
+import { ICronConnector } from '_services/connectors/cronConnector';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'WidgetCheckCron',
@@ -14,11 +15,14 @@ import { $cronConnector } from '_services/connectors/cronConnector';
   }
 })
 export class WidgetCheckCron extends Vue {
+  @inject() public couchpotatoConnector: ICouchpotatoConnector;
+  @inject() public cronConnector: ICronConnector;
+  
   private isPending: boolean = true;
   private isRunning: boolean = false;
 
   public async created(): Promise<void> {
-    const isApiAvaliable = await $couchpotatoConnector.ping().catch(() => {
+    const isApiAvaliable = await this.couchpotatoConnector.ping().catch(() => {
       return false;
     });
 
@@ -27,7 +31,7 @@ export class WidgetCheckCron extends Vue {
       this.isRunning = false;
     }
 
-    const result = await $cronConnector.status().catch(() => {
+    const result = await this.cronConnector.status().catch(() => {
       return false;
     });
 

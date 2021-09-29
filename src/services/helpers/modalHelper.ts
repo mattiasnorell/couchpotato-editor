@@ -1,8 +1,18 @@
 import Vue from 'vue';
-import { $guidHelper } from './guidHelper';
-export class ModalService {
-  public create<T>(component: T, propsData: object, onClose: Function | null = null) {
-    const uniqueId = $guidHelper.generate();
+import { IGuidHelper } from './guidHelper';
+import { injectable, inject } from 'inversify-props';
+
+export interface IModalHelper {
+  create<T>(component: T, propsData: object, onClose?: Function | null): void;
+}
+
+@injectable()
+export class ModalHelper {
+  @inject()
+  private guidHelper: IGuidHelper;
+
+  public create<T>(component: T, propsData: object, onClose: Function | null = null): void {
+    const uniqueId = this.guidHelper.generate();
     const wrapperId = `modal-${uniqueId}`;
     const modalWrapper = document.createElement('div');
     modalWrapper.id = wrapperId;
@@ -16,7 +26,7 @@ export class ModalService {
 
     window.addEventListener(`closeModal-${uniqueId}`, (payload: any) => {
       vm.$destroy();
-      vm?.$el?.parentNode?.removeChild(vm.$el);
+      vm ?.$el ?.parentNode ?.removeChild(vm.$el);
 
       document.body.style.overflow = 'scroll';
 
@@ -26,6 +36,3 @@ export class ModalService {
     });
   }
 }
-
-const $modalHelper: ModalService = new ModalService();
-export { $modalHelper };

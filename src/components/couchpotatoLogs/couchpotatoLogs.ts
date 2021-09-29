@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { $modalHelper } from '_services/helpers/modalHelper';
-import { $logProvider } from '_services/providers/logProvider';
+import { IModalHelper } from '_services/helpers/modalHelper';
+import { ILogProvider } from '_services/providers/logProvider';
 import { LogModal } from './log-modal/logModal';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'CouchpotatoLogs',
@@ -13,13 +14,16 @@ import { LogModal } from './log-modal/logModal';
   }
 })
 export class CouchpotatoLogs extends Vue {
+  @inject() public logProvider: ILogProvider;
+  @inject() public modalHelper: IModalHelper;
+  
   private logs: string[] = [];
   public async created(): Promise<void> {
     this.loadLogs();
   }
 
   private async loadLogs(): Promise<void> {
-    const result = await $logProvider.getAll();
+    const result = await this.logProvider.getAll();
 
     if (result) {
       this.logs = result.map((item) => {
@@ -31,7 +35,7 @@ export class CouchpotatoLogs extends Vue {
   }
 
   private openLog(log: string): void {
-    $modalHelper.create<typeof LogModal>(LogModal, { logId: log });
+    this.modalHelper.create<typeof LogModal>(LogModal, { logId: log });
   }
 
   private async deleteLog(log: string): Promise<void> {
@@ -41,7 +45,7 @@ export class CouchpotatoLogs extends Vue {
       return;
     }
 
-    await $logProvider.deleteLog(log);
+    await this.logProvider.deleteLog(log);
     this.loadLogs();
   }
 }

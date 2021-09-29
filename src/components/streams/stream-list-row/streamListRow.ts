@@ -6,7 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { InputText } from '_components/base/input-text/inputText';
 import { StreamPicker } from '_components/base/stream-picker/streamPicker';
 import { StreamEdit, StreamEditProps } from '_components/streams/stream-edit/streamEdit';
-import { $modalHelper } from '_services/helpers/modalHelper';
+import { IModalHelper } from '_services/helpers/modalHelper';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'StreamListRow',
@@ -18,6 +19,8 @@ import { $modalHelper } from '_services/helpers/modalHelper';
   }
 })
 export class StreamListRow extends Vue {
+  @inject() private modalHelper: IModalHelper;
+  
   @Prop()
   private stream: Stream;
   private showStreamPicker: boolean = false;
@@ -48,7 +51,7 @@ export class StreamListRow extends Vue {
     props.title = `Redigera ${this.stream.channelId}`;
     props.stream = this.stream;
 
-    $modalHelper.create<typeof StreamEdit>(StreamEdit, props, () => {
+    this.modalHelper.create<typeof StreamEdit>(StreamEdit, props, () => {
     
     });
   }

@@ -2,10 +2,11 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { PlaylistItem } from '_models/PlaylistItem';
 import { Stream } from '_models/Stream';
-import { $playlistRepository } from '_services/repositories/playlistRepository';
+import { IPlaylistRepository } from '_services/repositories/playlistRepository';
 import { InputText } from '_components/base/input-text/inputText';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { Prop, Ref } from 'vue-property-decorator';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'StreamPicker',
@@ -16,6 +17,9 @@ import { Prop, Ref } from 'vue-property-decorator';
   }
 })
 export class StreamPicker extends Vue {
+  @inject()
+  private playlistRepository: IPlaylistRepository;
+
   private searchResult: any[] = [];
   private isPending: boolean = false;
   private query: string = '';
@@ -46,7 +50,7 @@ export class StreamPicker extends Vue {
 
     this.isPending = true;
     try {
-      const result = await $playlistRepository.search(this.query);
+      const result = await this.playlistRepository.search(this.query);
       this.searchResult = result;
       this.isPending = false;
     } catch (err) {

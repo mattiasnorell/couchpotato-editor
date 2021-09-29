@@ -5,8 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { Group } from '_models/Group';
 import { InputText } from '_components/base/input-text/inputText';
 import { GroupPicker } from '_components/base/group-picker/groupPicker';
-import { $modalHelper } from '_services/helpers/modalHelper';
+import { IModalHelper } from '_services/helpers/modalHelper';
 import { Excluded, ExcludedProps } from '_components/group-config/excluded/excluded';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'FullGroupIncludeRow',
@@ -18,6 +19,8 @@ import { Excluded, ExcludedProps } from '_components/group-config/excluded/exclu
   }
 })
 export class FullGroupIncludeRow extends Vue {
+  @inject() public modalHelper: IModalHelper;
+  
   @Prop()
   public group: Group;
   private isEdit: boolean = false;
@@ -48,7 +51,7 @@ export class FullGroupIncludeRow extends Vue {
     excludedProps.title = 'Excludera stream från grupp';
     excludedProps.items = this.group.exclude;
 
-    $modalHelper.create<typeof Excluded>(Excluded, excludedProps, (evt: any) => {
+    this.modalHelper.create<typeof Excluded>(Excluded, excludedProps, (evt: any) => {
 
     });
   }

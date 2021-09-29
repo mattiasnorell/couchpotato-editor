@@ -1,10 +1,15 @@
+import { injectable } from "inversify-props";
+
 export interface IArrayHelper {
-  indexOf(source: any[], element: any): number;
+  indexOf<T>(source: T, element: any): number;
   moveToIndex(source: any[], index: number, targetIndex: number): void;
+  removeItem(source: any[], item: any): any;
+  removeAtIndex(source: any[], index: number): any;
 }
 
+@injectable()
 export class ArrayHelper implements IArrayHelper {
-  public indexOf(source: any, element: any): number {
+  public indexOf<T>(source: T, element: any): number {
     return Array.prototype.indexOf.call(source, element);
   }
 
@@ -21,6 +26,3 @@ export class ArrayHelper implements IArrayHelper {
     source.splice(index, 1);
   }
 }
-
-const $arrayHelper: ArrayHelper = new ArrayHelper();
-export { $arrayHelper };

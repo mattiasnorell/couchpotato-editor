@@ -2,7 +2,8 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { TriggerCouchpotato } from '_components/trigger-couchpotato/triggerCouchpotato';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { $couchpotatoProvider, LastRunResult } from '_services/providers/couchpotatoProvider';
+import { ICouchpotatoProvider, LastRunResult } from '_services/providers/couchpotatoProvider';
+import { inject } from 'inversify-props';
 @Component({
   name: 'WidgetLastRunLog',
   template: require('./widgetLastRunLog.pug'),
@@ -12,11 +13,13 @@ import { $couchpotatoProvider, LastRunResult } from '_services/providers/couchpo
   }
 })
 export class WidgetLastRunLog extends Vue {
+  @inject() public couchpotatoProvider: ICouchpotatoProvider;
+
   private hasErrors: boolean = false;
   private log: LastRunResult | null = null;
 
   public async created(): Promise<void> {
-    const result = await $couchpotatoProvider.getCouchpotatoLastRun().catch((err) => {
+    const result = await this.couchpotatoProvider.getCouchpotatoLastRun().catch((err) => {
       this.hasErrors = true;
     });
 

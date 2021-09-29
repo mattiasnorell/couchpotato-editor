@@ -2,9 +2,10 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import WebSocketModalProps, { WebSocketModal } from '_components/websocket-modal/webSocketModal';
-import { $modalHelper } from '_services/helpers/modalHelper';
-import { Prop } from 'vue-property-decorator';
-import { $languageRepository } from '_services/repositories/languageRepository';
+import { IModalHelper } from '_services/helpers/modalHelper';
+import { Prop, Inject } from 'vue-property-decorator';
+import { ILanguageRepository } from '_services/repositories/languageRepository';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'TriggerCouchpotato',
@@ -14,18 +15,22 @@ import { $languageRepository } from '_services/repositories/languageRepository';
   }
 })
 export class TriggerCouchpotato extends Vue {
+  @inject() public languageRepository: ILanguageRepository;
+  @inject() public modalHelper: IModalHelper;
+
   @Prop()
   public configurationId: string;
 
   @Prop({type: Boolean, default: false})
   public disabled: boolean;
 
+
   private async onClick(): Promise<void> {
     const props: WebSocketModalProps = new WebSocketModalProps();
-    props.title = `${$languageRepository.get('triggerCouchpotato')} ${$languageRepository.get('for')} ${this.configurationId}`;
+    props.title = `${this.languageRepository.get('triggerCouchpotato')} ${this.languageRepository.get('for')} ${this.configurationId}`;
     props.action = 'import';
     props.url = this.configurationId;
 
-    $modalHelper.create<typeof WebSocketModal>(WebSocketModal, props);
+    this.modalHelper.create<typeof WebSocketModal>(WebSocketModal, props);
   }
 }

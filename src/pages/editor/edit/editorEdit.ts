@@ -5,8 +5,9 @@ import { Prop } from 'vue-property-decorator';
 import { Layout } from '_components/base/layout/layout';
 import { Configurator } from '_components/configurator/configurator';
 import { Configuration } from '_models/Configuration';
-import { $configurationProvider } from '_services/providers/configurationProvider';
-import { $playlistRepository } from '_services/repositories/playlistRepository';
+import { IConfigurationProvider } from '_services/providers/configurationProvider';
+import { IPlaylistRepository } from '_services/repositories/playlistRepository';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'EditorEdit',
@@ -18,6 +19,9 @@ import { $playlistRepository } from '_services/repositories/playlistRepository';
 })
 @RequireTokenDecorator()
 export default class EditorEdit extends Vue {
+  @inject() public configurationProvider: IConfigurationProvider;
+  @inject() public playlistRepository: IPlaylistRepository;
+
   @Prop()
   public id: string;
 
@@ -27,15 +31,15 @@ export default class EditorEdit extends Vue {
     this.configuration = configuration;
   }
 
-  public async created() {
+  public async mounted() {
     if (this.id) {
-      const result = await $configurationProvider.load(this.id);
+      const result = await this.configurationProvider.load(this.id);
 
       if (!result) {
         return;
       }
 
-      $playlistRepository.init(result.m3uPath);
+      this.playlistRepository.init(result.m3uPath);
 
       this.configuration = result;
     } else {

@@ -6,9 +6,10 @@ import { InputCheckbox } from '_components/base/input-checkbox/inputCheckbox';
 import { TableEmptyState } from '_components/base/table-empty-state/tableEmptyState';
 import { InputText } from '_components/base/input-text/inputText';
 import dragula from 'dragula';
-import { $arrayHelper } from '_services/helpers/arrayHelper';
-import { $guidHelper } from '_services/helpers/guidHelper';
+import { IArrayHelper } from '_services/helpers/arrayHelper';
+import { IGuidHelper } from '_services/helpers/guidHelper';
 import { ModalBase } from '_models/modalBase';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'FallbackValueItems',
@@ -21,6 +22,9 @@ import { ModalBase } from '_models/modalBase';
   }
 })
 export class FallbackValueItems extends ModalBase {
+  @inject() private guidHelper: IGuidHelper;
+  @inject() private arrayHelper: IArrayHelper;
+  
   @Prop()
   public title: string;
 
@@ -55,7 +59,7 @@ export class FallbackValueItems extends ModalBase {
   }
 
   private uniqueId(): string {
-    return $guidHelper.generate();
+    return this.guidHelper.generate();
   }
   
   private initDragula(): void {
@@ -74,12 +78,12 @@ export class FallbackValueItems extends ModalBase {
           return;
         }
 
-        startPosition = $arrayHelper.indexOf(el.parentNode.children, el);
+        startPosition = this.arrayHelper.indexOf<HTMLCollection>(el.parentNode.children, el);
       });
 
       drake.on('drop', (el: Element, target: Element, source: Element, sibling: Element): void => {
-        const index = $arrayHelper.indexOf(target.children, el);
-        $arrayHelper.moveToIndex(this.items, startPosition, index);
+        const index = this.arrayHelper.indexOf<HTMLCollection>(target.children, el);
+        this.arrayHelper.moveToIndex(this.items, startPosition, index);
       });
     }
   }
