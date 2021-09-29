@@ -5,8 +5,6 @@ export interface IPlaylistParser {
 }
 
 export class PlaylistParser {
-  private playlistItems: PlaylistItem[] = [];
-
   public parse(playlist: string): PlaylistItem[] {
     const items: PlaylistItem[] = [];
 
@@ -14,6 +12,7 @@ export class PlaylistParser {
     for (var line = 0; line < lines.length; line++) {
       if (lines[line].startsWith('#EXTINF')) {
         const parsedLine = this.parseLine(lines[line]);
+        parsedLine.url = lines[line + 1];
         items.push(parsedLine);
       }
     }
@@ -32,7 +31,7 @@ export class PlaylistParser {
   }
 
   private GetValueForAttribute(item: string, attributeName: string): string {
-    const regex = new RegExp(attributeName + '="([A-Za-zåäöÅÄÖ.\\[\\]\\(\\)&\/0-9 _:\-]*)"');
+    const regex = new RegExp(attributeName + '="([A-Za-zåäöÅÄÖ.\\[\\]\\(\\)&/0-9 _:-]*)"');
     const match = regex.exec(item);
 
     if (!match) {

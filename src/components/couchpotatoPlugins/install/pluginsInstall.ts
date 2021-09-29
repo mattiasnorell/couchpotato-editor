@@ -48,6 +48,7 @@ export class PluginsInstall extends ModalBase {
     props.title = `${this.languageRepository.get('installPlugin')} - ${plugin.name}`;
     props.action = 'installplugin';
     props.url = plugin.name;
+    props.accessToken = $localStorageRepository.read<string>('githubToken');
 
     this.modalHelper.create<typeof WebSocketModal>(WebSocketModal, props, async () => {
       

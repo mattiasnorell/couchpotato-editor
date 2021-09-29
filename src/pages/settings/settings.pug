@@ -37,8 +37,8 @@ layout()
             couchpotato-logs()
 
         collapse(class="mb-4" title="System" :openAtRender="false")
-            div(class="flex")
-                div(class="w-full md:w-1/4")
+            div(class="md:flex")
+                div(class="w-full from-md:w-1/4")
                     div(class="flex-row")
                         div(class="col w-full")
                             label() {{ 'restart' | translate }}
@@ -50,7 +50,7 @@ layout()
                                         restart-cron()
                                     
 
-                div(class="w-full md:w-1/4")
+                div(class="w-full from-sm:w-1/4")
                     div(class="flex-row")
                         div(class="col")
                             label() {{ 'update' | translate }}
@@ -64,4 +64,15 @@ layout()
                                             span(class="mr-1")
                                                 font-awesome-icon(icon="sync-alt")
                                             span() Uppdatera Couchpotato
+
+                div(class="w-full from-md:w-1/4")
+                    div(class="flex-row")
+                        div(class="col")
+                            label() {{ 'importExportSettings' | translate }}
+
+                            div(class="flex-row")
+                                div(class="col")
+                                    div(class="input-group flex w-full")
+                                        settings-export(class="mr-2 mb-2 md:mb-0")
+                                        settings-import(class="mr-2 mb-2 md:mb-0" @onUpdate="onSettingsImport")
                                                     

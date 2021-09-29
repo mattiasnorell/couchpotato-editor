@@ -38,11 +38,11 @@ export class StreamListRow extends Vue {
     this.showStreamPicker = false;
   }
 
-  private onStreamPickerBlur(): void{
+  private onStreamPickerBlur(): void {
     this.showStreamPicker = false;
   }
 
-  private toggleStreamPicker(): void{
+  private toggleStreamPicker(): void {
     this.showStreamPicker = !this.showStreamPicker;
   }
 

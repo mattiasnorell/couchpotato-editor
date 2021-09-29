@@ -4,6 +4,7 @@ import { Prop } from 'vue-property-decorator';
 import { IPlaylistRepository } from '_services/repositories/playlistRepository';
 import { Collapse } from '_components/base/collapse/collapse';
 import { InputCheckbox } from '_components/base/input-checkbox/inputCheckbox';
+import { CopyStreamUrl } from '_components/configurator/copy-stream-url/copyStreamUrl';
 import { InputSelect, SelectOption } from '_components/base/input-select/inputSelect';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import StreamCatalogueItem from './StreamCatalogueItem';
@@ -18,7 +19,8 @@ import { inject } from 'inversify-props';
     Collapse,
     FontAwesomeIcon,
     InputCheckbox,
-    InputSelect
+    InputSelect,
+    CopyStreamUrl
   }
 })
 export class StreamCatalogue extends ModalBase {
@@ -60,6 +62,7 @@ export class StreamCatalogue extends ModalBase {
       const streamCatalogueItem = new StreamCatalogueItem();
       streamCatalogueItem.tvgId = item.tvgId;
       streamCatalogueItem.tvgName = item.tvgName;
+      streamCatalogueItem.url = item.url;
 
       const isAdded = this.addedStreams.includes(item.tvgName);
       streamCatalogueItem.selected = isAdded;

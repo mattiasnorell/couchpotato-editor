@@ -27,8 +27,8 @@ export class PlaylistRepository {
   public async load(): Promise<PlaylistItem[]> {
     axios.defaults.headers = {
       'Cache-Control': 'no-cache',
-      'Pragma': 'no-cache',
-      'Expires': '0',
+      Pragma: 'no-cache',
+      Expires: '0'
     };
 
     const playlist = await axios.get(`${this.apiBasePath}/download?path=${encodeURIComponent(this.path)}`);

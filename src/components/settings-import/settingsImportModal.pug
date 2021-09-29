@@ -1,0 +1,35 @@
+div(class="modal")
+    div(class="modal-backdrop" @click="onClose")
+    div(class="modal-wrapper w-11/12 md:w-5/12")
+        div(class="modal-body")
+            div(class="modal-header") {{ title }}
+
+            div(class="modal-content" ref="content")                    
+                div(class="mt-8 text-sm")
+                    h3(class="text-md font-bold") {{ 'importFromFile' | translate }}
+                    input(type="file" @change="onFileChange")
+
+                div(class="mt-8 text-sm")
+                    h3(class="text-md font-bold")
+                        span {{ 'importFromJson' | translate }}
+                        span(class="ml-2" v-if="!isJsonValid")
+                            font-awesome-icon(icon="upload")
+
+                    textarea(class="w-full border-2 border-gray500" rows="10" @change="onJsonChange")
+
+                div(class="mt-8 text-sm")
+                    h3(class="text-md font-bold") Värden som kommer uppdateras
+                    table(class="table w-full")
+                        tr(v-if="model.apiPath") 
+                            td() API-url
+                            td() {{ model.apiPath }}
+                        tr(v-if="model.webSocketPath")
+                            td() WebSocket-url
+                            td() {{ model.webSocketPath }}
+                        tr(v-if="model.gitHubToken") 
+                            td() GitHub-token 
+                            td() {{ model.gitHubToken }}
+
+            div(class="modal-footer")
+                button(class="btn ml-auto" @click="onClose") {{ 'close' | translate }}
+                button(class="btn ml-2" @click="onConfirm") {{ 'save' | translate }}

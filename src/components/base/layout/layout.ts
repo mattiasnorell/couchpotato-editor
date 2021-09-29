@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { MainMenu } from '../main-menu/mainMenu';
+import { $appConfig } from '_config/appConfig';
+
 
 @Component({
   name: 'Layout',
@@ -13,10 +15,9 @@ import { MainMenu } from '../main-menu/mainMenu';
 })
 export class Layout extends Vue {
   public showMenu: boolean = false;
-  
-  public created(){
-    
-  }
+  public version: string = '';
 
-  
+  public created() {
+    this.version = $appConfig.version();
+  }
 }

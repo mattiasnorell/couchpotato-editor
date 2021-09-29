@@ -26,6 +26,7 @@ import { inject } from 'inversify-props';
   }
 })
 export class StreamList extends Vue {
+
   @inject() private arrayHelper: IArrayHelper;
   @inject() private guidHelper: IGuidHelper;
   @inject() private modalHelper: IModalHelper;
@@ -51,6 +52,10 @@ export class StreamList extends Vue {
   }
 
   private removeStream(index: number): void {
+    if (!window.confirm(this.$options ?.filters ?.translate('areYouSure'))) {
+      return;
+    }
+
     this.streams.splice(index, 1);
   }
 
@@ -59,9 +64,13 @@ export class StreamList extends Vue {
   }
 
   private deleteSelected(): void {
+    if (!window.confirm(this.$options ?.filters ?.translate('areYouSure'))) {
+      return;
+    }
+
     const selected = this.streams.filter((item) => item.isSelected);
     selected.forEach((item) => {
-      const index = this.arrayHelper.indexOf<Stream[]>(this.streams, item);
+      const index = this.arrayHelper.indexOf(this.streams, item);
       this.arrayHelper.removeAtIndex(this.streams, index);
     });
   }
@@ -74,11 +83,36 @@ export class StreamList extends Vue {
     });
   }
 
+  private updateScrollOnDrag(e: MouseEvent): void {
+    const scrollPadding = 100;
+    const scrollSpeed = 20;
+
+    if (e.clientY < scrollPadding) {
+      window.scroll({
+        top: window.scrollY - scrollSpeed
+      });
+    }
+
+    if (e.clientY > window.innerHeight - scrollPadding) {
+      window.scroll({
+        top: window.scrollY + scrollSpeed
+      });
+    }
+  }
+
   private initDragula(): void {
     let startPosition = 0;
 
     const dragulaOptions = {
-      revertOnSpill: true
+      revertOnSpill: true,
+      direction: 'vertical',
+      moves: function (el?: Element, container?: Element, handle?: Element, sibling?: Element): boolean {
+        if (!handle || !handle.parentElement) {
+          return false;
+        }
+
+        return handle.parentElement.classList.contains('handle');
+      }
     };
 
     const dragulaContainer = document.getElementById('stream_container');
@@ -90,12 +124,20 @@ export class StreamList extends Vue {
           return;
         }
 
+        document.addEventListener('mousemove', this.updateScrollOnDrag);
+
         startPosition = this.arrayHelper.indexOf(el.parentNode.children, el);
       });
 
+      drake.on('cancel', (el: Element, source: Element): void => {
+        document.removeEventListener('mousemove', this.updateScrollOnDrag);
+      });
+
       drake.on('drop', (el: Element, target: Element, source: Element, sibling: Element): void => {
+        document.removeEventListener('mousemove', this.updateScrollOnDrag);
+
         const index = this.arrayHelper.indexOf(target.children, el);
-        if (this.hasSelected && window.confirm('Vill du flytta alla markerade?')) {
+        if (this.hasSelected && window.confirm(this.$options ?.filters ?.translate('confirmMoveAll'))) {
           let selected = this.streams.filter((item) => item.isSelected);
 
           if (index < startPosition) {
@@ -115,7 +157,7 @@ export class StreamList extends Vue {
 
   private openCatalogue(): void {
     const props: StreamCatalogueProps = new StreamCatalogueProps();
-    props.title = 'Katalog';
+    props.title = this.$options ?.filters ?.translate('catalogueModalTitle');
     props.addedStreams = this.streams.map((stream) => stream.channelId);
 
     this.modalHelper.create<typeof StreamCatalogue>(StreamCatalogue, props, (result: StreamCatalogueResult) => {
