@@ -3,9 +3,10 @@ import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { Layout } from '_components/base/layout/layout';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { $modalHelper } from '_services/helpers/modalHelper';
-import { $languageRepository } from '_services/repositories/languageRepository';
+import { IModalHelper } from '_services/helpers/modalHelper';
+import { ILanguageRepository } from '_services/repositories/languageRepository';
 import ISettingsImportModalProps, { SettingsImportModal } from './settingsImportModal';
+import { inject } from 'inversify-props';
 
 @Component({
     name: 'SettingsImport',
@@ -16,6 +17,9 @@ import ISettingsImportModalProps, { SettingsImportModal } from './settingsImport
     }
 })
 export class SettingsImport extends Vue {
+    @inject() public languageRepository: ILanguageRepository;
+    @inject() public modalHelper: IModalHelper;
+
     @Prop({ type: Boolean, default: false })
     public disabled: boolean;
 
@@ -27,10 +31,10 @@ export class SettingsImport extends Vue {
 
     private async onClick(): Promise<void> {
         const props: ISettingsImportModalProps = {
-            title: $languageRepository.get('importExportSettings')
+            title: this.languageRepository.get('importExportSettings')
         };
 
-        $modalHelper.create<typeof SettingsImportModal>(SettingsImportModal, props, () => {
+        this.modalHelper.create<typeof SettingsImportModal>(SettingsImportModal, props, () => {
             this.$emit('onUpdate');
         });
     }

@@ -2,10 +2,11 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { Layout } from '_components/base/layout/layout';
-import { $couchpotatoConnector } from '_services/connectors/couchpotatoConnector';
+import { ICouchpotatoConnector } from '_services/connectors/couchpotatoConnector';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { $localStorageRepository } from '_services/repositories/localStorageRepository';
-import { $urlHelper } from '_services/helpers/urlHelper';
+import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { IUrlHelper } from '_services/helpers/urlHelper';
+import { inject } from 'inversify-props';
 
 @Component({
     name: 'SettingsExport',
@@ -16,6 +17,9 @@ import { $urlHelper } from '_services/helpers/urlHelper';
     }
 })
 export class SettingsExport extends Vue {
+    @inject()
+    private localStorageRepository: ILocalStorageRepository;
+    
     @Prop({ type: Boolean, default: false })
     public disabled: boolean;
     private isPending: boolean = false;
@@ -60,9 +64,9 @@ export class SettingsExport extends Vue {
 
     private createExportData(): ISettingsExport {
         const exportData: ISettingsExport = {
-            apiPath: $localStorageRepository.read<string>('couchpotatoApiPath'),
-            webSocketPath: $localStorageRepository.read<string>('couchpotatoWebsocketPath'),
-            gitHubToken: $localStorageRepository.read<string>('githubToken')
+            apiPath: this.localStorageRepository.read<string>('couchpotatoApiPath'),
+            webSocketPath: this.localStorageRepository.read<string>('couchpotatoWebsocketPath'),
+            gitHubToken: this.localStorageRepository.read<string>('githubToken')
         };
 
         return exportData;

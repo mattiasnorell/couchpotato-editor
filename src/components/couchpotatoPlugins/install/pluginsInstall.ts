@@ -1,5 +1,5 @@
 import Component from 'vue-class-component';
-import { Prop, Inject } from 'vue-property-decorator';
+import { Prop } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { InputText } from '_components/base/input-text/inputText';
 import { CouchpotatoPlugin } from '_services/connectors/couchpotatoPluginConnector';
@@ -28,33 +28,28 @@ export class PluginsInstall extends ModalBase {
   @Prop()
   public title: string;
 
-  @Prop({type: Array, default: () => []})
+  @Prop({ type: Array, default: () => [] })
   public installedPlugins: CouchpotatoPlugin[];
 
 
   public async created(): Promise<void> {
     const githubToken = this.localStorageRepository.read<string>('githubToken');
     if (githubToken) {
-      
       const result = await this.gitHubProvider.getRepositoryContent('couchpotato-plugins', githubToken);
-       
     }
   }
-
-
 
   private installCouchpotatoPlugin(plugin: GitHubRepositoryContent): void {
     const props: WebSocketModalProps = new WebSocketModalProps();
     props.title = `${this.languageRepository.get('installPlugin')} - ${plugin.name}`;
     props.action = 'installplugin';
     props.url = plugin.name;
-    props.accessToken = $localStorageRepository.read<string>('githubToken');
+    props.accessToken = this.localStorageRepository.read<string>('githubToken');
 
     this.modalHelper.create<typeof WebSocketModal>(WebSocketModal, props, async () => {
-      
+
     });
   }
-
 }
 
 export class PluginInstallProps {

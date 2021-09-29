@@ -2,8 +2,10 @@ import Component from 'vue-class-component';
 import { Prop, Ref } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { ModalBase } from '_models/modalBase';
-import { $localStorageRepository } from '_services/repositories/localStorageRepository';
+import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
 import { ISettingsExport } from '_components/settings-export/settingsExport';
+import { inject } from 'inversify-props';
+import { ILanguageRepository } from '_services/repositories/languageRepository';
 
 @Component({
     name: 'SettingsImportModal',
@@ -13,6 +15,9 @@ import { ISettingsExport } from '_components/settings-export/settingsExport';
     }
 })
 export class SettingsImportModal extends ModalBase {
+    @inject()
+    private localStorageRepository: ILocalStorageRepository;
+    
     @Prop()
     public title: string;
 
@@ -48,15 +53,15 @@ export class SettingsImportModal extends ModalBase {
 
     private onConfirm(): void {
         if (this.model.webSocketPath) {
-            $localStorageRepository.write<string>('couchpotatoWebsocketPath', this.model.webSocketPath);
+            this.localStorageRepository.write<string>('couchpotatoWebsocketPath', this.model.webSocketPath);
         }
 
         if (this.model.gitHubToken) {
-            $localStorageRepository.write<string>('githubToken', this.model.gitHubToken);
+            this.localStorageRepository.write<string>('githubToken', this.model.gitHubToken);
         }
 
         if (this.model.apiPath) {
-            $localStorageRepository.write<string>('couchpotatoApiPath', this.model.apiPath);
+            this.localStorageRepository.write<string>('couchpotatoApiPath', this.model.apiPath);
         }
 
         this.onClose();
