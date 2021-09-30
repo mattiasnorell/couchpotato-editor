@@ -3,7 +3,7 @@ import Component from 'vue-class-component';
 import { Layout } from '_components/base/layout/layout';
 import { InputText } from '_components/base/input-text/inputText';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { $authProvider, IAuthProvider } from '_services/providers/authProvider';
+import { IAuthProvider,  } from '_services/providers/authProvider';
 import { inject } from 'inversify-props';
 
 @Component({

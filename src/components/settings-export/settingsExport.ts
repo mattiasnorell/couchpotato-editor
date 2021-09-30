@@ -2,11 +2,10 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { Layout } from '_components/base/layout/layout';
-import { ICouchpotatoConnector } from '_services/connectors/couchpotatoConnector';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
-import { IUrlHelper } from '_services/helpers/urlHelper';
 import { inject } from 'inversify-props';
+import { IDownloadHelper } from '_services/helpers/downloadHelper';
 
 @Component({
     name: 'SettingsExport',
@@ -17,9 +16,11 @@ import { inject } from 'inversify-props';
     }
 })
 export class SettingsExport extends Vue {
+    @inject() private downloadHelper: IDownloadHelper;
+
     @inject()
     private localStorageRepository: ILocalStorageRepository;
-    
+
     @Prop({ type: Boolean, default: false })
     public disabled: boolean;
     private isPending: boolean = false;
@@ -49,13 +50,8 @@ export class SettingsExport extends Vue {
 
         const data = this.getExportData();
         const fileName = 'couchpotato-settings.json';
-        const a = document.createElement('a');
         const content = data;
-        const file = new Blob([content], { type: 'application/json' });
-        a.href = URL.createObjectURL(file);
-        a.download = fileName;
-        a.click();
-        URL.revokeObjectURL(a.href);
+        this.downloadHelper.download(fileName, content, 'application/json');
     }
 
     private getExportData(): string {

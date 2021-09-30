@@ -176,7 +176,8 @@ export class StreamList extends Vue {
       });
 
       result.itemsToRemove.forEach((item) => {
-        this.arrayHelper.removeItem(this.streams, item);
+        const index = this.streams.findIndex((listItem) => listItem.channelId === item.tvgName);
+        this.arrayHelper.removeAtIndex<Stream>(this.streams, index);
       });
     });
   }

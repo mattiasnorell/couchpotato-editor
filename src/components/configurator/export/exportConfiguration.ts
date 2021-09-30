@@ -5,6 +5,7 @@ import { Configuration } from '_models/Configuration';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { IUrlHelper } from '_services/helpers/urlHelper';
 import { inject } from 'inversify-props';
+import { IDownloadHelper } from '_services/helpers/downloadHelper';
 
 @Component({
   name: 'ExportConfiguration',
@@ -15,6 +16,7 @@ import { inject } from 'inversify-props';
 })
 export class ExportConfiguration extends Vue {
   @inject() private urlHelper: IUrlHelper;
+  @inject() private downloadHelper: IDownloadHelper;
 
   @Prop()
   public configuration: Configuration;
@@ -25,12 +27,7 @@ export class ExportConfiguration extends Vue {
   private onClick(): void {
     const id = this.urlHelper.getQueryString('id');
     const fileName = id ? `${id}.json}` : 'couchpotato.json';
-    const a = document.createElement('a');
     const content = JSON.stringify(this.configuration);
-    const file = new Blob([content], { type: 'application/json' });
-    a.href = URL.createObjectURL(file);
-    a.download = fileName;
-    a.click();
-    URL.revokeObjectURL(a.href);
+    this.downloadHelper.download(fileName, content, 'application/json');
   }
 }

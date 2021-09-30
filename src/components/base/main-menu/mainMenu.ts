@@ -3,7 +3,8 @@ import Component from 'vue-class-component';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { RouteConfig } from 'vue-router';
 import { RequireTokenDecorator } from 'src/decorators/RequireTokenDecorator';
-import { $authProvider } from '_services/providers/authProvider';
+import { IAuthProvider } from '_services/providers/authProvider';
+import { inject } from 'inversify-props';
 
 @Component({
   name: 'mainMenu',
@@ -14,6 +15,9 @@ import { $authProvider } from '_services/providers/authProvider';
 })
 @RequireTokenDecorator(false)
 export class MainMenu extends Vue {
+  @inject()
+  private authProvider: IAuthProvider;
+  
   private menuItems: RouteConfig[] | undefined = [];
 
   public created() {
@@ -30,7 +34,7 @@ export class MainMenu extends Vue {
   }
 
   private logout(): void {
-    $authProvider.clearToken();
+    this.authProvider.clearToken();
     this.$router.push('login');
   }
 }

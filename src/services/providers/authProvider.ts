@@ -1,7 +1,7 @@
 import { IDateHelper } from "_services/helpers/dateHelper";
 import { ILocalStorageRepository } from "_services/repositories/localStorageRepository";
 
-import { inject } from "inversify-props";
+import { inject, injectable } from "inversify-props";
 
 export interface IAuthProvider {
   checkAuth(username: string): boolean;
@@ -9,6 +9,7 @@ export interface IAuthProvider {
   clearToken(): void;
 }
 
+@injectable()
 export class AuthProvider implements IAuthProvider {
   private allowedUsers: string[] = ['calid', 'mattias'];
   @inject() private localStorageRepository: ILocalStorageRepository;
@@ -43,5 +44,3 @@ export class AuthProvider implements IAuthProvider {
     this.localStorageRepository.clear('token');
   }
 }
-const $authProvider = new AuthProvider();
-export { $authProvider };

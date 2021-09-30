@@ -18,10 +18,12 @@ import { ICouchpotatoPluginConnector, CouchpotatoPluginConnector } from "_servic
 import { ICouchpotatoWebsocketConnector, CouchpotatoWebsocketConnector } from "_services/connectors/couchpotatoWebsocketConnector";
 import { ICronConnector, CronConnector } from "_services/connectors/cronConnector";
 import { IPlaylistRepository, PlaylistRepository } from '_services/repositories/playlistRepository';
+import { DownloadHelper, IDownloadHelper } from '_services/helpers/downloadHelper';
 
 export default function buildContainer(): void {
 
     container.addSingleton<ILanguageRepository>(LanguageRepository);
+    container.addSingleton<IDownloadHelper>(DownloadHelper);
 
     container.addTransient<IArrayHelper>(ArrayHelper);
     container.addTransient<IDateHelper>(DateHelper);
