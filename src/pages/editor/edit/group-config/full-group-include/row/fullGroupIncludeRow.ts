@@ -5,7 +5,7 @@ import { Group } from '_models/Group';
 import { InputText } from '_components/base/input-text/inputText';
 import { GroupPicker } from '_components/base/group-picker/groupPicker';
 import { IModalHelper } from '_services/helpers/modalHelper';
-import { Excluded, ExcludedProps } from '_components/group-config/excluded/excluded';
+import { Excluded, ExcludedProps } from '_pages/editor/edit/group-config/excluded/excluded';
 import { inject } from 'inversify-props';
 
 @Options({

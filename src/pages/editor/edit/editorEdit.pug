@@ -1,2 +1,27 @@
 layout()
-    configurator(v-if="configuration" :configurationId="id" :configuration="configuration" @onConfigurationUpdate="updateConfiguration")
+    div(v-if="configuration")
+        div(class="bg-gray-200 px-4 py-2 mb-4 rounded-l flex")
+            save(v-if="configuration" :configurationId="id" :configuration="configuration")
+            copy-url(class="ml-2" :configurationId="id")
+            import-configuration(class="ml-2" @onImport="onImport")
+            export-configuration(class="ml-2" :configuration="configuration")
+            trigger-couchpotato(class="ml-auto" :configurationId="id")
+
+        div(class="p-4")
+            collapse(class="mb-4" title="Basuppgifter" :openAtRender="false")
+                generic-config(v-if="configuration" :config="configuration")  
+
+            collapse(class="mb-4" :title="$filters.translate('validation')" :openAtRender="false")
+                validation-config(v-if="configuration" :config="configuration.validation")    
+
+            collapse(class="mb-4" :title="$filters.translate('compression')" :openAtRender="false")
+                compression-config(v-if="configuration" :config="configuration")    
+
+            collapse(class="mb-4" :title="$filters.translate('epg')" :openAtRender="false")
+                epg-config(v-if="configuration" :epg="configuration.epg")
+
+            collapse(class="mb-4" :title="$filters.translate('groups')" :openAtRender="false")
+                group-config(v-if="configuration" :config="configuration")    
+
+            collapse(:title="$filters.translate('streams')" :openAtRender="false")
+                stream-list(v-if="configuration" :streams="configuration.streams")

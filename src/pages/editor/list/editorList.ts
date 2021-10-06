@@ -2,7 +2,7 @@ import { Vue, Options } from 'vue-class-component';
 
 import { Layout } from '_components/base/layout/layout';
 import { TriggerCouchpotato } from '_components/trigger-couchpotato/triggerCouchpotato';
-import { Rename } from '_components/configurator/rename/rename';
+import { Rename } from '_pages/editor/edit/rename/rename';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { IConfigurationProvider } from '_services/providers/configurationProvider';
 import { ConfigurationListItem } from '_models/ConfigurationListItem';

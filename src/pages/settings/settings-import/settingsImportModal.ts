@@ -3,9 +3,8 @@ import { Prop, Ref } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { ModalBase } from '_models/modalBase';
 import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
-import { ISettingsExport } from '_components/settings-export/settingsExport';
+import { ISettingsExport } from '_pages/settings/settings-export/settingsExport';
 import { inject } from 'inversify-props';
-import { ILanguageRepository } from '_services/repositories/languageRepository';
 import { Options } from 'vue-class-component';
 
 @Options({

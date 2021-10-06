@@ -5,7 +5,7 @@ import { Stream } from '_models/Stream';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { InputText } from '_components/base/input-text/inputText';
 import { StreamPicker } from '_components/base/stream-picker/streamPicker';
-import { StreamEdit, StreamEditProps } from '_components/streams/stream-edit/streamEdit';
+import { StreamEdit, StreamEditProps } from '../stream-edit/streamEdit';
 import { IModalHelper } from '_services/helpers/modalHelper';
 import { inject } from 'inversify-props';
 

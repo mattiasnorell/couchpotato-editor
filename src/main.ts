@@ -10,6 +10,7 @@ import buildContainer from './config/ioc';
 import '_services/helpers/fontAwesomeHelper';
 import App from './App';
 import { $filters } from './filters';
+import { $store } from './stores/store';
 
 
 buildContainer();
@@ -21,5 +22,9 @@ if (appElement) {
     
     app.config.globalProperties.$filters =  $filters;
 
-    app.use(router).use(router).mount(appElement);
+    app
+    .use(router)
+    .use($store)
+    .use(router)
+    .mount(appElement);
 }

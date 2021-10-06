@@ -1,10 +1,10 @@
 import { Vue, Options } from 'vue-class-component';
 
 import { Prop } from 'vue-property-decorator';
-import { InputText } from '../../base/input-text/inputText';
+import { InputText } from '../../../../../components/base/input-text/inputText';
 import { FallbackValues } from '../fallback-values/fallbackValues';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { DefaultValidationFallback } from '../../../models/Validation';
+import { DefaultValidationFallback } from '_models/Validation';
 import dragula from 'dragula';
 import { IArrayHelper } from '_services/helpers/arrayHelper';
 import { IGuidHelper } from '_services/helpers/guidHelper';

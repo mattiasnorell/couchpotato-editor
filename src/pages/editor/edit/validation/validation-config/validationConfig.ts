@@ -2,7 +2,7 @@ import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { InputText } from '_components/base/input-text/inputText';
 import { InputCheckbox} from '_components/base/input-checkbox/inputCheckbox';
-import { Fallbacks } from '_components/validation/fallbacks/fallbacks';
+import { Fallbacks } from '_pages/editor/edit/validation/fallbacks/fallbacks';
 import { Validation } from '_models/Validation';
 
 @Options({

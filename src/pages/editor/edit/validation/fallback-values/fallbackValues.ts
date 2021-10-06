@@ -2,7 +2,7 @@ import { Vue, Options } from 'vue-class-component';
 
 import { Prop } from 'vue-property-decorator';
 import { IModalHelper } from '_services/helpers/modalHelper';
-import { FallbackValueItems, FallbackValueItemsProps } from '_components/validation/fallback-value-items/fallbackValueItems';
+import { FallbackValueItems, FallbackValueItemsProps } from '_pages/editor/edit/validation/fallback-value-items/fallbackValueItems';
 import { inject } from 'inversify-props';
 
 @Options({
