@@ -3,21 +3,21 @@ div(class="w-full flex")
         div(class="flex items-center")
             span(class="bg-red-500 rounded-full text-white w-10 h-10 flex items-center justify-center")
                 font-awesome-icon(icon="exclamation-triangle")
-            span(class="ml-2") {{'widgetLastRunProblem' | translate}}
+            span(class="ml-2") {{ $filters.translate('widgetLastRunProblem') }}
 
     div(class="rounded-md text-md flex items-center" v-if="noErrors") 
         span(class="bg-green-500 rounded-full text-white w-10 h-10 flex items-center justify-center")
             font-awesome-icon(icon="thumbs-up")
-        span(class="ml-2") {{'widgetLastRunNoProblem' | translate}}
+        span(class="ml-2") {{ $filters.translate('widgetLastRunNoProblem') }}
 
     div(class="w-full md:w-1/3" v-if="log?.missingStreams.length > 0")
-        p(class="font-bold") {{'widgetLastRunMissingChanels' | translate}}
+        p(class="font-bold") {{ $filters.translate('widgetLastRunMissingChanels') }}
         div(v-for="(item, index) in log?.missingStreams") {{ item }}
 
     div(class="w-full md:w-1/3" v-if="log?.validationErrors.length > 0")
-        p(class="font-bold") {{'widgetLastRunValidationErrors' | translate}}
+        p(class="font-bold") {{ $filters.translate('widgetLastRunValidationErrors') }}
         div(v-for="(item, index) in log?.validationErrors") {{ item }}
 
     div(class="w-full md:w-1/3" v-if="log?.epgErrors.length > 0")
-        p(class="font-bold") {{'widgetLastRunMissingEpg' | translate}}
+        p(class="font-bold") {{ $filters.translate('widgetLastRunMissingEpg') }}
         div(v-for="(item, index) in log?.epgErrors") {{ item }}

@@ -3,22 +3,22 @@ div(class="w-full")
         div(class="col w-full md:w-1/5")
             label() Aktivera för enskilda
             div(class="input-group" class="w-full")
-                input-checkbox(v-model="config.singleEnabled")
+                input-checkbox(v-model:value="config.singleEnabled")
     
         div(class="col w-full md:w-1/5")
             label() Aktivera för grupper
             div(class="input-group" class="w-full")
-                input-checkbox(v-model="config.groupEnabled")
+                input-checkbox(v-model:value="config.groupEnabled")
 
         div(class="col w-full md:w-1/5")
             label() Visa ej validerade
             div(class="input-group" class="w-full")
-                input-checkbox(v-model="config.showInvalid")
+                input-checkbox(v-model:value="config.showInvalid")
 
         div(class="col w-full md:w-1/5")
             label() Sufux
             div(class="input-group" class="w-full")
-                input-text(v-model="config.invalidSufix" :placeholder="'Lägg till sufix'" :usePlaceholderIfEmpty="true")
+                input-text(v-model:value="config.invalidSufix" :placeholder="'Lägg till sufix'" :usePlaceholderIfEmpty="true")
 
         div(class="col w-full md:w-1/5")
             label() Valideringsmängd

@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 import { Prop } from 'vue-property-decorator';
 import { StreamListRow } from '../stream-list-row/streamListRow';
 import { Stream } from '_models/Stream';
@@ -15,7 +15,7 @@ import { StreamPicker } from '_components/base/stream-picker/streamPicker';
 import StreamCatalogueResult from '../stream-catalogue/StreamCatalogueResult';
 import { inject } from 'inversify-props';
 
-@Component({
+@Options({
   name: 'StreamList',
   template: require('./streamList.pug'),
   components: {

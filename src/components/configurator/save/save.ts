@@ -1,12 +1,12 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 import { Prop } from 'vue-property-decorator';
 import { Configuration } from '_models/Configuration';
 import { IConfigurationProvider } from '_services/providers/configurationProvider';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { inject } from 'inversify-props';
 
-@Component({
+@Options({
   name: 'Save',
   template: require('./save.pug'),
   components: {

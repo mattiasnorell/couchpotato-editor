@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 import { Layout } from '_components/base/layout/layout';
 import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
 import { InputText } from '_components/base/input-text/inputText';
@@ -21,7 +21,7 @@ import { RequireTokenDecorator } from 'src/decorators/RequireTokenDecorator';
 import { inject } from 'inversify-props';
 
 
-@Component({
+@Options({
   name: 'Settings',
   template: require('./settings.pug'),
   components: {
@@ -71,18 +71,19 @@ export default class Settings extends Vue {
 
   private onInputCouchpotatoApiPath(value: string): void {
     this.localStorageRepository.write<string>('couchpotatoApiPath', value);
-    this.couchpotatoApiPath = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    //this.couchpotatoApiPath = this.localStorageRepository.read<string>('couchpotatoApiPath');
     this.checkConnection();
   }
 
   private onInputCouchpotatoWebsocketPath(value: string): void {
     this.localStorageRepository.write<string>('couchpotatoWebsocketPath', value);
-    this.couchpotatoWebsocketPath = this.localStorageRepository.read<string>('couchpotatoWebsocketPath');
+    //this.couchpotatoWebsocketPath = this.localStorageRepository.read<string>('couchpotatoWebsocketPath');
   }
 
   private onInputCouchpotatoToken(value: string): void {
     this.localStorageRepository.write<string>('couchpotatoAccessToken', value);
-    this.couchpotatoAccessToken = this.localStorageRepository.read<string>('couchpotatoAccessToken');
+    console.log(this.localStorageRepository.read<string>('couchpotatoAccessToken'))
+    //this.couchpotatoAccessToken = this.localStorageRepository.read<string>('couchpotatoAccessToken');
   }
 
   private onInputGithubToken(value: string): void {

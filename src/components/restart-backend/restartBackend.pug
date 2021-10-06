@@ -7,4 +7,4 @@ button(class="btn" :disabled="disabled" @click="onClick")
         font-awesome-icon(icon="thumbs-up")
     span(v-if="!isPending && isError")
         font-awesome-icon(icon="thumbs-down")
-    span(class="ml-1") {{ 'restartBackend' | translate}}
+    span(class="ml-1") {{ $filters.translate('restartBackend') }}

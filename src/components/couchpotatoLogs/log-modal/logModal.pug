@@ -8,4 +8,4 @@ div(class="modal")
                 textarea(class="w-full h-full p-2 border" v-model="contents")
 
             div(class="modal-footer")
-                button(class="btn ml-auto" @click="close") {{ 'close' | translate }}
+                button(class="btn ml-auto" @click="close") {{ $filters.translate('close') }}

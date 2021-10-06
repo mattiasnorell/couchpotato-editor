@@ -1,11 +1,11 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { IModalHelper } from '_services/helpers/modalHelper';
 import { ImportForm, ImportFormProps } from './import-form/importForm';
 import { inject } from 'inversify-props';
 
-@Component({
+@Options({
   name: 'ImportConfiguration',
   template: require('./importConfiguration.pug'),
   components: {

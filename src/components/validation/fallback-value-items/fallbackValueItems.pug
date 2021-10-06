@@ -7,7 +7,7 @@ div(class="modal")
             div(class="modal-content")
                 label() Lägg till fallbackvärde
                 div(class="input-group flex w-full")
-                    input-text(class="flex-1" v-model="newItem" :placeholder="'Lägg till'" :usePlaceholderIfEmpty="true")
+                    input-text(class="flex-1" v-model:value="newItem" :placeholder="'Lägg till'" :usePlaceholderIfEmpty="true")
                 
                     button(class="rounded-md bg-gray-500 px-4 py-2 rounded-l-none" @click="addItem")
                         span() Lägg till
@@ -22,7 +22,7 @@ div(class="modal")
                         table-empty-state(:title="'Inga värden tillagda'" :colspan="2" v-if="items.length === 0")
                         tr(v-for="(item, index) in items" :key="uniqueId()")
                             td(class="px-2 py-4 whitespace-no-wrap border-b border-gray-500 text-md text-left leading-5")
-                                input-text(v-model="items[index]")
+                                input-text(v-model:value="items[index]")
                             td(class="px-2 py-4 whitespace-no-wrap border-b border-gray-500 text-md text-right leading-5")
                                 button(@click="removeItem(index)") 
                                     font-awesome-icon(icon="trash")

@@ -6,12 +6,12 @@ div(class="modal")
 
             div(class="modal-content" ref="content")                    
                 div(class="mt-8 text-sm")
-                    h3(class="text-md font-bold") {{ 'importFromFile' | translate }}
+                    h3(class="text-md font-bold") {{ $filters.translate('importFromFile') }}
                     input(type="file" @change="onFileChange")
 
                 div(class="mt-8 text-sm")
                     h3(class="text-md font-bold")
-                        span {{ 'importFromJson' | translate }}
+                        span {{ $filters.translate('importFromJson') }}
                         span(class="ml-2" v-if="!isJsonValid")
                             font-awesome-icon(icon="upload")
 
@@ -31,5 +31,5 @@ div(class="modal")
                             td() {{ model.gitHubToken }}
 
             div(class="modal-footer")
-                button(class="btn ml-auto" @click="onClose") {{ 'close' | translate }}
-                button(class="btn ml-2" @click="onConfirm") {{ 'save' | translate }}
+                button(class="btn ml-auto" @click="onClose") {{ $filters.translate('close') }}
+                button(class="btn ml-2" @click="onConfirm") {{ $filters.translate('save') }}

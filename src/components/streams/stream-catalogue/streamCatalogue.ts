@@ -1,4 +1,4 @@
-import Component from 'vue-class-component';
+
 import { Prop } from 'vue-property-decorator';
 import { IPlaylistRepository } from '_services/repositories/playlistRepository';
 import { Collapse } from '_components/base/collapse/collapse';
@@ -10,8 +10,9 @@ import StreamCatalogueItem from './StreamCatalogueItem';
 import StreamCatalogueResult from './StreamCatalogueResult';
 import { ModalBase } from '_models/modalBase';
 import { inject } from 'inversify-props';
+import { Options } from 'vue-class-component';
 
-@Component({
+@Options({
   name: 'StreamCatalogue',
   template: require('./streamCatalogue.pug'),
   components: {

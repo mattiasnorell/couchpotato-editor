@@ -1,4 +1,4 @@
 layout()
     div(class="p-4")
-        h1() {{ 'catalogues' | translate }}
+        h1() {{ $filters.translate('catalogues') }}
         router-view()

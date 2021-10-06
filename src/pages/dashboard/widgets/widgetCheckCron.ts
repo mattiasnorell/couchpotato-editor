@@ -1,12 +1,11 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
 import { TriggerCouchpotato } from '_components/trigger-couchpotato/triggerCouchpotato';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { ICouchpotatoConnector } from '_services/connectors/couchpotatoConnector';
 import { ICronConnector } from '_services/connectors/cronConnector';
 import { inject } from 'inversify-props';
 
-@Component({
+@Options({
   name: 'WidgetCheckCron',
   template: require('./widgetCheckCron.pug'),
   components: {

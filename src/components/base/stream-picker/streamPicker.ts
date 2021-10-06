@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
 import { PlaylistItem } from '_models/PlaylistItem';
 import { Stream } from '_models/Stream';
 import { IPlaylistRepository } from '_services/repositories/playlistRepository';
@@ -8,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { Prop, Ref } from 'vue-property-decorator';
 import { inject } from 'inversify-props';
 
-@Component({
+@Options({
   name: 'StreamPicker',
   template: require('./streamPicker.pug'),
   components: {
@@ -30,7 +29,7 @@ export class StreamPicker extends Vue {
   @Prop()
   public placeholder: string;
 
-  private created() {
+  public created() {
     this.$nextTick(() => this.streamPickerInput.focus());
   }
 

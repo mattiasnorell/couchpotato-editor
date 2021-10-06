@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { Group } from '_models/Group';
@@ -9,7 +8,7 @@ import { IModalHelper } from '_services/helpers/modalHelper';
 import { Excluded, ExcludedProps } from '_components/group-config/excluded/excluded';
 import { inject } from 'inversify-props';
 
-@Component({
+@Options({
   name: 'FullGroupIncludeRow',
   template: require('./fullGroupIncludeRow.pug'),
   components: {

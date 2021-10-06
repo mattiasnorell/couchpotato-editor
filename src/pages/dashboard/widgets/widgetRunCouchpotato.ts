@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
 import { TriggerCouchpotato } from '_components/trigger-couchpotato/triggerCouchpotato';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { IConfigurationProvider } from '_services/providers/configurationProvider';
@@ -9,7 +8,7 @@ import { ICouchpotatoWebsocketConnector } from '_services/connectors/couchpotato
 import { inject } from 'inversify-props';
 import { ICouchpotatoProvider } from '_services/providers/couchpotatoProvider';
 
-@Component({
+@Options({
   name: 'WidgetRunCouchpotato',
   template: require('./widgetRunCouchpotato.pug'),
   components: {

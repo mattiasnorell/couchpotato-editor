@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 import { Prop } from 'vue-property-decorator';
 import { Layout } from '_components/base/layout/layout';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -7,7 +7,7 @@ import { ILocalStorageRepository } from '_services/repositories/localStorageRepo
 import { inject } from 'inversify-props';
 import { IDownloadHelper } from '_services/helpers/downloadHelper';
 
-@Component({
+@Options({
     name: 'SettingsExport',
     template: require('./settingsExport.pug'),
     components: {

@@ -8,7 +8,7 @@ div(class="modal")
                 table(class="w-full table-auto border border-gray-300 bg-white")
                     thead()
                         tr(class="border-b border-gray-300 bg-gray-300")
-                            th(class="px-4 py-4 whitespace-no-wrap text-md text-left leading-5" colspan="2") {{ 'plugin' | translate }}
+                            th(class="px-4 py-4 whitespace-no-wrap text-md text-left leading-5" colspan="2") {{ $filters.translate('plugin') }}
                             
                     tbody()
                         tr(class="border-b border-gray-300" v-for="(item, index) in githubPlugins")
@@ -17,13 +17,13 @@ div(class="modal")
                                 button(class="btn mr-2" @click="openPluginInstaller(item)")
                                     span(class="mr-1")
                                         font-awesome-icon(icon="plus")
-                                    span() {{'install' | translate}}
+                                    span() {{ $filters.translate('install') }}
                                 
                                 button(class="btn" @click="openPluginInformation(item)")
                                     span(class="mr-1")
                                         font-awesome-icon(icon="info")
-                                    span() {{'information' | translate}}
+                                    span() {{ $filters.translate('information') }}
 
 
             div(class="modal-footer")
-                button(class="btn ml-auto" @click="close") {{ 'close' | translate }}
+                button(class="btn ml-auto" @click="close") {{ $filters.translate('close') }}

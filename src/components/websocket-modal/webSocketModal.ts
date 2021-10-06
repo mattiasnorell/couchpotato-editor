@@ -1,132 +1,130 @@
-import Component from 'vue-class-component';
 import { Prop, Ref } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { ModalBase } from '_models/modalBase';
 import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
 import { inject } from 'inversify-props';
+import { Options } from 'vue-class-component';
 
-@Component({
-  name: 'WebSocketModal',
-  template: require('./webSocketModal.pug'),
-  components: {
-    FontAwesomeIcon
-  }
+@Options({
+    name: 'WebSocketModal',
+    template: require('./webSocketModal.pug'),
+    components: {
+        FontAwesomeIcon
+    }
 })
 export class WebSocketModal extends ModalBase {
-  @inject() private localStorageRepository: ILocalStorageRepository;
+    @inject() private localStorageRepository: ILocalStorageRepository;
 
-  @Prop()
-  public title: string;
+    @Prop()
+    public title: string;
 
-  @Prop()
-  public action: string;
+    @Prop()
+    public action: string;
 
-  @Prop()
-  public url: string;
+    @Prop()
+    public url: string;
 
-  @Prop()
-  public accessToken: string;
+    @Prop()
+    public accessToken: string;
 
-  @Ref('content')
-  public content: HTMLDivElement;
+    @Ref('content')
+    public content: HTMLDivElement;
 
-  private hasConnectionError: boolean = false;
-  private logItems: string[] = [];
-  private isPending: boolean = false;
-  private websocket: WebSocket | null = null;
-  private path: string | null = null;
+    private hasConnectionError: boolean = false;
+    private logItems: string[] = [];
+    private isPending: boolean = false;
+    private websocket: WebSocket | null = null;
+    private path: string | null = null;
 
-  public async mounted(): Promise<void> {
-    this.path = this.localStorageRepository.read<string>('couchpotatoWebsocketPath');
-    if (!this.path) {
-      this.hasConnectionError = true;
-      return;
+    public async mounted(): Promise<void> {
+        this.path = this.localStorageRepository.read<string>('couchpotatoWebsocketPath');
+        if (!this.path) {
+            this.hasConnectionError = true;
+            return;
+        }
     }
 
-    
-  }
-
-  private run(): void {
-    if (!this.path) {
-      return;
-    }
-
-    this.websocket = new WebSocket(this.path);
-
-    if (!this.websocket) {
-      return;
-    }
-
-    this.isPending = true;
-
-    this.websocket.onmessage = (event: MessageEvent) => {
-      if (event.data) {
-        const data = JSON.parse(event.data);
-
-        if (data.data === 'connection_open') {
-          return;
+    private run(): void {
+        if (!this.path) {
+            return;
         }
 
-        if (data.data === 'running') {
-          this.isPending = false;
-          return;
+        this.websocket = new WebSocket(this.path);
+
+        if (!this.websocket) {
+            return;
         }
 
-        if (data.data === 'done') {
-          this.isPending = false;
+        this.isPending = true;
 
-          if (this.websocket) {
+        this.websocket.onmessage = (event: MessageEvent) => {
+            if (event.data) {
+                const data = JSON.parse(event.data);
+
+                if (data.data === 'connection_open') {
+                    return;
+                }
+
+                if (data.data === 'running') {
+                    this.isPending = false;
+                    return;
+                }
+
+                if (data.data === 'done') {
+                    this.isPending = false;
+
+                    if (this.websocket) {
+                        this.websocket.close(1000);
+                    }
+                    return;
+                }
+
+                if (data.data && data.data.length > 0) {
+                    this.logItems.push(data.data);
+
+                    if (this.content) {
+                        this.content.scrollTop = this.content.scrollHeight - this.content.clientHeight;
+                    }
+                }
+            }
+        };
+
+        this.websocket.onopen = (event: any) => {
+            if (this.url && this.action) {
+                this.websocket?.send(JSON.stringify({ accessToken: this.accessToken, action: this.action, url: this.url }));
+            }
+
+            if (!this.url && this.action) {
+                this.websocket?.send(JSON.stringify({ accessToken: this.accessToken, action: this.action }));
+            }
+        };
+
+        this.websocket.onclose = (event: any) => {
+            this.isPending = false;
+        };
+    }
+
+    private ok(): void {
+        super.closeModal();
+    }
+
+    private closeAndCancel(): void {
+        if (this.websocket) {
             this.websocket.close(1000);
-          }
-          return;
         }
 
-        if (data.data && data.data.length > 0) {
-          this.logItems.push(data.data);
-
-          if (this.content) {
-            this.content.scrollTop = this.content.scrollHeight - this.content.clientHeight;
-          }
-        }
-      }
-    };
-
-    this.websocket.onopen = (event: any) => {
-      if (this.url && this.action) {
-        this.websocket?.send(JSON.stringify({ accessToken: this.accessToken, action: this.action, url: this.url }));
-      }
-
-      if (!this.url && this.action) {
-        this.websocket?.send(JSON.stringify({ accessToken: this.accessToken, action: this.action }));
-      }
-    };
-
-    this.websocket.onclose = (event: any) => {
-      this.isPending = false;
-    };
-  }
-
-  private ok(): void {
-    super.closeModal();
-  }
-
-  private closeAndCancel(): void {
-    if (this.websocket) {
-      this.websocket.close(1000);
+        super.closeModal();
     }
 
-    super.closeModal();
-  }
-
-  private closeAndContinue(): void {
-    super.closeModal();
-  }
+    private closeAndContinue(): void {
+        super.closeModal();
+    }
 }
 
 export default class WebSocketModalProps {
-  public title: string;
-  public path: string;
-  public action: string;
-  public url: string;
-  public accessToken: string | null;
+    public title: string;
+    public path: string;
+    public action: string;
+    public url: string;
+    public accessToken: string | null;
 }

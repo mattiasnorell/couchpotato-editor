@@ -1,10 +1,10 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 import { TriggerCouchpotato } from '_components/trigger-couchpotato/triggerCouchpotato';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { ICouchpotatoProvider, LastRunResult } from '_services/providers/couchpotatoProvider';
 import { inject } from 'inversify-props';
-@Component({
+@Options({
   name: 'WidgetLastRunLog',
   template: require('./widgetLastRunLog.pug'),
   components: {

@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { InputCheckbox } from '_components/base/input-checkbox/inputCheckbox';
@@ -11,7 +10,7 @@ import { IGuidHelper } from '_services/helpers/guidHelper';
 import { ModalBase } from '_models/modalBase';
 import { inject } from 'inversify-props';
 
-@Component({
+@Options({
   name: 'FallbackValueItems',
   template: require('./fallbackValueItems.pug'),
   components: {

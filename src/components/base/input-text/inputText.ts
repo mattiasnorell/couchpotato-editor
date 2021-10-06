@@ -1,8 +1,7 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
 import { Prop, Ref } from 'vue-property-decorator';
 
-@Component({
+@Options({
   name: 'InputText',
   template: require('./inputText.pug'),
   components: {}

@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 
 import { StreamList } from '../streams/stream-list/streamList';
 import { EpgConfig } from '../epg/epg-config/epgConfig';
@@ -17,7 +17,7 @@ import { InputCheckbox } from '_components/base/input-checkbox/inputCheckbox';
 import { ExportConfiguration } from '_components/configurator/export/exportConfiguration';
 import { TriggerCouchpotato } from '_components/trigger-couchpotato/triggerCouchpotato';
 
-@Component({
+@Options({
   name: 'Configurator',
   template: require('./configurator.pug'),
   components: {

@@ -2,7 +2,7 @@ div(class="dropdown-button bg-white rounded-md relative mr-2 mb-2 md:mb-0" :clas
         button(class="action-button flex-1" :class="{'is-open':isOpen}" :disabled="disabled" @click="onDownload")
             span()
                 font-awesome-icon(icon="download")
-            span(class="ml-1") {{ 'export' | translate}}
+            span(class="ml-1") {{ $filters.translate('export') }}
 
         button(class="dropdown-trigger h-full flex-grow-0" :class="{'is-open':isOpen}" @click="onToggle")
             span(v-if="isOpen")
@@ -15,9 +15,9 @@ div(class="dropdown-button bg-white rounded-md relative mr-2 mb-2 md:mb-0" :clas
                 li(class="border-b pt-2 pb-2 cursor-pointer border-gray-400" @click="onDownload") 
                     span() 
                         font-awesome-icon(icon="download")
-                    span(class="ml-1") {{ 'exportToFile' | translate}}
+                    span(class="ml-1") {{ $filters.translate('exportToFile') }}
 
                 li(class=" pt-2 pb-2 last:border-none cursor-pointer" @click="onCopy")
                     span() 
                         font-awesome-icon(icon="copy")
-                    span(class="ml-1") {{ 'copyToJson' | translate}}
+                    span(class="ml-1") {{ $filters.translate('copyToJson') }}

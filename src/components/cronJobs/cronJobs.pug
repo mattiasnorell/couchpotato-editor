@@ -9,7 +9,7 @@ div()
                 span() Visa endast Coucnpotatojobb
 
             label()
-                input-checkbox(v-model="showInactive" @input="loadJobs")
+                input-checkbox(v-model:value="showInactive" @input="loadJobs")
                 span(class="ml-2") Visa inaktiva jobb
 
     table(class="w-full table-fixed border border-gray-300 bg-white")
@@ -25,14 +25,14 @@ div()
                 tr(v-for="(job, index) in jobs")
                     td(class="w-32 px-4 py-2 whitespace-no-wrap border-b border-gray-300 text-md leading-5") 
                         div(class="input-group flex items-center")
-                            input-text(v-model="job.hour")
+                            input-text(v-model:value="job.hour")
                             span(class="px-2") : 
-                            input-text(v-model="job.minute")
+                            input-text(v-model:value="job.minute")
                     td(class="px-4 py-2 whitespace-no-wrap border-b border-gray-300 text-md leading-5") 
-                        input-text(class="w-full" v-model="job.command")
+                        input-text(class="w-full" v-model:value="job.command")
 
                     td(class="w-24 px-4 py-2 whitespace-no-wrap border-b border-gray-300 text-md leading-5") 
-                        input-checkbox(v-model="job.active")
+                        input-checkbox(v-model:value="job.active")
 
                     td(class="w-8 py-2 whitespace-no-wrap border-b border-gray-300 text-md leading-5 text-center")
                         button(@click="runCronJob(job)")
@@ -45,11 +45,11 @@ div()
                 tr(class="bg-gray-100")
                     td(class="w-32 px-4 py-2 whitespace-no-wrap border-b border-gray-300 text-md leading-5") 
                         div(class="input-group flex items-center")
-                            input-text(v-model="newJob.hour")
+                            input-text(v-model:value="newJob.hour")
                             span(class="px-2") : 
-                            input-text(v-model="newJob.minute")
+                            input-text(v-model:value="newJob.minute")
                     td(class="px-4 py-2 whitespace-no-wrap border-b border-gray-300 text-md leading-5") 
-                        input-text(class="w-full" v-model="newJob.command")
+                        input-text(class="w-full" v-model:value="newJob.command")
                     td(class="w-8 py-2 whitespace-no-wrap border-b border-gray-300 text-md leading-5 text-center")
                         
                     td(class="w-8 py-2 whitespace-no-wrap border-b border-gray-300 text-md leading-5 text-center" colspan="2")

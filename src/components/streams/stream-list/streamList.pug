@@ -13,9 +13,9 @@ div(class="w-full")
                 
     div(class="flex-row mb-4")
         div(class="col w-full md:w-3/4")
-            label() {{ 'searchStream' | translate }}
+            label() {{$filters.translate('searchStream')}}
             div(class="input-group" class="w-full")
-                stream-picker(:placeholder="'searchStream' | translate " @onSelect="addStream")
+                stream-picker(:placeholder="$filters.translate('searchStream')" @onSelect="addStream")
 
         div(class="col w-full md:w-1/4 text-right")
             button(class="btn w-full" @click="openCatalogue")
@@ -29,12 +29,12 @@ div(class="w-full")
                 thead()
                     tr(class="border-b border-gray-300 bg-gray-300")
                         th(class="w-4 px-4 py-2 whitespace-no-wrap text-sm text-left leading-5")
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5") {{ 'id' | translate }}
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") {{ 'friendlyName' | translate }}
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") {{ 'group' | translate }}
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") {{ 'epgId' | translate }}
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") {{ 'timeshift' | translate }}
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") {{ 'logo' | translate }}
+                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5") {{$filters.translate('id')}}
+                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") {{$filters.translate('friendlyName')}}
+                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") {{$filters.translate('group')}}
+                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") {{$filters.translate('epgId')}}
+                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") {{$filters.translate('timeshift')}}
+                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") {{$filters.translate('logo')}}
                         th(class="px-4 py-2 whitespace-no-wrap text-sm text-right leading-5 md:hidden")
                         th(class="px-4 py-2 whitespace-no-wrap text-sm text-right leading-5")
                         th(class="px-4 py-2 whitespace-no-wrap text-sm text-right leading-5")

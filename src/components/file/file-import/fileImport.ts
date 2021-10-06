@@ -1,7 +1,7 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
 
-@Component({
+
+@Options({
     name: 'FileUpload',
     template: require('./fileUpload.pug')
 })

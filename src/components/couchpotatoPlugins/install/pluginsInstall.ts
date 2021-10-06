@@ -1,4 +1,4 @@
-import Component from 'vue-class-component';
+import { Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { InputText } from '_components/base/input-text/inputText';
@@ -10,49 +10,75 @@ import WebSocketModalProps, { WebSocketModal } from '_components/websocket-modal
 import { ILanguageRepository } from '_services/repositories/languageRepository';
 import { inject } from 'inversify-props';
 import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { PluginReadmeProps, PluginsReadme } from '../readme/pluginsReadme';
 
-@Component({
-  name: 'PluginsInstall',
-  template: require('./pluginsInstall.pug'),
-  components: {
-    FontAwesomeIcon,
-    InputText
-  }
+@Options({
+    name: 'PluginsInstall',
+    template: require('./pluginsInstall.pug'),
+    components: {
+        FontAwesomeIcon,
+        InputText
+    }
 })
 export class PluginsInstall extends ModalBase {
-  @inject() public localStorageRepository: ILocalStorageRepository;
-  @inject() public languageRepository: ILanguageRepository;
-  @inject() public gitHubProvider: IGitHubProvider;
-  @inject() public modalHelper: IModalHelper;
+    @inject() public localStorageRepository: ILocalStorageRepository;
+    @inject() public languageRepository: ILanguageRepository;
+    @inject() public gitHubProvider: IGitHubProvider;
+    @inject() public modalHelper: IModalHelper;
 
-  @Prop()
-  public title: string;
+    @Prop()
+    public title: string;
 
-  @Prop({ type: Array, default: () => [] })
-  public installedPlugins: CouchpotatoPlugin[];
+    @Prop({ type: Array, default: () => [] })
+    public installedPlugins: CouchpotatoPlugin[];
 
+    private githubPlugins: GitHubRepositoryContent[] = [];
+    private isPending: boolean = false;
 
-  public async created(): Promise<void> {
-    const githubToken = this.localStorageRepository.read<string>('githubToken');
-    if (githubToken) {
-      const result = await this.gitHubProvider.getRepositoryContent('couchpotato-plugins', githubToken);
+    public async created(): Promise<void> {
+        const githubToken = this.localStorageRepository.read<string>('githubToken');
+        if (githubToken) {
+            const result = await this.gitHubProvider.getRepositoryContent('couchpotato-plugins', githubToken);
+            this.githubPlugins = result.filter((item) => item.type === 'dir');
+        }
     }
-  }
 
-  private installCouchpotatoPlugin(plugin: GitHubRepositoryContent): void {
-    const props: WebSocketModalProps = new WebSocketModalProps();
-    props.title = `${this.languageRepository.get('installPlugin')} - ${plugin.name}`;
-    props.action = 'installplugin';
-    props.url = plugin.name;
-    props.accessToken = this.localStorageRepository.read<string>('githubToken');
+    private installCouchpotatoPlugin(plugin: GitHubRepositoryContent): void {
+        const props: WebSocketModalProps = new WebSocketModalProps();
+        props.title = `${this.languageRepository.get('installPlugin')} - ${plugin.name}`;
+        props.action = 'installplugin';
+        props.url = plugin.name;
+        props.accessToken = this.localStorageRepository.read<string>('githubToken');
 
-    this.modalHelper.create<typeof WebSocketModal>(WebSocketModal, props, async () => {
+        this.modalHelper.create<typeof WebSocketModal>(WebSocketModal, props, async () => {});
+    }
 
-    });
-  }
+    private openPluginInformation(plugin: GitHubRepositoryContent): void {
+        if (!plugin) {
+            return;
+        }
+
+        const props: PluginReadmeProps = new PluginReadmeProps();
+        props.title = `${plugin.name}`;
+        props.pluginId = plugin.name;
+
+        this.modalHelper.create<typeof PluginsReadme>(PluginsReadme, props);
+    }
+
+    private openPluginInstaller(plugin: GitHubRepositoryContent): void {
+        if (!plugin) {
+            return;
+        }
+
+        this.installCouchpotatoPlugin(plugin);
+    }
+
+    private close(): void {
+        super.closeModal();
+    }
 }
 
 export class PluginInstallProps {
-  public title: string;
-  public installedPlugins: CouchpotatoPlugin[];
+    public title: string;
+    public installedPlugins: CouchpotatoPlugin[];
 }

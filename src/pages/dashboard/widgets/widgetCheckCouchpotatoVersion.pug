@@ -24,4 +24,4 @@ div(class="w-full")
                 font-awesome-icon(icon="exclamation-triangle")
             div(class="ml-2 flex flex-wrap")
                 span(class="w-full") Ny version finns.
-                router-link(to="/settings" class="text-xs") {{'goToLocalResourceSettings' | translate}}
+                router-link(to="/settings" class="text-xs") {{ $filters.translate('goToLocalResourceSettings') }}

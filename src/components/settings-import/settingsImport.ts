@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 import { Prop } from 'vue-property-decorator';
 import { Layout } from '_components/base/layout/layout';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -8,7 +8,7 @@ import { ILanguageRepository } from '_services/repositories/languageRepository';
 import ISettingsImportModalProps, { SettingsImportModal } from './settingsImportModal';
 import { inject } from 'inversify-props';
 
-@Component({
+@Options({
     name: 'SettingsImport',
     template: require('./settingsImport.pug'),
     components: {

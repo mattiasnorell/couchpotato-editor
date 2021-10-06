@@ -1,3 +1,4 @@
+import { RouteRecordRaw } from 'vue-router';
 import { RouteLink } from '../models/Route';
 import { $editorRoutes } from './editorRoutes';
 
@@ -7,7 +8,7 @@ const Dashboard = () => import(/* webpackChunkName: "routes" */ '../pages/dashbo
 const Settings = () => import(/* webpackChunkName: "routes" */ '../pages/settings/settings');
 const AbstractRouterView = () => import(/* webpackChunkName: "routes" */ '../components/base/abstract-router-view/abstractRouterView');
 
-const $mainRoutes = <RouteLink[]>[
+const $mainRoutes = <RouteRecordRaw[]>[
   {
     name: 'start',
     path: '/',

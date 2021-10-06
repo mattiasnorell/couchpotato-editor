@@ -1,11 +1,11 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 import { Prop } from 'vue-property-decorator';
 import { IModalHelper } from '_services/helpers/modalHelper';
 import { FallbackValueItems, FallbackValueItemsProps } from '_components/validation/fallback-value-items/fallbackValueItems';
 import { inject } from 'inversify-props';
 
-@Component({
+@Options({
   name: 'FallbackValues',
   template: require('./fallbackValues.pug'),
   components: {}

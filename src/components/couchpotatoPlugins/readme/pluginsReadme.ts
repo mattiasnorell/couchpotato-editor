@@ -1,4 +1,4 @@
-import Component from 'vue-class-component';
+
 import { Prop } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { InputText } from '_components/base/input-text/inputText';
@@ -7,8 +7,9 @@ import { IGitHubProvider } from '_services/providers/githubProvider';
 import { IMarkdownHelper } from '_services/helpers/markdownHelper';
 import { inject } from 'inversify-props';
 import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { Options } from 'vue-class-component';
 
-@Component({
+@Options({
   name: 'PluginsReadme',
   template: require('./pluginsReadme.pug'),
   components: {

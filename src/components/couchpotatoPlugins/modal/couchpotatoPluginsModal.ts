@@ -1,4 +1,4 @@
-import Component from 'vue-class-component';
+import { Options } from 'vue-class-component';
 import { Prop, Ref } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { InputText } from '_components/base/input-text/inputText';
@@ -10,7 +10,7 @@ import { IModalHelper } from '_services/helpers/modalHelper';
 import { ModalBase } from '_models/modalBase';
 import { inject } from 'inversify-props';
 
-@Component({
+@Options({
   name: 'CouchpotatoPluginsModal',
   template: require('./couchpotatoPluginsModal.pug'),
   components: {

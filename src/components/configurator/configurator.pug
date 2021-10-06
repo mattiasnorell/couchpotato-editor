@@ -10,17 +10,17 @@ div()
         collapse(class="mb-4" title="Basuppgifter" :openAtRender="false")
             generic-config(v-if="configuration" :config="configuration")  
 
-        collapse(class="mb-4" :title="'validation' | translate" :openAtRender="false")
+        collapse(class="mb-4" :title="$filters.translate('validation')" :openAtRender="false")
             validation-config(v-if="configuration" :config="configuration.validation")    
 
-        collapse(class="mb-4" :title="'compression' | translate" :openAtRender="false")
+        collapse(class="mb-4" :title="$filters.translate('compression')" :openAtRender="false")
             compression-config(v-if="configuration" :config="configuration")    
 
-        collapse(class="mb-4" :title="'epg' | translate" :openAtRender="false")
+        collapse(class="mb-4" :title="$filters.translate('epg')" :openAtRender="false")
             epg-config(v-if="configuration" :epg="configuration.epg")
 
-        collapse(class="mb-4" :title="'groups' | translate" :openAtRender="false")
+        collapse(class="mb-4" :title="$filters.translate('groups')" :openAtRender="false")
             group-config(v-if="configuration" :config="configuration")    
 
-        collapse(:title="'streams' | translate" :openAtRender="false")
+        collapse(:title="$filters.translate('streams')" :openAtRender="false")
             stream-list(v-if="configuration" :streams="configuration.streams")

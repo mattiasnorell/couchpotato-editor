@@ -1,6 +1,5 @@
 import { IDateHelper } from "_services/helpers/dateHelper";
 import { ILocalStorageRepository } from "_services/repositories/localStorageRepository";
-
 import { inject, injectable } from "inversify-props";
 
 export interface IAuthProvider {

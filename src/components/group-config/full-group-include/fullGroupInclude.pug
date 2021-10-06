@@ -11,4 +11,4 @@ div(class="w-full")
             full-group-include-row(v-for="(group, index) in config" :key="index" :group="group" @onDelete="onDelete(index)" v-if="config.length > 0")
     
     div(class="w-full mt-4")
-        group-picker(:placeholder="'searchGroupPlaceholder' | translate" @onSelect="onSelect")
+        group-picker(:placeholder="$filters.translate('searchGroupPlaceholder')" @onSelect="onSelect")

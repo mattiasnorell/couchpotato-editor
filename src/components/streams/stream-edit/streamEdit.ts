@@ -1,11 +1,11 @@
-import Component from 'vue-class-component';
+import { Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { InputText } from '_components/base/input-text/inputText';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { Stream } from '_models/Stream';
 import { ModalBase } from '_models/modalBase';
 
-@Component({
+@Options({
   name: 'StreamEdit',
   template: require('./streamEdit.pug'),
   components: {

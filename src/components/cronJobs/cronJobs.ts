@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 import { InputText } from '_components/base/input-text/inputText';
 import { InputCheckbox } from '_components/base/input-checkbox/inputCheckbox';
 import { ICronConnector, CronJob } from '_services/connectors/cronConnector';
@@ -10,7 +10,7 @@ import { ILanguageRepository } from '_services/repositories/languageRepository';
 import { inject } from 'inversify-props';
 
 
-@Component({
+@Options({
   name: 'CronJobs',
   template: require('./cronJobs.pug'),
   components: {

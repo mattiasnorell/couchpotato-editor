@@ -1,4 +1,4 @@
-import Component from 'vue-class-component';
+
 import { Prop, Ref } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { ModalBase } from '_models/modalBase';
@@ -6,8 +6,9 @@ import { ILocalStorageRepository } from '_services/repositories/localStorageRepo
 import { ISettingsExport } from '_components/settings-export/settingsExport';
 import { inject } from 'inversify-props';
 import { ILanguageRepository } from '_services/repositories/languageRepository';
+import { Options } from 'vue-class-component';
 
-@Component({
+@Options({
     name: 'SettingsImportModal',
     template: require('./settingsImportModal.pug'),
     components: {

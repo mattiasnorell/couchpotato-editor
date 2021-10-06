@@ -31,7 +31,8 @@ import {
     faSignOutAlt,
     faSignInAlt,
     faCheckSquare,
-    faEye
+    faEye,
+    faUpload
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -67,5 +68,6 @@ library.add(
     faSignInAlt,
     faCheckSquare,
     faEye,
-    faInfo
+    faInfo,
+    faUpload
 );

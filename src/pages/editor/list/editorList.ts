@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 import { Layout } from '_components/base/layout/layout';
 import { TriggerCouchpotato } from '_components/trigger-couchpotato/triggerCouchpotato';
 import { Rename } from '_components/configurator/rename/rename';
@@ -11,7 +11,7 @@ import { ILanguageRepository } from '_services/repositories/languageRepository';
 import { RequireTokenDecorator } from 'src/decorators/RequireTokenDecorator';
 import { inject } from 'inversify-props';
 
-@Component({
+@Options({
   name: 'EditorList',
   template: require('./editorList.pug'),
   components: {

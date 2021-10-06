@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { InputCheckbox } from '_components/base/input-checkbox/inputCheckbox';
@@ -8,7 +7,7 @@ import { Stream } from '_models/Stream';
 import { StreamPicker } from '_components/base/stream-picker/streamPicker';
 import { ModalBase } from '_models/modalBase';
 
-@Component({
+@Options({
   name: 'Excluded',
   template: require('./excluded.pug'),
   components: {

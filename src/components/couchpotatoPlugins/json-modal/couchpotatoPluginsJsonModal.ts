@@ -1,4 +1,4 @@
-import Component from 'vue-class-component';
+import { Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { InputText } from '_components/base/input-text/inputText';
@@ -6,7 +6,7 @@ import { ICouchpotatoPluginConnector } from '_services/connectors/couchpotatoPlu
 import { ModalBase } from '_models/modalBase';
 import { inject } from 'inversify-props';
 
-@Component({
+@Options({
   name: 'CouchpotatoPluginsJsonModal',
   template: require('./couchpotatoPluginsJsonModal.pug'),
   components: {
@@ -26,7 +26,7 @@ export class CouchpotatoPluginsJsonModal extends ModalBase {
   private isPending: boolean = false;
   private contents: string = '';
 
-  private async created(): Promise<void> {
+  public async created(): Promise<void> {
     const result = await this.couchpotatoPluginConnector.getSettingsFile(this.path);
     this.contents = JSON.stringify(result, undefined, 4);
   }

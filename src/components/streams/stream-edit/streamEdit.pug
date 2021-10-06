@@ -7,29 +7,29 @@ div(class="modal")
             div(class="modal-content")
                 div(class="w-full flex flex-wrap")
                     div(class="w-full md:w-1/3 px-4 text-left")
-                        label() {{ 'friendlyName' | translate }}
+                        label() {{ $filters.translate('friendlyName') }}
                         input-text(:value="stream?.friendlyName" :placeholder="'Välj grupp'")
 
                 div(class="w-full flex flex-wrap mt-4")
                     div(class="w-full md:w-1/3 px-4 text-left")
-                        label() {{ 'group' | translate }}
-                        input-text(v-model="stream.customGroupName" :placeholder="`Defaultgruppen`" :usePlaceholderIfEmpty="true")
+                        label() {{ $filters.translate('group') }}
+                        input-text(v-model:value="stream.customGroupName" :placeholder="`Defaultgruppen`" :usePlaceholderIfEmpty="true")
 
                 div(class="w-full flex flex-wrap mt-4")
                     div(class="w-full md:w-1/3 px-4 text-left")
-                        label() {{ 'epgId' | translate }}
-                        input-text(v-model="stream.epgId" :placeholder="'Ej angivet'" :usePlaceholderIfEmpty="true")
+                        label() {{ $filters.translate('epgId') }}
+                        input-text(v-model:value="stream.epgId" :placeholder="'Ej angivet'" :usePlaceholderIfEmpty="true")
 
                 
                 div(class="w-full flex flex-wrap mt-4")
                     div(class="w-full md:w-1/3 px-4 text-left")
-                        label() {{ 'customLogo' | translate }}
-                        input-text(v-model="stream.customLogo" :placeholder="'Standard'" :usePlaceholderIfEmpty="true")
+                        label() {{ $filters.translate('customLogo') }}
+                        input-text(v-model:value="stream.customLogo" :placeholder="'Standard'" :usePlaceholderIfEmpty="true")
 
                 div(class="w-full flex flex-wrap mt-4")
                     div(class="w-full md:w-1/3 px-4 text-left")
-                        label() {{ 'timeshift' | translate }}
-                        input-text(v-model="stream.epgTimeshift" :placeholder="'0000'" :usePlaceholderIfEmpty="true")
+                        label() {{ $filters.translate('timeshift') }}
+                        input-text(v-model:value="stream.epgTimeshift" :placeholder="'0000'" :usePlaceholderIfEmpty="true")
 
             div(class="modal-footer")
                 button(class="rounded-md bg-gray-500 px-4 py-2" @click="ok") Ok

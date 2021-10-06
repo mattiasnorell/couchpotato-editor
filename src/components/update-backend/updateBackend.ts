@@ -1,12 +1,12 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 import { Prop } from 'vue-property-decorator';
 import { Layout } from '_components/base/layout/layout';
 import { ICouchpotatoConnector } from '_services/connectors/couchpotatoConnector';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { inject } from 'inversify-props';
 
-@Component({
+@Options({
   name: 'UpdateBackend',
   template: require('./updateBackend.pug'),
   components: {

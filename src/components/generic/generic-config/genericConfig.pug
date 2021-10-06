@@ -2,17 +2,17 @@ div(class="flex")
     div(class="w-full")
         div(class="flex-row mb-4")
             div(class="col w-full md:w-1/2")
-                label() {{ 'targetFolder' | translate }}
+                label() {{ $filters.translate('targetFolder') }}
                 div(class="input-group" class="w-full")
-                    input-text(v-model="config.outputPath")
+                    input-text(v-model:value="config.outputPath")
 
             div(class="col w-full md:w-1/2")
-                label() {{ 'targetFilename' | translate }}
+                label() {{ $filters.translate('targetFilename') }}
                 div(class="input-group" class="w-full")
-                    input-text(v-model="config.outputFilename")
+                    input-text(v-model:value="config.outputFilename")
                     
         div(class="flex-row")
             div(class="col w-full")
-                label() {{ 'sourcePlaylist' | translate }}
+                label() {{ $filters.translate('sourcePlaylist') }}
                 div(class="input-group" class="w-full")
-                    input-text(v-model="config.m3uPath")
+                    input-text(v-model:value="config.m3uPath")

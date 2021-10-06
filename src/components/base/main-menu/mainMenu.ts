@@ -1,12 +1,12 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { RouteConfig } from 'vue-router';
+//import { RouteConfig } from 'vue-router';
 import { RequireTokenDecorator } from 'src/decorators/RequireTokenDecorator';
 import { IAuthProvider } from '_services/providers/authProvider';
 import { inject } from 'inversify-props';
 
-@Component({
+@Options({
   name: 'mainMenu',
   template: require('./mainMenu.pug'),
   components: {
@@ -18,11 +18,11 @@ export class MainMenu extends Vue {
   @inject()
   private authProvider: IAuthProvider;
   
-  private menuItems: RouteConfig[] | undefined = [];
+  private menuItems: any[] | undefined = [];
 
   public created() {
     const routes = this.$router.options.routes;
-    this.menuItems = routes;
+    this.menuItems = routes.filter(item => item?.meta?.showInMenu);
   }
 
   private subIsActive(path: string): boolean {

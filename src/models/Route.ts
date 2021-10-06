@@ -1,7 +1,7 @@
 export class RouteMetaData {
 }
 
-export class RouteLink {
+export class RouteLink{
     public name: string = '';
     public path: string = '';
     public component?: any;

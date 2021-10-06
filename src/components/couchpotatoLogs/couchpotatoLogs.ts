@@ -1,12 +1,12 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { IModalHelper } from '_services/helpers/modalHelper';
 import { ILogProvider } from '_services/providers/logProvider';
 import { LogModal } from './log-modal/logModal';
 import { inject } from 'inversify-props';
 
-@Component({
+@Options({
   name: 'CouchpotatoLogs',
   template: require('./couchpotatoLogs.pug'),
   components: {

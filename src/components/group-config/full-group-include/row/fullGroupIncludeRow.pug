@@ -3,7 +3,7 @@ tr()
         span(class="cursor-pointer border-dotted border-b-2 border-gray-200" v-if="!isEdit" @click="edit") {{ group.groupId }}
         group-picker(v-if="isEdit" @onSelect="onSelect" @onBlur="onBlur")
     td(class="px-4 py-2 whitespace-no-wrap border-b border-gray-300 text-md leading-5") 
-        input-text(v-model="group.friendlyName" :inline="true")
+        input-text(v-model:value="group.friendlyName" :inline="true")
     td(class="px-4 py-2 whitespace-no-wrap border-b border-gray-300 text-md leading-5") 
         span(class="cursor-pointer border-dotted border-b-2 border-gray-200" @click="openExcludeModal") {{ group.exclude ? group.exclude.length : 0 }} st
     td(class="py-2 whitespace-no-wrap border-b border-gray-300 text-md leading-5 text-center") 

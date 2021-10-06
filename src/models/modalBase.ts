@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import { Prop, Ref } from 'vue-property-decorator';
+import { Vue } from 'vue-class-component';
+import { Prop } from 'vue-property-decorator';
 
 export class ModalBase extends Vue {
   @Prop({type: String, default: ''})

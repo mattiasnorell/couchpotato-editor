@@ -2,9 +2,9 @@ layout()
     div(class="p-4 flex flex-wrap h-full w-full items-center justify-center")
         div(class="bg-gray-500 rounded-xl w-96 p-4 h-36")
             p(class="font-md text-white font-semibold") Användarnamn
-            input-text(v-model="username" @keyup.enter.native="login")
+            input-text(v-model:value="username" @keyup.enter.native="login")
             button(class="btn mt-2" @click="login")
                 span(class="mr-2")
                     font-awesome-icon(icon="sign-in-alt")
-                span() {{ 'login' | translate }}
+                span() $filters.translate('login')
             

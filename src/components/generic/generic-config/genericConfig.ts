@@ -1,10 +1,10 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 import { Prop } from 'vue-property-decorator';
 import { Configuration } from '_models/Configuration';
 import { InputText } from '_components/base/input-text/inputText';
 
-@Component({
+@Options({
   name: 'GenericConfig',
   template: require('./genericConfig.pug'),
   components: {

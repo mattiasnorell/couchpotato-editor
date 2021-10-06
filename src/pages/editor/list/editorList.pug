@@ -13,13 +13,13 @@ layout()
                     th(class="px-4 py-2 whitespace-no-wrap text-md text-left leading-5") Namn
                     th(class="px-4 py-2 whitespace-no-wrap text-md text-left leading-5") Senast ändrad
                     th(class="px-4 py-2 whitespace-no-wrap text-md text-left leading-5 hidden md:table-cell") Kör
-                    th(class="px-4 py-2 whitespace-no-wrap text-md text-left leading-5 hidden md:table-cell") {{ 'actions' | translate }}
+                    th(class="px-4 py-2 whitespace-no-wrap text-md text-left leading-5 hidden md:table-cell") {{ $filters.translate('actions') }}
             tbody()
                 tr(class="border-b border-gray-300" v-for="(config, index) in configurations")
                     td(class="px-4 py-2 whitespace-no-wrap text-md leading-5 capitalize") 
                         router-link(:to="`/editor/${config.name}`") {{ config.name}}
                     td(class="px-4 py-2 whitespace-no-wrap text-md leading-5") 
-                        span() {{ config.updatedAt | dateTime }}
+                        span() {{ $filters.dateTime(config.updatedAt) }}
                     td(class="px-4 py-2 whitespace-no-wrap text-md leading-5 hidden md:table-cell") 
                         trigger-couchpotato(:configurationId="config.name")
                     td(class="px-4 py-2 hidden md:table-cell")

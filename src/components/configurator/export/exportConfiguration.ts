@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 import { Prop } from 'vue-property-decorator';
 import { Configuration } from '_models/Configuration';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -7,7 +7,7 @@ import { IUrlHelper } from '_services/helpers/urlHelper';
 import { inject } from 'inversify-props';
 import { IDownloadHelper } from '_services/helpers/downloadHelper';
 
-@Component({
+@Options({
   name: 'ExportConfiguration',
   template: require('./exportConfiguration.pug'),
   components: {

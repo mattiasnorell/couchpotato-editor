@@ -1,4 +1,4 @@
 button(class="btn" @click="onClick" :disabled="disabled")
     span()
         font-awesome-icon(icon="play")
-    span(class="hidden lg:inline-block ml-2") {{'triggerCouchpotato' | translate}}
+    span(class="hidden lg:inline-block ml-2") {{ $filters.translate('triggerCouchpotato') }}

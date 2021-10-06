@@ -4,6 +4,6 @@ div()
             div(class="col w-full")
                 label() Standardgrupp
                 div(class="input-group" class="w-full")
-                    input-text(v-model="config.defaultGroup")
+                    input-text(v-model:value="config.defaultGroup")
 
     full-group-include(:config="config.groups")

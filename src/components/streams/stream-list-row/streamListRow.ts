@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 import { Prop } from 'vue-property-decorator';
 import { Stream } from '_models/Stream';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -9,7 +9,7 @@ import { StreamEdit, StreamEditProps } from '_components/streams/stream-edit/str
 import { IModalHelper } from '_services/helpers/modalHelper';
 import { inject } from 'inversify-props';
 
-@Component({
+@Options({
   name: 'StreamListRow',
   template: require('./streamListRow.pug'),
   components: {

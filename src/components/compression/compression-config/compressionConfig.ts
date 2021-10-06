@@ -1,10 +1,10 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 import { Prop } from 'vue-property-decorator';
 import { Configuration } from '_models/Configuration';
 import { InputCheckbox } from '_components/base/input-checkbox/inputCheckbox';
 
-@Component({
+@Options({
     name: 'CompressionConfig',
     template: require('./compressionConfig.pug'),
     components: {

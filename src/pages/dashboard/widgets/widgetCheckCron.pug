@@ -6,12 +6,12 @@ div(class="w-full")
     div(class="rounded-md text-md flex items-center" v-if="isRunning && !isPending") 
         span(class="bg-green-500 rounded-full text-white w-10 h-10 flex items-center justify-center")
             font-awesome-icon(icon="thumbs-up")
-        span(class="ml-2") {{'cronIsRunning' | translate}}
+        span(class="ml-2") {{ $filters.translate('cronIsRunning') }}
 
     div(class="rounded-md text-md"  v-if="!isRunning && !isPending") 
         div(class="flex items-center")
             span(class="bg-red-500 rounded-full text-white w-10 h-10 flex items-center justify-center")
                 font-awesome-icon(icon="exclamation-triangle")
             div(class="ml-2 flex flex-wrap")
-                span(class="w-full") {{'cronIsNotRunning' | translate}}
-                router-link(to="/settings" class="text-xs") {{'goToLocalResourceSettings' | translate}}
+                span(class="w-full") {{ $filters.translate('cronIsNotRunning') }}
+                router-link(to="/settings" class="text-xs") {{ $filters.translate('goToLocalResourceSettings') }}

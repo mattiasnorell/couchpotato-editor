@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 import { Layout } from '_components/base/layout/layout';
 import { InputText } from '_components/base/input-text/inputText';
 import { Collapse } from '_components/base/collapse/collapse';
@@ -10,7 +10,7 @@ import { WidgetCheckCron } from '_pages/dashboard/widgets/widgetCheckCron';
 import { WidgetLastRunLog } from '_pages/dashboard/widgets/widgetLastRunLog';
 import { RequireTokenDecorator } from 'src/decorators/RequireTokenDecorator';
 
-@Component({
+@Options({
   name: 'Dashboard',
   template: require('./dashboard.pug'),
   components: {

@@ -5,9 +5,9 @@ div()
     table(class="w-full table-fixed border border-gray-300 bg-white")
         thead()
             tr(class="border-b border-gray-300 bg-gray-300")
-                th(class="px-4 py-2 whitespace-no-wrap text-md text-left leading-5") {{ 'name' | translate }}
-                th(class="px-4 py-2 hidden md:table-cell w-auto md:w-32 whitespace-no-wrap text-md text-left leading-5") {{ 'version' | translate }}
-                th(class="px-4 hidden md:table-cell py-2 w-auto md:w-16 whitespace-no-wrap text-md text-left leading-5") {{ 'active' | translate }}
+                th(class="px-4 py-2 whitespace-no-wrap text-md text-left leading-5") {{ $filters.translate('name') }}
+                th(class="px-4 py-2 hidden md:table-cell w-auto md:w-32 whitespace-no-wrap text-md text-left leading-5") {{ $filters.translate('version') }}
+                th(class="px-4 hidden md:table-cell py-2 w-auto md:w-16 whitespace-no-wrap text-md text-left leading-5") {{ $filters.translate('active') }}
                 th(class="px-4 py-2 w-auto md:w-96 whitespace-no-wrap text-md text-left leading-5")
                 
         tbody()
@@ -15,17 +15,17 @@ div()
                 td( class="px-4 py-2 whitespace-no-wrap truncate") {{ item.name }}
                 td( class="px-4 hidden md:table-cell py-2 whitespace-no-wrap truncate") {{ item.version }}
                 td( class="px-4 hidden md:table-cell py-2 whitespace-no-wrap truncate")
-                    input-checkbox(v-model="item.active" @input="toggleActive(item)")
+                    input-checkbox(v-model:value="item.active" @input="toggleActive(item)")
                 td( class="px-4 py-2 whitespace-no-wrap flex justify-end")
 
                     button(class="btn mr-2" @click="editPluginSettings(item.name)") 
                         span(class="mr-1")
                             font-awesome-icon(icon="cog")
-                        span(class="hidden md:inline") {{ 'settings' | translate }}
+                        span(class="hidden md:inline") {{ $filters.translate('settings') }}
 
                     button(class="btn" @click="uninstallPlugin(item, index)")
                         span(class="mr-1")
                             font-awesome-icon(icon="trash") 
-                        span(class="hidden md:inline") {{ 'uninstall' | translate }}
+                        span(class="hidden md:inline") {{ $filters.translate('uninstall') }}
 
         

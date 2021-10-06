@@ -1,6 +1,5 @@
 import { RequireTokenDecorator } from 'src/decorators/RequireTokenDecorator';
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { Layout } from '_components/base/layout/layout';
 import { Configurator } from '_components/configurator/configurator';
@@ -9,7 +8,7 @@ import { IConfigurationProvider } from '_services/providers/configurationProvide
 import { IPlaylistRepository } from '_services/repositories/playlistRepository';
 import { inject } from 'inversify-props';
 
-@Component({
+@Options({
   name: 'EditorEdit',
   template: require('./editorEdit.pug'),
   components: {

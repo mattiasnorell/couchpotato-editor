@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { Group } from '_models/Group';
@@ -8,7 +7,7 @@ import { GroupPicker } from '_components/base/group-picker/groupPicker';
 import { FullGroupIncludeRow } from './row/fullGroupIncludeRow';
 import { TableEmptyState } from '_components/base/table-empty-state/tableEmptyState';
 
-@Component({
+@Options({
   name: 'FullGroupInclude',
   template: require('./fullGroupInclude.pug'),
   components: {

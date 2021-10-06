@@ -1,12 +1,11 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
 import { IPlaylistRepository } from '_services/repositories/playlistRepository';
 import { InputText } from '../input-text/inputText';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { Prop, Ref } from 'vue-property-decorator';
 import { inject } from 'inversify-props';
 
-@Component({
+@Options({
   name: 'GroupPicker',
   template: require('./groupPicker.pug'),
   components: {
@@ -27,7 +26,7 @@ export class GroupPicker extends Vue {
   @Prop()
   public placeholder: string;
   
-  private created() {
+  public created() {
     this.$nextTick(() => this.streamPickerInput.focus());
   }
 

@@ -7,19 +7,19 @@ tr(class="border-b border-gray-300 last:border-b-0")
             stream-picker(:placeholder="'Sök ström'" @onSelect="updateStreamId" @onBlur="onStreamPickerBlur")
 
     td(class="px-4 py-1 whitespace-no-wrap text-sm leading-5 hidden md:table-cell")
-        input-text(v-model="stream.friendlyName" :placeholder="stream.channelId" :usePlaceholderIfEmpty="true")
+        input-text(v-model:value="stream.friendlyName" :placeholder="stream.channelId" :usePlaceholderIfEmpty="true")
 
     td(class="px-4 py-1 whitespace-no-wrap text-sm leading-5 hidden md:table-cell") 
-        input-text(v-model="stream.customGroupName" :placeholder="`Defaultgruppen`" :usePlaceholderIfEmpty="true")
+        input-text(v-model:value="stream.customGroupName" :placeholder="`Defaultgruppen`" :usePlaceholderIfEmpty="true")
 
     td(class="px-4 py-1 whitespace-no-wrap text-sm leading-5 hidden md:table-cell")
-        input-text(v-model="stream.epgId" :placeholder="'Ej angivet'" :usePlaceholderIfEmpty="true")
+        input-text(v-model:value="stream.epgId" :placeholder="'Ej angivet'" :usePlaceholderIfEmpty="true")
 
     td(class="px-4 py-1 whitespace-no-wrap text-sm leading-5 hidden md:table-cell")
-        input-text(v-model="stream.epgTimeshift" :placeholder="'0000'" :usePlaceholderIfEmpty="true")
+        input-text(v-model:value="stream.epgTimeshift" :placeholder="'0000'" :usePlaceholderIfEmpty="true")
 
     td(class="px-4 py-1 whitespace-no-wrap text-sm leading-5 hidden md:table-cell")
-        input-text(v-model="stream.customLogo" :placeholder="'Standard'" :usePlaceholderIfEmpty="true")
+        input-text(v-model:value="stream.customLogo" :placeholder="'Standard'" :usePlaceholderIfEmpty="true")
 
     td(class="px-4 py-1 whitespace-no-wrap text-sm leading-5 md:hidden")
         button(@click="openEditModal" class="text-gray-500")

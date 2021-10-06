@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import WebSocketModalProps, { WebSocketModal } from '_components/websocket-modal/webSocketModal';
 import { IModalHelper } from '_services/helpers/modalHelper';
@@ -7,7 +7,7 @@ import { Prop, Inject } from 'vue-property-decorator';
 import { ILanguageRepository } from '_services/repositories/languageRepository';
 import { inject } from 'inversify-props';
 
-@Component({
+@Options({
   name: 'TriggerCouchpotato',
   template: require('./triggerCouchpotato.pug'),
   components: {

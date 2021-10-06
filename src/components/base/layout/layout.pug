@@ -4,7 +4,7 @@ div(class="h-full")
             div()
                 span(class="mr-2") 
                     font-awesome-icon(icon="couch")
-                span() {{'applicationTitle' | translate }}
+                span() {{ $filters.translate('applicationTitle') }}
             span(class="ml-2 md:ml-auto font-normal text-xs") v.{{ version }}
             div(class="ml-auto block md:hidden")
                 button(class="btn " @click="showMenu = !showMenu")

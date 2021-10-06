@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
+
 import { TriggerCouchpotato } from '_components/trigger-couchpotato/triggerCouchpotato';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { ICouchpotatoConnector } from '_services/connectors/couchpotatoConnector';
@@ -8,7 +8,7 @@ import { ICouchpotatoPluginConnector } from '_services/connectors/couchpotatoPlu
 import { inject } from 'inversify-props';
 import { ICouchpotatoProvider } from '_services/providers/couchpotatoProvider';
 
-@Component({
+@Options({
   name: 'WidgetCheckLocalConnection',
   template: require('./widgetCheckLocalConnection.pug'),
   components: {

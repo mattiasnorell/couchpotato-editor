@@ -1,4 +1,4 @@
-import { createDecorator } from "vue-class-component";
+import { Vue, createDecorator } from "vue-class-component";
 import { VNode } from "vue";
 import { IAuthProvider } from "_services/providers/authProvider";
 import { container, cid } from "inversify-props";
