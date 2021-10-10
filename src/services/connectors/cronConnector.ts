@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { ILocalStorageHelper } from '_services/helpers/localStorageHelper';
 import { inject } from 'inversify-props';
 import { injectable } from 'inversify-props';
 
@@ -21,10 +21,10 @@ export interface ICronConnector {
 
 @injectable()
 export class CronConnector {
-  @inject() private localStorageRepository: ILocalStorageRepository;
+  @inject() private localStorageHelper: ILocalStorageHelper;
 
   public status(): Promise<boolean> {
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
 
     return axios
       .get(`${url}/cron/status/`)
@@ -37,7 +37,7 @@ export class CronConnector {
   }
 
   public getAll(showInactive: boolean): Promise<CronJob[]> {
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
 
     return axios
       .get(`${url}/cron/?showInactive=${showInactive}`)
@@ -50,7 +50,7 @@ export class CronConnector {
   }
 
   public create(jobs: CronJob): Promise<CronJob> {
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
 
     return axios
       .post(`${url}/cron/`, jobs)
@@ -63,7 +63,7 @@ export class CronConnector {
   }
 
   public save(jobs: CronJob[]): Promise<CronJob[]> {
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
 
     return axios
       .put(`${url}/cron/`, jobs)
@@ -76,7 +76,7 @@ export class CronConnector {
   }
 
   public remove(id: string): Promise<boolean> {
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
 
     return axios
       .delete(`${url}/cron/${id}/`)

@@ -11,7 +11,7 @@ export class InputText extends Vue {
   readonly inputElement!: HTMLInputElement;
 
   @Prop()
-  public value: string | number;
+  public value: string;
 
   @Prop()
   public placeholder: string;
@@ -30,7 +30,7 @@ export class InputText extends Vue {
   }
 
   private update(value: string): void {
-    this.$emit('input', value);
+    this.$emit('update:value', value);
     this.isEditing = false;
   }
 

@@ -1,7 +1,7 @@
 import { Vue, Options } from 'vue-class-component';
 
 import { Layout } from '_components/base/layout/layout';
-import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { ILocalStorageHelper } from '_services/helpers/localStorageHelper';
 import { InputText } from '_components/base/input-text/inputText';
 import { Collapse } from '_components/base/collapse/collapse';
 import { IModalHelper } from '_services/helpers/modalHelper';
@@ -42,7 +42,7 @@ import { inject } from 'inversify-props';
 @RequireTokenDecorator()
 export default class Settings extends Vue {
   @inject() public languageRepository: ILanguageRepository;
-  @inject() public localStorageRepository: ILocalStorageRepository;
+  @inject() public localStorageHelper: ILocalStorageHelper;
   @inject() public couchpotatoConnector: ICouchpotatoConnector;
   @inject() public modalHelper: IModalHelper;
   
@@ -58,10 +58,10 @@ export default class Settings extends Vue {
   }
 
   private loadSettings():void{
-    this.couchpotatoWebsocketPath = this.localStorageRepository.read<string>('couchpotatoWebsocketPath');
-    this.couchpotatoApiPath = this.localStorageRepository.read<string>('couchpotatoApiPath');
-    this.couchpotatoAccessToken = this.localStorageRepository.read<string>('couchpotatoAccessToken');
-    this.githubToken = this.localStorageRepository.read<string>('githubToken');
+    this.couchpotatoWebsocketPath = this.localStorageHelper.read<string>('couchpotatoWebsocketPath');
+    this.couchpotatoApiPath = this.localStorageHelper.read<string>('couchpotatoApiPath');
+    this.couchpotatoAccessToken = this.localStorageHelper.read<string>('couchpotatoAccessToken');
+    this.githubToken = this.localStorageHelper.read<string>('githubToken');
   }
 
   private async checkConnection(): Promise<void> {
@@ -70,25 +70,29 @@ export default class Settings extends Vue {
   }
 
   private onInputCouchpotatoApiPath(value: string): void {
-    this.localStorageRepository.write<string>('couchpotatoApiPath', value);
-    //this.couchpotatoApiPath = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    console.log(value)
+    this.couchpotatoApiPath = value;
+    this.localStorageHelper.write<string>('couchpotatoApiPath', value);
+    //this.couchpotatoApiPath = this.localStorageHelper.read<string>('couchpotatoApiPath');
     this.checkConnection();
   }
 
   private onInputCouchpotatoWebsocketPath(value: string): void {
-    this.localStorageRepository.write<string>('couchpotatoWebsocketPath', value);
-    //this.couchpotatoWebsocketPath = this.localStorageRepository.read<string>('couchpotatoWebsocketPath');
+    this.couchpotatoWebsocketPath = value;
+    this.localStorageHelper.write<string>('couchpotatoWebsocketPath', value);
+    //this.couchpotatoWebsocketPath = this.localStorageHelper.read<string>('couchpotatoWebsocketPath');
   }
 
   private onInputCouchpotatoToken(value: string): void {
-    this.localStorageRepository.write<string>('couchpotatoAccessToken', value);
-    console.log(this.localStorageRepository.read<string>('couchpotatoAccessToken'))
-    //this.couchpotatoAccessToken = this.localStorageRepository.read<string>('couchpotatoAccessToken');
+    this.couchpotatoAccessToken = value;
+    this.localStorageHelper.write<string>('couchpotatoAccessToken', value);
+    //this.couchpotatoAccessToken = this.localStorageHelper.read<string>('couchpotatoAccessToken');
   }
 
   private onInputGithubToken(value: string): void {
-    this.localStorageRepository.write<string>('githubToken', value);
-    this.githubToken = this.localStorageRepository.read<string>('githubToken');
+    this.githubToken = value;
+    this.localStorageHelper.write<string>('githubToken', value);
+    this.githubToken = this.localStorageHelper.read<string>('githubToken');
   }
 
   private get hasCouchpotatoPath(): boolean {

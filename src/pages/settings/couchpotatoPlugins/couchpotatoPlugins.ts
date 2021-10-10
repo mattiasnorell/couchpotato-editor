@@ -9,7 +9,7 @@ import { InputCheckbox } from '_components/base/input-checkbox/inputCheckbox';
 import { ILanguageRepository } from '_services/repositories/languageRepository';
 import { inject } from 'inversify-props';
 import { CouchpotatoPlugin, ICouchpotatoPluginConnector } from '_services/connectors/couchpotatoPluginConnector';
-import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { ILocalStorageHelper } from '_services/helpers/localStorageHelper';
 import { IModalHelper } from '_services/helpers/modalHelper';
 import { PluginInstallProps, PluginsInstall } from './install/pluginsInstall';
 import { PluginSettingsProps, CouchpotatoPluginsModal } from './modal/couchpotatoPluginsModal';
@@ -29,7 +29,7 @@ import { PluginSettingsProps, CouchpotatoPluginsModal } from './modal/couchpotat
 export class CouchpotatoPlugins extends Vue {
   @inject() public languageRepository: ILanguageRepository;
   @inject() public couchpotatoPluginConnector: ICouchpotatoPluginConnector;
-  @inject() public localStorageRepository: ILocalStorageRepository;
+  @inject() public localStorageHelper: ILocalStorageHelper;
   @inject() public modalHelper: IModalHelper;
 
   private installedPlugins: CouchpotatoPlugin[] = [];
@@ -49,7 +49,7 @@ export class CouchpotatoPlugins extends Vue {
   private async editPluginSettings(pluginId: string): Promise<void> {
     const settings = await this.couchpotatoPluginConnector.getSettings(pluginId);
 
-    const path = this.localStorageRepository.read<string>('couchpotatoWebsocketPath');
+    const path = this.localStorageHelper.read<string>('couchpotatoWebsocketPath');
     if (!path) {
       return;
     }

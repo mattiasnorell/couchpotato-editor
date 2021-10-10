@@ -1,4 +1,4 @@
-import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { ILocalStorageHelper } from '_services/helpers/localStorageHelper';
 import { inject, injectable } from 'inversify-props';
 
 export interface ICouchpotatoWebsocketConnector {
@@ -7,10 +7,10 @@ export interface ICouchpotatoWebsocketConnector {
 
 @injectable()
 export class CouchpotatoWebsocketConnector {
-  @inject() public localStorageRepository: ILocalStorageRepository;
+  @inject() public localStorageHelper: ILocalStorageHelper;
 
   public ping(timeout: number = 1000): Promise<boolean> {
-    const url = this.localStorageRepository.read<string>('couchpotatoWebsocketPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoWebsocketPath');
 
     return new Promise((resolve, reject) => {
       if (!url) {

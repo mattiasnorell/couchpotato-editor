@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { ILocalStorageHelper } from '_services/helpers/localStorageHelper';
 import { inject, injectable } from 'inversify-props';
 
 export interface ICouchpotatoProvider{
@@ -9,10 +9,10 @@ export interface ICouchpotatoProvider{
 
 @injectable()
 export class CouchpotatoProvider {
-  @inject() public localStorageRepository: ILocalStorageRepository;
+  @inject() public localStorageHelper: ILocalStorageHelper;
   
   public async getCouchpotatoVersion(): Promise<string> {
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
     const timeout = axios.CancelToken.source();
     setTimeout(() => {
       timeout.cancel();
@@ -28,7 +28,7 @@ export class CouchpotatoProvider {
   }
 
   public async getCouchpotatoLastRun(): Promise<LastRunResult | null> {
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
     const timeout = axios.CancelToken.source();
     setTimeout(() => {
       timeout.cancel();

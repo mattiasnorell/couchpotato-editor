@@ -1,5 +1,5 @@
 import axios, { CancelToken } from 'axios';
-import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { ILocalStorageHelper } from '_services/helpers/localStorageHelper';
 import { injectable, inject } from 'inversify-props';
 
 export interface ICouchpotatoConnector{
@@ -11,10 +11,10 @@ export interface ICouchpotatoConnector{
 
 @injectable()
 export class CouchpotatoConnector {
-  @inject() public localStorageRepository: ILocalStorageRepository;
+  @inject() public localStorageHelper: ILocalStorageHelper;
 
   public ping(): Promise<boolean> {
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
     const timeout = axios.CancelToken.source();
     setTimeout(() => {
       timeout.cancel();
@@ -31,7 +31,7 @@ export class CouchpotatoConnector {
   }
 
   public restartBackend(): Promise<boolean> {
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
 
     return axios
       .get(`${url}/restartbackend/`)
@@ -44,7 +44,7 @@ export class CouchpotatoConnector {
   }
 
   public updateBackend(): Promise<boolean> {
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
 
     return axios
       .get(`${url}/backend/update/`)
@@ -57,7 +57,7 @@ export class CouchpotatoConnector {
   }
 
   public restartCron(): Promise<boolean> {
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
 
     return axios
       .get(`${url}/cron/restart/`)

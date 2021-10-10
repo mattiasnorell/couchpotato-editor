@@ -1,5 +1,5 @@
 import { IDateHelper } from "_services/helpers/dateHelper";
-import { ILocalStorageRepository } from "_services/repositories/localStorageRepository";
+import { ILocalStorageHelper } from "_services/helpers/localStorageHelper";
 import { inject, injectable } from "inversify-props";
 
 export interface IAuthProvider {
@@ -11,7 +11,7 @@ export interface IAuthProvider {
 @injectable()
 export class AuthProvider implements IAuthProvider {
   private allowedUsers: string[] = ['calid', 'mattias'];
-  @inject() private localStorageRepository: ILocalStorageRepository;
+  @inject() private localStorageHelper: ILocalStorageHelper;
   @inject() private dateHelper: IDateHelper;
 
   public checkAuth(username: string): boolean {
@@ -22,7 +22,7 @@ export class AuthProvider implements IAuthProvider {
         expire: this.dateHelper.addDays(new Date(), 7)
       };
 
-      this.localStorageRepository.write('token', token);
+      this.localStorageHelper.write('token', token);
       return true;
     }
 
@@ -30,7 +30,7 @@ export class AuthProvider implements IAuthProvider {
   }
 
   public checkToken(): boolean {
-    const token = this.localStorageRepository.read<any>('token');
+    const token = this.localStorageHelper.read<any>('token');
 
     if (token && new Date(token.expire) > new Date()) {
       return true;
@@ -40,6 +40,6 @@ export class AuthProvider implements IAuthProvider {
   }
 
   public clearToken(): void {
-    this.localStorageRepository.clear('token');
+    this.localStorageHelper.clear('token');
   }
 }

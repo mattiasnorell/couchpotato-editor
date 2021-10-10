@@ -23,6 +23,10 @@ export default class Login extends Vue {
   public created() {}
 
   private login(): void {
+    if(!this.username){
+      console.log('Empty string')
+      return;
+    }
     const isAuth = this.authProvider.checkAuth(this.username);
 
     if(isAuth){

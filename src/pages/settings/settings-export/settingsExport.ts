@@ -3,7 +3,7 @@ import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { Layout } from '_components/base/layout/layout';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { ILocalStorageHelper } from '_services/helpers/localStorageHelper';
 import { inject } from 'inversify-props';
 import { IDownloadHelper } from '_services/helpers/downloadHelper';
 
@@ -19,7 +19,7 @@ export class SettingsExport extends Vue {
     @inject() private downloadHelper: IDownloadHelper;
 
     @inject()
-    private localStorageRepository: ILocalStorageRepository;
+    private localStorageHelper: ILocalStorageHelper;
 
     @Prop({ type: Boolean, default: false })
     public disabled: boolean;
@@ -60,9 +60,9 @@ export class SettingsExport extends Vue {
 
     private createExportData(): ISettingsExport {
         const exportData: ISettingsExport = {
-            apiPath: this.localStorageRepository.read<string>('couchpotatoApiPath'),
-            webSocketPath: this.localStorageRepository.read<string>('couchpotatoWebsocketPath'),
-            gitHubToken: this.localStorageRepository.read<string>('githubToken')
+            apiPath: this.localStorageHelper.read<string>('couchpotatoApiPath'),
+            webSocketPath: this.localStorageHelper.read<string>('couchpotatoWebsocketPath'),
+            gitHubToken: this.localStorageHelper.read<string>('githubToken')
         };
 
         return exportData;

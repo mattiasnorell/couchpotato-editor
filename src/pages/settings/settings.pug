@@ -9,23 +9,23 @@ layout()
                 div(class="col w-full md:w-1/3 px-4 text-left")
                     label() {{ $filters.translate('couchpotatoWebsocketPath') }}
                     div(class="input-group" class="w-full")
-                        input-text(v-model:value="couchpotatoWebsocketPath" :placeholder="$filters.translate('setPath')" :usePlaceholderIfEmpty="true" @input="onInputCouchpotatoWebsocketPath")
+                        input-text(:value="couchpotatoWebsocketPath" :placeholder="$filters.translate('setPath')" :usePlaceholderIfEmpty="true" @update:value="onInputCouchpotatoWebsocketPath")
                 div(class="col w-full md:w-1/3 px-4 text-left")
                     label() {{ $filters.translate('couchpotatoApiPath') }}
                     div(class="input-group" class="w-full")
-                        input-text(v-model:value="couchpotatoApiPath" :placeholder="$filters.translate('setPath')" :usePlaceholderIfEmpty="true" @input="onInputCouchpotatoApiPath")
+                        input-text(:value="couchpotatoApiPath" :placeholder="$filters.translate('setPath')" :usePlaceholderIfEmpty="true" @update:value="onInputCouchpotatoApiPath")
 
                 div(class="col w-full md:w-1/3 px-4 text-left")    
                     label() {{ $filters.translate('couchpotatoAccessToken') }}
                     div(class="input-group" class="w-full")
-                        input-text(v-model:value="couchpotatoAccessToken" :placeholder="$filters.translate('setAccessToken')" :usePlaceholderIfEmpty="true" @input="onInputCouchpotatoToken")
+                        input-text(:value="couchpotatoAccessToken" :placeholder="$filters.translate('setAccessToken')" :usePlaceholderIfEmpty="true" @update:value="onInputCouchpotatoToken")
 
         collapse(class="mb-4" title="GitHub" :openAtRender="false")
             div(class="flex-row")
                 div(class="col w-full md:w-1/3 px-4 text-left")
                     label() {{ $filters.translate('setAccessToken') }}
                     div(class="input-group" class="w-full")
-                        input-text(v-model:value="githubToken" :placeholder="$filters.translate('setAccessToken')" :usePlaceholderIfEmpty="true" @input="onInputGithubToken")
+                        input-text(:value="githubToken" :placeholder="$filters.translate('setAccessToken')" :usePlaceholderIfEmpty="true" @update:value="onInputGithubToken")
 
         collapse(class="mb-4" title="Cron" :openAtRender="false")
             cron-jobs()

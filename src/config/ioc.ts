@@ -1,6 +1,5 @@
 import { container } from 'inversify-props';
 import { LanguageRepository, ILanguageRepository } from '_services/repositories/languageRepository';
-import { LocalStorageRepository, ILocalStorageRepository } from "_services/repositories/localStorageRepository";
 import { IArrayHelper, ArrayHelper } from "_services/helpers/arrayHelper";
 import { IDateHelper, DateHelper } from "_services/helpers/dateHelper";
 import { GuidHelper, IGuidHelper } from "_services/helpers/guidHelper";
@@ -19,6 +18,7 @@ import { ICouchpotatoWebsocketConnector, CouchpotatoWebsocketConnector } from "_
 import { ICronConnector, CronConnector } from "_services/connectors/cronConnector";
 import { IPlaylistRepository, PlaylistRepository } from '_services/repositories/playlistRepository';
 import { DownloadHelper, IDownloadHelper } from '_services/helpers/downloadHelper';
+import { ILocalStorageHelper, LocalStorageHelper } from '_services/helpers/localStorageHelper';
 
 export default function buildContainer(): void {
 
@@ -31,7 +31,7 @@ export default function buildContainer(): void {
     container.addTransient<IMarkdownHelper>(MarkdownHelper);
     container.addTransient<IModalHelper>(ModalHelper);
     container.addTransient<IUrlHelper>(UrlHelper);
-    container.addTransient<ILocalStorageRepository>(LocalStorageRepository);
+    container.addTransient<ILocalStorageHelper>(LocalStorageHelper);
     container.addTransient<IPlaylistParser>(PlaylistParser);
     container.addTransient<ILogProvider>(LogProvider);
     container.addTransient<IGitHubProvider>(GitHubProvider);

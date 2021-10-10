@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { ILocalStorageHelper } from '_services/helpers/localStorageHelper';
 import { injectable, inject } from 'inversify-props';
 
 export class CouchpotatoPlugin {
@@ -21,11 +21,11 @@ export interface ICouchpotatoPluginConnector {
 
 @injectable()
 export class CouchpotatoPluginConnector {
-  @inject() private localStorageRepository: ILocalStorageRepository;
+  @inject() private localStorageHelper: ILocalStorageHelper;
 
 
   public async getInstalled(): Promise<CouchpotatoPlugin[]> {
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
 
     return axios
       .get(`${url}/plugins/installed/`)
@@ -38,7 +38,7 @@ export class CouchpotatoPluginConnector {
   }
 
   public async getSettings(pluginId: string): Promise<{ [key: string]: any }> {
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
 
     return axios
       .get(`${url}/plugins/settings/${pluginId}`)
@@ -51,7 +51,7 @@ export class CouchpotatoPluginConnector {
   }
 
   public async activate(pluginId: string): Promise<boolean> {
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
 
     return axios
       .get(`${url}/plugins/activate/${pluginId}`)
@@ -64,7 +64,7 @@ export class CouchpotatoPluginConnector {
   }
 
   public async deactivate(pluginId: string): Promise<boolean> {
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
 
     return axios
       .get(`${url}/plugins/deactivate/${pluginId}`)
@@ -77,7 +77,7 @@ export class CouchpotatoPluginConnector {
   }
 
   public async saveSettings(pluginId: string, settings: { [key: string]: any }): Promise<{ [key: string]: any }> {
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
 
     return axios
       .post(`${url}/plugins/settings/${pluginId}`, settings)
@@ -90,7 +90,7 @@ export class CouchpotatoPluginConnector {
   }
 
   public async getSettingsFile(path: string): Promise<string> {
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
 
     return axios
       .get(`${url}/plugins/settings/file/?path=${encodeURIComponent(path)}`)
@@ -103,7 +103,7 @@ export class CouchpotatoPluginConnector {
   }
 
   public async saveSettingsFile(path: string, contents: string): Promise<boolean> {
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
     const settings = {
       path: path,
       contents: contents
@@ -120,7 +120,7 @@ export class CouchpotatoPluginConnector {
   }
 
   public async uninstall(pluginId: string): Promise<boolean> {
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
 
     return axios
       .get(`${url}/plugins/uninstall/${pluginId}`)

@@ -3,10 +3,9 @@ import { TriggerCouchpotato } from '_components/trigger-couchpotato/triggerCouch
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { IConfigurationProvider } from '_services/providers/configurationProvider';
 import { ConfigurationListItem } from '_models/ConfigurationListItem';
-import { ILocalStorageRepository, LocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { ILocalStorageHelper } from '_services/helpers/localStorageHelper';
 import { ICouchpotatoWebsocketConnector } from '_services/connectors/couchpotatoWebsocketConnector';
 import { inject } from 'inversify-props';
-import { ICouchpotatoProvider } from '_services/providers/couchpotatoProvider';
 
 @Options({
   name: 'WidgetRunCouchpotato',
@@ -17,7 +16,7 @@ import { ICouchpotatoProvider } from '_services/providers/couchpotatoProvider';
   }
 })
 export class WidgetRunCouchpotato extends Vue {
-  @inject() private localStorageRepository: ILocalStorageRepository;
+  @inject() private localStorageHelper: ILocalStorageHelper;
   @inject() private couchpotatoWebsocketConnector: ICouchpotatoWebsocketConnector;
   @inject() private configurationProvider: IConfigurationProvider;
   
@@ -26,7 +25,7 @@ export class WidgetRunCouchpotato extends Vue {
   private isWebsocketAvaliable: boolean = false;
 
   public async mounted(): Promise<void> {
-    this.couchpotatoPath = this.localStorageRepository.read<string>('couchpotatoWebhookPath');
+    this.couchpotatoPath = this.localStorageHelper.read<string>('couchpotatoWebhookPath');
     this.loadConfigurations();
     this.isWebsocketAvaliable = await this.couchpotatoWebsocketConnector.ping();
   }

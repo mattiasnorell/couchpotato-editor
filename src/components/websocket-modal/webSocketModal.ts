@@ -1,7 +1,7 @@
 import { Prop, Ref } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { ModalBase } from '_models/modalBase';
-import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { ILocalStorageHelper } from '_services/helpers/localStorageHelper';
 import { inject } from 'inversify-props';
 import { Options } from 'vue-class-component';
 
@@ -13,7 +13,7 @@ import { Options } from 'vue-class-component';
     }
 })
 export class WebSocketModal extends ModalBase {
-    @inject() private localStorageRepository: ILocalStorageRepository;
+    @inject() private localStorageHelper: ILocalStorageHelper;
 
     @Prop()
     public title: string;
@@ -37,7 +37,7 @@ export class WebSocketModal extends ModalBase {
     private path: string | null = null;
 
     public async mounted(): Promise<void> {
-        this.path = this.localStorageRepository.read<string>('couchpotatoWebsocketPath');
+        this.path = this.localStorageHelper.read<string>('couchpotatoWebsocketPath');
         if (!this.path) {
             this.hasConnectionError = true;
             return;

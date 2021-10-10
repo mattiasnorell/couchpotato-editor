@@ -6,7 +6,7 @@ import { Rename } from '_pages/editor/edit/rename/rename';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { IConfigurationProvider } from '_services/providers/configurationProvider';
 import { ConfigurationListItem } from '_models/ConfigurationListItem';
-import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { ILocalStorageHelper } from '_services/helpers/localStorageHelper';
 import { ILanguageRepository } from '_services/repositories/languageRepository';
 import { RequireTokenDecorator } from 'src/decorators/RequireTokenDecorator';
 import { inject } from 'inversify-props';
@@ -24,14 +24,14 @@ import { inject } from 'inversify-props';
 @RequireTokenDecorator()
 export default class EditorList extends Vue {
   @inject() public languageRepository: ILanguageRepository;
-  @inject() public localStorageRepository: ILocalStorageRepository;
+  @inject() public localStorageHelper: ILocalStorageHelper;
   @inject() public configurationProvider: IConfigurationProvider;
 
   private configurations: ConfigurationListItem[] = [];
   private couchpotatoPath: string | null = '';
 
   public async mounted(): Promise<void> {
-    this.couchpotatoPath = this.localStorageRepository.read<string>('couchpotatoWebhookPath');
+    this.couchpotatoPath = this.localStorageHelper.read<string>('couchpotatoWebhookPath');
     this.loadConfigurations();
   }
 

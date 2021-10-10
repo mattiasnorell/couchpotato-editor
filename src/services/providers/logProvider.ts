@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { ConfigurationListItem } from '_models/ConfigurationListItem';
-import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { ILocalStorageHelper } from '_services/helpers/localStorageHelper';
 import { inject, injectable } from 'inversify-props';
 
 export interface ILogProvider {
@@ -11,11 +10,11 @@ export interface ILogProvider {
 
 @injectable()
 export class LogProvider {
-  @inject() public localStorageRepository: ILocalStorageRepository;
+  @inject() public localStorageHelper: ILocalStorageHelper;
 
   public async getAll(): Promise<string[]> {
 
-    const url = this.localStorageRepository.read<string[]>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string[]>('couchpotatoApiPath');
     const result = await axios.get<string[]>(`${url}/couchpotato/logs/`, {
       headers: {
         'Content-Type': 'application/json'
@@ -31,7 +30,7 @@ export class LogProvider {
 
   public async get(id: string): Promise<string> {
 
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
     const result = await axios.get<string>(`${url}/couchpotato/logs/${id}`, {
       headers: {
         'Content-Type': 'application/json'
@@ -47,7 +46,7 @@ export class LogProvider {
 
   public async deleteLog(id: string): Promise<boolean> {
 
-    const url = this.localStorageRepository.read<string>('couchpotatoApiPath');
+    const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
     const result = await axios.delete(`${url}/couchpotato/logs/${id}`, {
       headers: {
         'Content-Type': 'application/json'

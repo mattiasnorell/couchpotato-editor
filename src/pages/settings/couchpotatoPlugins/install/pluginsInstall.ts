@@ -9,7 +9,7 @@ import { IGitHubProvider, GitHubRepositoryContent } from '_services/providers/gi
 import WebSocketModalProps, { WebSocketModal } from '_components/websocket-modal/webSocketModal';
 import { ILanguageRepository } from '_services/repositories/languageRepository';
 import { inject } from 'inversify-props';
-import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { ILocalStorageHelper } from '_services/helpers/localStorageHelper';
 import { PluginReadmeProps, PluginsReadme } from '../readme/pluginsReadme';
 
 @Options({
@@ -21,7 +21,7 @@ import { PluginReadmeProps, PluginsReadme } from '../readme/pluginsReadme';
     }
 })
 export class PluginsInstall extends ModalBase {
-    @inject() public localStorageRepository: ILocalStorageRepository;
+    @inject() public localStorageHelper: ILocalStorageHelper;
     @inject() public languageRepository: ILanguageRepository;
     @inject() public gitHubProvider: IGitHubProvider;
     @inject() public modalHelper: IModalHelper;
@@ -36,7 +36,7 @@ export class PluginsInstall extends ModalBase {
     private isPending: boolean = false;
 
     public async created(): Promise<void> {
-        const githubToken = this.localStorageRepository.read<string>('githubToken');
+        const githubToken = this.localStorageHelper.read<string>('githubToken');
         if (githubToken) {
             const result = await this.gitHubProvider.getRepositoryContent('couchpotato-plugins', githubToken);
             this.githubPlugins = result.filter((item) => item.type === 'dir');
@@ -48,7 +48,7 @@ export class PluginsInstall extends ModalBase {
         props.title = `${this.languageRepository.get('installPlugin')} - ${plugin.name}`;
         props.action = 'installplugin';
         props.url = plugin.name;
-        props.accessToken = this.localStorageRepository.read<string>('githubToken');
+        props.accessToken = this.localStorageHelper.read<string>('githubToken');
 
         this.modalHelper.create<typeof WebSocketModal>(WebSocketModal, props, async () => {});
     }

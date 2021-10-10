@@ -6,7 +6,7 @@ import { ModalBase } from '_models/modalBase';
 import { IGitHubProvider } from '_services/providers/githubProvider';
 import { IMarkdownHelper } from '_services/helpers/markdownHelper';
 import { inject } from 'inversify-props';
-import { ILocalStorageRepository } from '_services/repositories/localStorageRepository';
+import { ILocalStorageHelper } from '_services/helpers/localStorageHelper';
 import { Options } from 'vue-class-component';
 
 @Options({
@@ -18,7 +18,7 @@ import { Options } from 'vue-class-component';
   }
 })
 export class PluginsReadme extends ModalBase {
-  @inject() public localStorageRepository: ILocalStorageRepository;
+  @inject() public localStorageHelper: ILocalStorageHelper;
   @inject() public gitHubProvider: IGitHubProvider;
   @inject() public markdownHelper: IMarkdownHelper;
   
@@ -31,7 +31,7 @@ export class PluginsReadme extends ModalBase {
   private contents: string = '';
 
   public async created(): Promise<void> {
-    const githubToken = this.localStorageRepository.read<string>('githubToken');
+    const githubToken = this.localStorageHelper.read<string>('githubToken');
     if (githubToken) {
       const repoContent = await this.gitHubProvider.getRepositoryContent('couchpotato-plugins', githubToken);
       const repo = repoContent.find((r) => r.name === this.pluginId);
