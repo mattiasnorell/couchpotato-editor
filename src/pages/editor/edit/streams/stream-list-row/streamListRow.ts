@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { InputText } from '_components/base/input-text/inputText';
 import { StreamPicker } from '_components/base/stream-picker/streamPicker';
 import { StreamEdit, StreamEditProps } from '../stream-edit/streamEdit';
+import { StreamLogo } from '../stream-logo/streamLogo';
 import { IModalHelper } from '_services/helpers/modalHelper';
 import { inject } from 'inversify-props';
 
@@ -15,7 +16,8 @@ import { inject } from 'inversify-props';
   components: {
     FontAwesomeIcon,
     InputText,
-    StreamPicker
+    StreamPicker,
+    StreamLogo
   }
 })
 export class StreamListRow extends Vue {

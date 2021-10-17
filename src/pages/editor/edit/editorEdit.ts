@@ -57,7 +57,7 @@ export default class EditorEdit extends Vue {
   public async mounted() {
     if (this.id) {
       const result = await this.configurationProvider.load(this.id);
-console.log(result)
+
       if (!result) {
         return;
       }
