@@ -18,42 +18,38 @@ div(class="w-full")
                 stream-picker(:placeholder="$filters.translate('searchStream')" @onSelect="addStream")
 
         div(class="col w-full md:w-1/4 text-right")
-            button(class="btn w-full" @click="openCatalogue")
+            button(class="btn w-full mt-8" @click="openCatalogue")
                 span(class="mr-2" )
                     font-awesome-icon(icon="list")
                 span() Streamkatalog
 
     div(class="flex-row")
         div(class="col w-full" :class="{'mb-12': hasSelected}")
-            table(class="w-full table-auto border border-gray-300 bg-white")
-                thead()
-                    tr(class="border-b border-gray-300 bg-gray-300")
-                        th(class="w-4 px-4 py-2 whitespace-no-wrap text-sm text-left leading-5")
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5") {{$filters.translate('id')}}
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") {{$filters.translate('friendlyName')}}
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") {{$filters.translate('group')}}
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") {{$filters.translate('epgId')}}
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") {{$filters.translate('timeshift')}}
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell") {{$filters.translate('logo')}}
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-right leading-5 md:hidden")
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-right leading-5")
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-right leading-5")
-                            button(v-if="false" @click="toggleFilter")
-                                font-awesome-icon(icon="filter")
+            div(class="flex border-b border-gray-300 font-bold")
+                div(class="grow-0 px-4 py-2 whitespace-no-wrap text-sm text-left leading-5")
+                div(class="flex-1 px-2 py-2 whitespace-no-wrap text-sm text-left leading-5") {{$filters.translate('id')}}
+                div(class="flex-1 px-2 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:block") {{$filters.translate('friendlyName')}}
+                div(class="flex-1 px-2 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:block") {{$filters.translate('group')}}
+                div(class="flex-1 px-2 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:block") {{$filters.translate('epgId')}}
+                div(class="flex-1 px-2 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:block") {{$filters.translate('timeshift')}}
+                div(class="flex-1 px-2 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:block") {{$filters.translate('logo')}}
+                div(class="grow-0 px-4 py-2 whitespace-no-wrap text-sm text-right leading-5")
+                    button(v-if="false" @click="toggleFilter")
+                        font-awesome-icon(icon="filter")
 
-                    //tr(class="border-b border-gray-300" v-if="showFilter")
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5") 
-                            input(class="border-2 p-2 rounded w-full" placeholder="Filtrera på id")
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell")
-                            input(class="border-2 p-2 rounded w-full" placeholder="Filtrera på id")
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell")
-                            input(class="border-2 p-2 rounded w-full" placeholder="Filtrera på id")
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell")
-                            input(class="border-2 p-2 rounded w-full" placeholder="Filtrera på id")
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:table-cell")
-                            input(class="border-2 p-2 rounded w-full" placeholder="Filtrera på id")
-                        th(class="px-4 py-2 whitespace-no-wrap text-sm text-right leading-5")
-                    
-                table-empty-state(:title="'Inga streams tillagda'" :colspan="6" v-if="streams.length === 0")
-                tbody(id="stream_container" v-if="streams.length > 0")
-                    stream-list-row(v-for="(stream, index) in streams" :key="uniqueId()" :stream="stream" @onRemove="removeStream(index)")
+            //tr(class="border-b border-gray-300" v-if="showFilter")
+                th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5") 
+                    input(class="border-2 p-2 rounded w-full" placeholder="Filtrera på id")
+                th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:block")
+                    input(class="border-2 p-2 rounded w-full" placeholder="Filtrera på id")
+                th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:block")
+                    input(class="border-2 p-2 rounded w-full" placeholder="Filtrera på id")
+                th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:block")
+                    input(class="border-2 p-2 rounded w-full" placeholder="Filtrera på id")
+                th(class="px-4 py-2 whitespace-no-wrap text-sm text-left leading-5 hidden md:block")
+                    input(class="border-2 p-2 rounded w-full" placeholder="Filtrera på id")
+                th(class="px-4 py-2 whitespace-no-wrap text-sm text-right leading-5")
+            
+        //-table-empty-state(:title="'Inga streams tillagda'" :colspan="6" v-if="streams.length === 0")
+        div(class="w-full" id="stream_container" v-if="streams.length > 0")
+            stream-list-row(v-for="(stream, index) in streams" :key="uniqueId()" :stream="stream" @onRemove="removeStream(index)")

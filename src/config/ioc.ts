@@ -23,6 +23,7 @@ import { ILocalStorageHelper, LocalStorageHelper } from '_services/helpers/local
 export default function buildContainer(): void {
 
     container.addSingleton<ILanguageRepository>(LanguageRepository);
+    container.addSingleton<IPlaylistRepository>(PlaylistRepository);
     container.addSingleton<IDownloadHelper>(DownloadHelper);
 
     container.addTransient<IArrayHelper>(ArrayHelper);
@@ -41,6 +42,5 @@ export default function buildContainer(): void {
     container.addTransient<ICouchpotatoConnector>(CouchpotatoConnector);
     container.addTransient<ICouchpotatoPluginConnector>(CouchpotatoPluginConnector);
     container.addTransient<ICouchpotatoWebsocketConnector>(CouchpotatoWebsocketConnector);
-    container.addTransient<IPlaylistRepository>(PlaylistRepository);
     container.addTransient<ICronConnector>(CronConnector);
 }

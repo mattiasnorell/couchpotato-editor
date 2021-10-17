@@ -157,7 +157,7 @@ export class StreamList extends Vue {
 
   private openCatalogue(): void {
     const props: StreamCatalogueProps = new StreamCatalogueProps();
-    props.title = this.$options ?.filters ?.translate('catalogueModalTitle');
+    props.title = this.$options?.filters?.translate('catalogueModalTitle');
     props.addedStreams = this.streams.map((stream) => stream.channelId);
 
     this.modalHelper.create<typeof StreamCatalogue>(StreamCatalogue, props, (result: StreamCatalogueResult) => {

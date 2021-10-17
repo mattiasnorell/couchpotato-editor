@@ -1,34 +1,32 @@
-tr(class="border-b border-gray-300 last:border-b-0")
-    td(class="w-4 text-center px-4 py-1 whitespace-no-wrap text-sm leading-5")
+div(class="flex flex-wrap border-b border-gray-300 last:border-b-0")
+    div(class="flex grow-0 justify-center px-4 py-1 text-center whitespace-no-wrap text-sm leading-5")
         input(type="checkbox" v-model="stream.isSelected")
-    td(class="px-4 py-1 whitespace-no-wrap text-sm leading-5")
+    div(class="flex-1 px-4 py-1 whitespace-no-wrap text-sm leading-5")
         span(class="cursor-pointer border-dotted border-b-2 border-gray-200" v-if="!showStreamPicker" @click="toggleStreamPicker") {{ stream.channelId }}
         span(v-if="showStreamPicker")
             stream-picker(:placeholder="'Sök ström'" @onSelect="updateStreamId" @onBlur="onStreamPickerBlur")
 
-    td(class="px-4 py-1 whitespace-no-wrap text-sm leading-5 hidden md:table-cell")
+    div(class="flex-1 px-4 py-1 whitespace-no-wrap text-sm leading-5 hidden md:table-cell")
         input-text(v-model:value="stream.friendlyName" :placeholder="stream.channelId" :usePlaceholderIfEmpty="true")
 
-    td(class="px-4 py-1 whitespace-no-wrap text-sm leading-5 hidden md:table-cell") 
+    div(class="flex-1 px-4 py-1 whitespace-no-wrap text-sm leading-5 hidden md:table-cell") 
         input-text(v-model:value="stream.customGroupName" :placeholder="`Defaultgruppen`" :usePlaceholderIfEmpty="true")
 
-    td(class="px-4 py-1 whitespace-no-wrap text-sm leading-5 hidden md:table-cell")
+    div(class="flex-1 px-4 py-1 whitespace-no-wrap text-sm leading-5 hidden md:table-cell")
         input-text(v-model:value="stream.epgId" :placeholder="'Ej angivet'" :usePlaceholderIfEmpty="true")
 
-    td(class="px-4 py-1 whitespace-no-wrap text-sm leading-5 hidden md:table-cell")
+    div(class="flex-1 px-4 py-1 whitespace-no-wrap text-sm leading-5 hidden md:table-cell")
         input-text(v-model:value="stream.epgTimeshift" :placeholder="'0000'" :usePlaceholderIfEmpty="true")
 
-    td(class="px-4 py-1 whitespace-no-wrap text-sm leading-5 hidden md:table-cell")
+    div(class="flex-1 px-4 py-1 whitespace-no-wrap text-sm leading-5 hidden md:table-cell")
         input-text(v-model:value="stream.customLogo" :placeholder="'Standard'" :usePlaceholderIfEmpty="true")
 
-    td(class="px-4 py-1 whitespace-no-wrap text-sm leading-5 md:hidden")
-        button(@click="openEditModal" class="text-gray-500")
+    div(class="flex grow-0 justify-center px-4 py-1 whitespace-no-wrap text-sm leading-5 text-right") 
+        button(@click="openEditModal" class="mr-4 text-gray-500 md:hidden")
             font-awesome-icon(icon="info")
 
-    td(class="px-4 py-1 whitespace-no-wrap text-sm leading-5 text-right") 
-        button(@click="remove" class="text-gray-500")
+        button(@click="remove" class="text-gray-500 mr-4")
             font-awesome-icon(icon="trash")
 
-    td(class="px-4 py-1 whitespace-no-wrap text-sm leading-5 text-right") 
         button(class="text-gray-500 handle cursor-move")
             font-awesome-icon(icon="arrows-alt")

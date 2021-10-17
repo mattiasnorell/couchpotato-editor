@@ -23,7 +23,7 @@ export class ModalHelper {
 
         const props = { ...propsData, modalId: uniqueId };
         const app = createApp(component, { ...props });
-        console.log($filters)
+        console.log(props)
         app.config.globalProperties.$filters = $filters;
 
         app.mount(`#${wrapperId}`);

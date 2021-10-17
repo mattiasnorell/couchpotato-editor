@@ -19,8 +19,8 @@ div(class="modal")
                     tr(class="border-b border-gray-500" v-for="(groupItem, streamIndex) in groupItems" :key="'catalogue-group-item-'+streamIndex")
                         td(class="px-2 py-4")
                             input-checkbox(
-                                v-model="groupItem.selected"
-                                @input="onToggleItem(groupItem)"
+                                :value="groupItem.selected"
+                                @update:value="onToggleItem(groupItem)"
                                 )
                         td(class="px-2 py-4 whitespace-no-wrap text-sm text-left font-normal") {{ groupItem.tvgName }}
                         td(class="px-2 py-4 whitespace-no-wrap text-sm text-right font-normal")
@@ -29,4 +29,4 @@ div(class="modal")
 
             div(class="modal-footer")
                 button(class="btn" @click="close") {{ $filters.translate('cancel') }}
-                button(class="btn ml-auto" :disabled="!hasItems" @click="ok") {{ $filters.translate('ok') }}
+                button(class="btn ml-auto" @click="ok") {{ $filters.translate('ok') }}

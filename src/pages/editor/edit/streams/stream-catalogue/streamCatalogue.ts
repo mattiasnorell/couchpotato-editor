@@ -25,7 +25,7 @@ import { Options } from 'vue-class-component';
 })
 export class StreamCatalogue extends ModalBase {
   @inject() public playlistRepository: IPlaylistRepository;
-  
+
   @Prop()
   public title: string;
 
@@ -65,8 +65,11 @@ export class StreamCatalogue extends ModalBase {
       streamCatalogueItem.url = item.url;
 
       const isAdded = this.addedStreams.includes(item.tvgName);
-      streamCatalogueItem.selected = isAdded;
-      streamCatalogueItem.isAdded = isAdded;
+      if (isAdded) {
+        streamCatalogueItem.selected = true;
+        streamCatalogueItem.isAdded = true;
+      }
+
 
       groups[item.groupTitle].push(streamCatalogueItem);
     }
@@ -95,14 +98,16 @@ export class StreamCatalogue extends ModalBase {
   }
 
   private onToggleItem(value: StreamCatalogueItem) {
+    value.selected = !value.selected;
+
     if (value.selected) {
       this.itemsToAdd.push(value);
 
-      const index = this.itemsToRemove.indexOf(value);
+      const index = this.itemsToRemove.findIndex(item => item.tvgName == value.tvgName);
       this.itemsToRemove.splice(index, 1);
 
     } else {
-      const index = this.itemsToAdd.indexOf(value);
+      const index = this.itemsToAdd.findIndex(item => item.tvgName == value.tvgName);
       this.itemsToAdd.splice(index, 1);
 
       if (value.isAdded) {
@@ -112,9 +117,10 @@ export class StreamCatalogue extends ModalBase {
   }
 
   private ok(): void {
-    const detail = new StreamCatalogueResult();
-    detail.itemsToAdd = this.itemsToAdd;
-    detail.itemsToRemove = this.itemsToRemove;
+    const detail: StreamCatalogueResult = {
+      itemsToAdd: this.itemsToAdd,
+      itemsToRemove: this.itemsToRemove
+    }
 
     super.closeModal(detail);
   }
