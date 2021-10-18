@@ -26,6 +26,10 @@ export class CronConnector {
   public status(): Promise<boolean> {
     const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
 
+    if(!url){
+      return Promise.resolve(false);
+    }
+
     return axios
       .get(`${url}/cron/status/`)
       .then((response) => {
@@ -38,6 +42,10 @@ export class CronConnector {
 
   public getAll(showInactive: boolean): Promise<CronJob[]> {
     const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
+
+    if(!url){
+      return Promise.resolve([]);
+    }
 
     return axios
       .get(`${url}/cron/?showInactive=${showInactive}`)
@@ -52,6 +60,10 @@ export class CronConnector {
   public create(jobs: CronJob): Promise<CronJob> {
     const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
 
+    if(!url){
+      return Promise.reject();
+    }
+
     return axios
       .post(`${url}/cron/`, jobs)
       .then((response) => {
@@ -64,6 +76,10 @@ export class CronConnector {
 
   public save(jobs: CronJob[]): Promise<CronJob[]> {
     const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
+
+    if(!url){
+      return Promise.reject();
+    }
 
     return axios
       .put(`${url}/cron/`, jobs)
@@ -78,6 +94,10 @@ export class CronConnector {
   public remove(id: string): Promise<boolean> {
     const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
 
+    if(!url){
+      return Promise.reject();
+    }
+    
     return axios
       .delete(`${url}/cron/${id}/`)
       .then(() => {

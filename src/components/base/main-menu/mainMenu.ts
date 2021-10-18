@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { RequireTokenDecorator } from 'src/decorators/RequireTokenDecorator';
 import { IAuthProvider } from '_services/providers/authProvider';
 import { inject } from 'inversify-props';
+import { AuthDecorator } from 'src/decorators/AuthDecorator';
 
 @Options({
   name: 'mainMenu',
@@ -14,6 +15,7 @@ import { inject } from 'inversify-props';
   }
 })
 @RequireTokenDecorator(false)
+@AuthDecorator()
 export class MainMenu extends Vue {
   @inject()
   private authProvider: IAuthProvider;

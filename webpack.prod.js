@@ -11,6 +11,7 @@ const webpack = require('webpack');
 var pjson = require('./package.json');
 const terserJSPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const miniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = (env = {}) => {
     process.env.NODE_ENV = 'production';
@@ -20,8 +21,8 @@ module.exports = (env = {}) => {
             couchpotato: path.join(__dirname, 'src', 'main.ts')
         },
         output: {
-            filename: '[name][hash].js',
-            chunkFilename: '[name][hash].js',
+            filename: '[name][chunkhash].js',
+            chunkFilename: '[name][chunkhash].js',
             path: path.resolve(__dirname, 'dist')
         },
         module: {
@@ -40,24 +41,21 @@ module.exports = (env = {}) => {
                 {
                     test: /\.(css)$/,
                     exclude: /node_modules/,
-                    use: [
+                    use: [ { loader: miniCssExtractPlugin.loader },
                         {
-                            loader: MiniCss.loader
+                            loader: 'css-loader',
+                            options: {
+                                importLoaders: 2,
+                                sourceMap: false
+                            }
                         },
                         {
                             loader: 'postcss-loader',
                             options: {
-                                sourceMap: true,
-                                plugins: [require('tailwindcss')(tailwindConfig)]
-                            }
-                        },
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                importLoaders: 1
+                                sourceMap: false,
                             }
                         }
-                    ]
+                    ],
                 },
                 {
                     test: /\.(png|jpg|gif)$/,
@@ -69,7 +67,7 @@ module.exports = (env = {}) => {
             extensions: ['.ts', '.js', '.scss'],
             modules: [path.resolve(__dirname, './'), 'node_modules'],
             alias: {
-                vue$: 'vue/dist/vue.esm.js',
+                vue$: 'vue/dist/vue.esm-browser.prod.js',
                 _components: path.resolve(__dirname, 'src/components'),
                 _models: path.resolve(__dirname, 'src/models'),
                 _services: path.resolve(__dirname, 'src/services'),
@@ -91,7 +89,7 @@ module.exports = (env = {}) => {
         },
         plugins: [
             new HtmlWebpackPlugin({
-                template: 'src/app.pug',
+                template: 'src/App.pug',
                 inject: true,
                 filename: 'index.html'
             }),
@@ -99,7 +97,8 @@ module.exports = (env = {}) => {
                 filename: cssFile
             }),
             new webpack.DefinePlugin({
-                __VERSION__: JSON.stringify(pjson.version)
+                __VERSION__: JSON.stringify(pjson.version),
+                __VUE_PROD_DEVTOOLS__: 'false'
             }),
             new BundleAnalyzerPlugin()
         ]
