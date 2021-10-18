@@ -1,10 +1,36 @@
-layout()
+layout-base()
     div(class="p-4 flex flex-wrap h-full w-full items-center justify-center")
-        div(class="bg-gray-500 rounded-xl w-96 p-4 h-36")
-            p(class="font-md text-white font-semibold") {{ $filters.translate('username') }}
-            input-text(:value="username" @update:value="username = $event" @keyup.enter.native="login" )
-            button(class="btn mt-2" @click="login")
-                span(class="mr-2")
-                    font-awesome-icon(icon="sign-in-alt")
-                span() {{ $filters.translate('login') }}
-            
+        div()
+            div(class="shadow-md w-80")
+                div(class="bg-gray-500 text-white px-5 py-4 rounded-t-xl")
+                    span(class="mr-2") 
+                        font-awesome-icon(icon="couch")
+                    span() {{ $filters.translate('applicationTitle') }}
+
+                div(class="bg-white p-8")
+                    div(class="relative")
+                        input(
+                            id="usr" 
+                            type="text" 
+                            v-model="username"
+                            class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-b-2 focus-border-gray-500" placeholder="Användarnamn" )
+                        label(
+                            for="usr" 
+                            class=" font-normal absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm") Användarnamn
+                    
+                    div(class="mt-8 relative")
+                        input(
+                            id="pwd" 
+                            type="password" 
+                            v-model="password"
+                            class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600" placeholder="Lösenord" )
+                        label(for="pwd" class=" font-normal absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm") Lösenord
+                    
+                    button(class="btn mt-8 w-full" @click="login")
+                        span(class="mr-2")
+                            font-awesome-icon(icon="sign-in-alt")
+                        span() {{ $filters.translate('login') }}
+
+            div(class="text-gray-300 text-center text-sm mt-2")
+                span {{ version }}
+                

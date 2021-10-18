@@ -1,15 +1,16 @@
 import { Vue, Options } from 'vue-class-component';
-import { Layout } from '_components/base/layout/layout';
+import { LayoutBase } from '_components/base/layout/layoutBase';
 import { InputText } from '_components/base/input-text/inputText';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { IAuthProvider,  } from '_services/providers/authProvider';
 import { inject } from 'inversify-props';
+import { $appConfig } from '_config/appConfig';
 
 @Options({
   name: 'Login',
   template: require('./login.pug'),
   components: {
-    Layout,
+    LayoutBase,
     InputText,
     FontAwesomeIcon
   }
@@ -19,15 +20,19 @@ export default class Login extends Vue {
   private authProvider: IAuthProvider;
   
   private username: string = '';
+  private password: string = '';
+  private version: string = '';
   
-  public created() {}
+  public created() {
+    this.version = $appConfig.version();
+  }
 
-  private login(): void {
+  private async login(): Promise<void> {
     if(!this.username){
       console.log('Empty string')
       return;
     }
-    const isAuth = this.authProvider.checkAuth(this.username);
+    const isAuth = await this.authProvider.checkAuth(this.username, this.password);
 
     if(isAuth){
       this.$router.push('dashboard');

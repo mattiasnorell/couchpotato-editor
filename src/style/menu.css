@@ -1,13 +1,6 @@
 .menu {
   @apply w-full bg-gray-300;
 
-  @media (max-width: 767px) {
-    @apply fixed w-11/12 shadow-xl invisible z-30 h-full;
-  }
-
-  @media (min-width: 768px) {
-    @apply block;
-  }
 
   &.open {
     @apply visible;
@@ -23,7 +16,7 @@
         @apply px-4 py-2;
 
         @media (max-width: 768px) {
-          @apply w-full;
+         
         }
       }
     }
@@ -35,5 +28,15 @@
         @apply font-bold;
       }
     }
+  }
+}
+
+@media (min-width: 768px) {
+  .menu{ @apply block;}
+}
+
+@media (max-width: 768px) {
+  .menu{
+    @apply fixed w-11/12 shadow-xl invisible z-30 h-full;
   }
 }

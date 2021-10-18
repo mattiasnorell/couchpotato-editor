@@ -1,45 +1,66 @@
-import { IDateHelper } from "_services/helpers/dateHelper";
-import { ILocalStorageHelper } from "_services/helpers/localStorageHelper";
-import { inject, injectable } from "inversify-props";
+import { IDateHelper } from '_services/helpers/dateHelper';
+import { ILocalStorageHelper } from '_services/helpers/localStorageHelper';
+import { inject, injectable } from 'inversify-props';
+import axios from 'axios';
 
 export interface IAuthProvider {
-  checkAuth(username: string): boolean;
-  checkToken(): boolean;
-  clearToken(): void;
+    checkAuth(username: string, password: string): Promise<boolean>;
+    checkToken(): boolean;
+    clearToken(): void;
 }
 
+export class Token {
+    public token: string;
+    public id: string;
+    public email: string;
+    public authorities: string;
+}
 @injectable()
 export class AuthProvider implements IAuthProvider {
-  private allowedUsers: string[] = ['calid', 'mattias'];
-  @inject() private localStorageHelper: ILocalStorageHelper;
-  @inject() private dateHelper: IDateHelper;
+    private allowedUsers: string[] = ['calid', 'mattias'];
+    @inject() private localStorageHelper: ILocalStorageHelper;
+    @inject() private dateHelper: IDateHelper;
 
-  public checkAuth(username: string): boolean {
+    public async checkAuth(username: string, password: string): Promise<boolean> {
+        const result = await axios.post(
+            `/api/authentication`,
+            {
+                username: username,
+                password: password
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
 
-    if (this.allowedUsers.includes(username)) {
-      const token = {
-        user: username,
-        expire: this.dateHelper.addDays(new Date(), 7)
-      };
+        if (result.status !== 200) {
+            return false;
+        }
 
-      this.localStorageHelper.write('token', token);
-      return true;
+        this.localStorageHelper.write('token', result.data);
+
+        return true;
     }
 
-    return false;
-  }
+    public getToken(): string | undefined {
+        const token = this.localStorageHelper.read<Token>('token');
 
-  public checkToken(): boolean {
-    const token = this.localStorageHelper.read<any>('token');
-
-    if (token && new Date(token.expire) > new Date()) {
-      return true;
+        return token?.token;
     }
 
-    return false;
-  }
+    public checkToken(): boolean {
+        const token = this.localStorageHelper.read<Token>('token');
 
-  public clearToken(): void {
-    this.localStorageHelper.clear('token');
-  }
+        /*if (token && new Date(token.expire) > new Date()) {
+            return true;
+        }*/
+
+        return false;
+    }
+
+    public clearToken(): void {
+        this.localStorageHelper.clear('token');
+    }
 }
