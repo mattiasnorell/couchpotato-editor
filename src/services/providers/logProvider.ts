@@ -15,6 +15,11 @@ export class LogProvider {
   public async getAll(): Promise<string[]> {
 
     const url = this.localStorageHelper.read<string[]>('couchpotatoApiPath');
+
+    if(!url){
+      return Promise.resolve([]);
+    }
+
     const result = await axios.get<string[]>(`${url}/couchpotato/logs/`, {
       headers: {
         'Content-Type': 'application/json'
@@ -31,6 +36,11 @@ export class LogProvider {
   public async get(id: string): Promise<string> {
 
     const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
+
+    if(!url){
+      return Promise.reject();
+    }
+
     const result = await axios.get<string>(`${url}/couchpotato/logs/${id}`, {
       headers: {
         'Content-Type': 'application/json'
@@ -47,6 +57,11 @@ export class LogProvider {
   public async deleteLog(id: string): Promise<boolean> {
 
     const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
+    
+    if(!url){
+      return Promise.reject();
+    }
+
     const result = await axios.delete(`${url}/couchpotato/logs/${id}`, {
       headers: {
         'Content-Type': 'application/json'

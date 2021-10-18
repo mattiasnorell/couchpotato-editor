@@ -12,6 +12,10 @@ export class CouchpotatoWebsocketConnector {
   public ping(timeout: number = 1000): Promise<boolean> {
     const url = this.localStorageHelper.read<string>('couchpotatoWebsocketPath');
 
+    if(!url){
+      return Promise.resolve(false);
+    }
+    
     return new Promise((resolve, reject) => {
       if (!url) {
         resolve(false);

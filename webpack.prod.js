@@ -11,6 +11,7 @@ const webpack = require('webpack');
 var pjson = require('./package.json');
 const terserJSPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const miniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const miniCssExtractPlugin = require("mini-css-extract-plugin");
 
@@ -22,8 +23,8 @@ module.exports = (env = {}) => {
             couchpotato: path.join(__dirname, 'src', 'main.ts')
         },
         output: {
-            filename: '[name][hash].js',
-            chunkFilename: '[name][hash].js',
+            filename: '[name][chunkhash].js',
+            chunkFilename: '[name][chunkhash].js',
             path: path.resolve(__dirname, 'dist')
         },
         module: {
@@ -42,8 +43,6 @@ module.exports = (env = {}) => {
                 {
                     test: /\.(css)$/,
                     exclude: /node_modules/,
-                    test: /\.(css)$/,
-
                     use: [ { loader: miniCssExtractPlugin.loader },
                         {
                             loader: 'css-loader',
@@ -92,7 +91,7 @@ module.exports = (env = {}) => {
         },
         plugins: [
             new HtmlWebpackPlugin({
-                template: 'src/app.pug',
+                template: 'src/App.pug',
                 inject: true,
                 filename: 'index.html'
             }),

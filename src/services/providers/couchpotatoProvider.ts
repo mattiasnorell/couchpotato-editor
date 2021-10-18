@@ -13,6 +13,11 @@ export class CouchpotatoProvider {
   
   public async getCouchpotatoVersion(): Promise<string> {
     const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
+
+    if(!url){
+      return Promise.reject();
+    }
+    
     const timeout = axios.CancelToken.source();
     setTimeout(() => {
       timeout.cancel();
@@ -29,6 +34,11 @@ export class CouchpotatoProvider {
 
   public async getCouchpotatoLastRun(): Promise<LastRunResult | null> {
     const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
+
+    if(!url){
+      return Promise.reject();
+    }
+
     const timeout = axios.CancelToken.source();
     setTimeout(() => {
       timeout.cancel();

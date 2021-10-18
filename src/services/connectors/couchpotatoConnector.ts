@@ -15,6 +15,11 @@ export class CouchpotatoConnector {
 
   public ping(): Promise<boolean> {
     const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
+
+    if(!url){
+      return Promise.resolve(false);
+    }
+
     const timeout = axios.CancelToken.source();
     setTimeout(() => {
       timeout.cancel();
@@ -33,6 +38,10 @@ export class CouchpotatoConnector {
   public restartBackend(): Promise<boolean> {
     const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
 
+    if(!url){
+      return Promise.resolve(false);
+    }
+
     return axios
       .get(`${url}/restartbackend/`)
       .then((response) => {
@@ -45,6 +54,10 @@ export class CouchpotatoConnector {
 
   public updateBackend(): Promise<boolean> {
     const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
+
+    if(!url){
+      return Promise.resolve(false);
+    }
 
     return axios
       .get(`${url}/backend/update/`)
@@ -59,6 +72,10 @@ export class CouchpotatoConnector {
   public restartCron(): Promise<boolean> {
     const url = this.localStorageHelper.read<string>('couchpotatoApiPath');
 
+    if(!url){
+      return Promise.resolve(false);
+    }
+    
     return axios
       .get(`${url}/cron/restart/`)
       .then((response) => {
