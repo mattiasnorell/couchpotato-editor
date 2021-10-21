@@ -19,7 +19,7 @@ export class WidgetRunCouchpotato extends Vue {
   @inject() private localStorageHelper: ILocalStorageHelper;
   @inject() private couchpotatoWebsocketConnector: ICouchpotatoWebsocketConnector;
   @inject() private configurationProvider: IConfigurationProvider;
-  
+
   private configurations: ConfigurationListItem[] = [];
   private couchpotatoPath: string | null = '';
   private isWebsocketAvaliable: boolean = false;
@@ -31,6 +31,9 @@ export class WidgetRunCouchpotato extends Vue {
   }
 
   private async loadConfigurations(): Promise<void> {
-    this.configurations = await this.configurationProvider.getAllForUser('');
+    const token = this.localStorageHelper.read<string>('token');
+    if (token) {
+      this.configurations = await this.configurationProvider.getAllForUser(token);
+    }
   }
 }

@@ -17,13 +17,14 @@ export class Token {
 }
 @injectable()
 export class AuthProvider implements IAuthProvider {
-    private allowedUsers: string[] = ['calid', 'mattias'];
+    private apiBasePath: string = 'http://couchpotato.automagiskdatabehandling.se.185-133-206-111.preview.beeweb.se/api';
+
     @inject() private localStorageHelper: ILocalStorageHelper;
     @inject() private dateHelper: IDateHelper;
 
     public async checkAuth(username: string, password: string): Promise<boolean> {
         const result = await axios.post(
-            `/api/authentication`,
+            `${this.apiBasePath}/auth/authenticate`,
             {
                 username: username,
                 password: password
@@ -36,6 +37,7 @@ export class AuthProvider implements IAuthProvider {
         );
 
         if (result.status !== 200) {
+            this.localStorageHelper.clear('token');
             return false;
         }
 
@@ -57,7 +59,7 @@ export class AuthProvider implements IAuthProvider {
             return true;
         }*/
 
-        return false;
+        return !!token;
     }
 
     public clearToken(): void {

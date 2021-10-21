@@ -36,7 +36,10 @@ export default class EditorList extends Vue {
   }
 
   private async loadConfigurations(): Promise<void> {
-    this.configurations = await this.configurationProvider.getAllForUser('');
+    const token = this.localStorageHelper.read<string>('token');
+    if (token) {
+      this.configurations = await this.configurationProvider.getAllForUser(token);
+    }
   }
 
   private async onCreate(): Promise<void> {

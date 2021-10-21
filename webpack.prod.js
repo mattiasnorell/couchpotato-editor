@@ -1,18 +1,13 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCss = require('mini-css-extract-plugin');
-const cssFile = 'style.css';
-const wwwFolder = path.join(__dirname, 'www');
+const cssFile = 'app/[name][chunkhash].css';
 const imgNames = 'img/[name].[ext]';
-const tailwindConfig = require('./tailwind.config.js');
-const glob = require('glob');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require('webpack');
 var pjson = require('./package.json');
 const terserJSPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const miniCssExtractPlugin = require("mini-css-extract-plugin");
-
 const miniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = (env = {}) => {
@@ -23,8 +18,8 @@ module.exports = (env = {}) => {
             couchpotato: path.join(__dirname, 'src', 'main.ts')
         },
         output: {
-            filename: '[name][chunkhash].js',
-            chunkFilename: '[name][chunkhash].js',
+            filename: 'app/[name][chunkhash].js',
+            chunkFilename: 'app/[name][chunkhash].js',
             path: path.resolve(__dirname, 'dist')
         },
         module: {

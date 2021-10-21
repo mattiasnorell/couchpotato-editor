@@ -9,7 +9,6 @@ axios.interceptors.response.use(
         return response;
     },
     (error) => {
-      console.log('dildo')
         return Promise.reject(error);
     }
 );

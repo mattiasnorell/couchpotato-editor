@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { Configuration } from '_models/Configuration';
 import { ConfigurationListItem } from '_models/ConfigurationListItem';
-import { injectable } from 'inversify-props';
+import { injectable, inject } from 'inversify-props';
+import { ILocalStorageHelper } from '_services/helpers/localStorageHelper';
 
 export interface IConfigurationProvider {
   getAllForUser(id: string): Promise<ConfigurationListItem[]>;
@@ -15,10 +16,12 @@ export interface IConfigurationProvider {
 
 @injectable()
 export class ConfigurationProvider {
-  private apiBasePath: string = 'http://couchpotato.automagiskdatabehandling.se/api';
+  @inject() private localStorageHelper: ILocalStorageHelper;
+  
+  private apiBasePath: string = 'http://couchpotato.automagiskdatabehandling.se.185-133-206-111.preview.beeweb.se/api';
 
   public async getAllForUser(id: string): Promise<ConfigurationListItem[]> {
-    const result = await axios.get<ConfigurationListItem[]>(`${this.apiBasePath}/configuration/${id}`, {
+    const result = await axios.get<ConfigurationListItem[]>(`${this.apiBasePath}/configuration/configuration/${id}`, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -32,7 +35,8 @@ export class ConfigurationProvider {
   }
 
   public async load(id: string): Promise<Configuration | null> {
-    const result = await axios.get(`/config/${id}.json`);
+    const token = this.localStorageHelper.read<string>('token');
+    const result = await axios.get(`/config/${token}/${id}.json`);
     if (result.status !== 200) {
       return null;
     }
@@ -41,7 +45,8 @@ export class ConfigurationProvider {
   }
 
   public async save(id: string, config: Configuration): Promise<string | null> {
-    const result = await axios.put(`${this.apiBasePath}/configuration/${id}`, config, {
+    const token = this.localStorageHelper.read<string>('token');
+    const result = await axios.put(`${this.apiBasePath}/configuration/${token}/${id}`, config, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -56,7 +61,7 @@ export class ConfigurationProvider {
 
   public async create(id: string): Promise<Configuration | null> {
     const result = await axios.post(
-      `/api/configuration`,
+      `${this.apiBasePath}/configuration`,
       {
         id: id
       },
