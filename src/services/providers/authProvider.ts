@@ -41,15 +41,15 @@ export class AuthProvider implements IAuthProvider {
             return false;
         }
 
-        this.localStorageHelper.write('token', result.data);
+        this.localStorageHelper.write('token', result.data.token);
 
         return true;
     }
 
-    public getToken(): string | undefined {
+    public getToken(): string | null {
         const token = this.localStorageHelper.read<Token>('token');
 
-        return token?.token;
+        return token ? token.token : null;
     }
 
     public checkToken(): boolean {

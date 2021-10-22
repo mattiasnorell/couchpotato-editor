@@ -5,7 +5,7 @@ import { injectable, inject } from 'inversify-props';
 import { ILocalStorageHelper } from '_services/helpers/localStorageHelper';
 
 export interface IConfigurationProvider {
-  getAllForUser(id: string): Promise<ConfigurationListItem[]>;
+  getAllForUser(): Promise<ConfigurationListItem[]>;
   load(id: string): Promise<Configuration | null>;
   save(id: string, config: Configuration): Promise<string | null>;
   create(id: string): Promise<Configuration | null>;
@@ -20,8 +20,8 @@ export class ConfigurationProvider {
   
   private apiBasePath: string = 'http://couchpotato.automagiskdatabehandling.se.185-133-206-111.preview.beeweb.se/api';
 
-  public async getAllForUser(id: string): Promise<ConfigurationListItem[]> {
-    const result = await axios.get<ConfigurationListItem[]>(`${this.apiBasePath}/configuration/configuration/${id}`, {
+  public async getAllForUser(): Promise<ConfigurationListItem[]> {
+    const result = await axios.get<ConfigurationListItem[]>(`${this.apiBasePath}/configuration/list`, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -35,8 +35,7 @@ export class ConfigurationProvider {
   }
 
   public async load(id: string): Promise<Configuration | null> {
-    const token = this.localStorageHelper.read<string>('token');
-    const result = await axios.get(`/config/${token}/${id}.json`);
+    const result = await axios.get(`${this.apiBasePath}/configuration/${id}`);
     if (result.status !== 200) {
       return null;
     }
@@ -45,8 +44,7 @@ export class ConfigurationProvider {
   }
 
   public async save(id: string, config: Configuration): Promise<string | null> {
-    const token = this.localStorageHelper.read<string>('token');
-    const result = await axios.put(`${this.apiBasePath}/configuration/${token}/${id}`, config, {
+    const result = await axios.put(`${this.apiBasePath}/configuration/${id}`, config, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -61,7 +59,7 @@ export class ConfigurationProvider {
 
   public async create(id: string): Promise<Configuration | null> {
     const result = await axios.post(
-      `${this.apiBasePath}/configuration`,
+      `${this.apiBasePath}/configuration/create`,
       {
         id: id
       },
@@ -114,7 +112,7 @@ export class ConfigurationProvider {
   }
 
   public async copy(id: string): Promise<string | null> {
-    const result = await axios.post(`${this.apiBasePath}/configuration/copy`, { id: id });
+    const result = await axios.post(`${this.apiBasePath}/configuration/${id}/copy`);
 
     if (result.status !== 200) {
       return null;

@@ -12,5 +12,9 @@ axios.interceptors.request.use((config: AxiosRequestConfig) => {
     config.headers['Authorization'] = `Bearer ${token}`;
   }
 
+  if (config.url?.includes('couchpotato.automagiskdatabehandling.se') && token) {
+    config.headers['Authorization'] = `Bearer ${token}`;
+  }
+
   return config;
 });
