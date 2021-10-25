@@ -41,6 +41,7 @@ export class AuthProvider implements IAuthProvider {
             return false;
         }
 
+        this.localStorageHelper.write('user', username);
         this.localStorageHelper.write('token', result.data.token);
 
         return true;
@@ -63,6 +64,7 @@ export class AuthProvider implements IAuthProvider {
     }
 
     public clearToken(): void {
+        this.localStorageHelper.clear('user');
         this.localStorageHelper.clear('token');
     }
 }
