@@ -2,6 +2,8 @@ import { Vue, Options } from 'vue-class-component';
 
 import { Prop } from 'vue-property-decorator';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { ILocalStorageHelper } from '_services/helpers/localStorageHelper';
+import { inject } from 'inversify-props';
 
 @Options({
   name: 'CopyUrl',
@@ -11,6 +13,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   }
 })
 export class CopyUrl extends Vue {
+  @inject() private localStorageHelper: ILocalStorageHelper;
+
   @Prop()
   private configurationId: string;
 
@@ -18,7 +22,8 @@ export class CopyUrl extends Vue {
 
   private copy(): void {
     const configFolder = 'config';
-    const path = `${window.location.protocol}//${window.location.hostname}/${configFolder}/${this.configurationId}.json`;
+    const username = this.localStorageHelper.read<string>('user');
+    const path = `${window.location.protocol}//${window.location.hostname}/${configFolder}/${username}/${this.configurationId}.json`;
 
     if(!navigator.clipboard){
       window.prompt('Kopiera från fältet', path);
