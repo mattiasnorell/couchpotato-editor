@@ -18,7 +18,7 @@ export interface IConfigurationProvider {
 export class ConfigurationProvider {
   @inject() private localStorageHelper: ILocalStorageHelper;
   
-  private apiBasePath: string = 'http://couchpotato.automagiskdatabehandling.se.185-133-206-111.preview.beeweb.se/api';
+  private apiBasePath: string = 'http://couchpotato.automagiskdatabehandling.se/api';
 
   public async getAllForUser(): Promise<ConfigurationListItem[]> {
     const result = await axios.get<ConfigurationListItem[]>(`${this.apiBasePath}/configuration/list`, {

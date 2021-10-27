@@ -9,6 +9,7 @@ import { WidgetCheckCouchpotatoVersion } from '_pages/dashboard/widgets/widgetCh
 import { WidgetCheckCron } from '_pages/dashboard/widgets/widgetCheckCron';
 import { WidgetLastRunLog } from '_pages/dashboard/widgets/widgetLastRunLog';
 import { RequireTokenDecorator } from 'src/decorators/RequireTokenDecorator';
+import { AuthDecorator } from 'src/decorators/AuthDecorator';
 
 @Options({
   name: 'Dashboard',

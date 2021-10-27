@@ -15,7 +15,7 @@ div()
                 td( class="px-4 py-2 whitespace-no-wrap truncate") {{ item.name }}
                 td( class="px-4 hidden md:table-cell py-2 whitespace-no-wrap truncate") {{ item.version }}
                 td( class="px-4 hidden md:table-cell py-2 whitespace-no-wrap truncate")
-                    input-checkbox(v-model:value="item.active" @input="toggleActive(item)")
+                    input-checkbox(v-model:value="item.active" @update:value="toggleActive(item)")
                 td( class="px-4 py-2 whitespace-no-wrap flex justify-end")
 
                     button(class="btn mr-2" @click="editPluginSettings(item.name)") 

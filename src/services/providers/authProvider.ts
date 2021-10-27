@@ -9,15 +9,9 @@ export interface IAuthProvider {
     clearToken(): void;
 }
 
-export class Token {
-    public token: string;
-    public id: string;
-    public email: string;
-    public authorities: string;
-}
 @injectable()
 export class AuthProvider implements IAuthProvider {
-    private apiBasePath: string = 'http://couchpotato.automagiskdatabehandling.se.185-133-206-111.preview.beeweb.se/api';
+    private apiBasePath: string = 'http://couchpotato.automagiskdatabehandling.se/api';
 
     @inject() private localStorageHelper: ILocalStorageHelper;
     @inject() private dateHelper: IDateHelper;
@@ -48,13 +42,13 @@ export class AuthProvider implements IAuthProvider {
     }
 
     public getToken(): string | null {
-        const token = this.localStorageHelper.read<Token>('token');
+        const token = this.localStorageHelper.read<string>('token');
 
-        return token ? token.token : null;
+        return token ? token : null;
     }
 
     public checkToken(): boolean {
-        const token = this.localStorageHelper.read<Token>('token');
+        const token = this.localStorageHelper.read<string>('token');
 
         /*if (token && new Date(token.expire) > new Date()) {
             return true;

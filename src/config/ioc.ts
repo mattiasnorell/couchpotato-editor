@@ -19,12 +19,14 @@ import { ICronConnector, CronConnector } from "_services/connectors/cronConnecto
 import { IPlaylistRepository, PlaylistRepository } from '_services/repositories/playlistRepository';
 import { DownloadHelper, IDownloadHelper } from '_services/helpers/downloadHelper';
 import { ILocalStorageHelper, LocalStorageHelper } from '_services/helpers/localStorageHelper';
+import { IJwtHelper, JwtHelper } from '_services/helpers/jwtHelper';
 
 export default function buildContainer(): void {
 
     container.addSingleton<ILanguageRepository>(LanguageRepository);
     container.addSingleton<IPlaylistRepository>(PlaylistRepository);
     container.addSingleton<IDownloadHelper>(DownloadHelper);
+    container.addSingleton<IJwtHelper>(JwtHelper);
 
     container.addTransient<IArrayHelper>(ArrayHelper);
     container.addTransient<IDateHelper>(DateHelper);

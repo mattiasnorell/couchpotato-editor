@@ -65,6 +65,7 @@ export class CouchpotatoPlugins extends Vue {
   private async toggleActive(plugin: CouchpotatoPlugin): Promise<void> {
     if (!plugin.active) {
       await this.couchpotatoPluginConnector.deactivate(plugin.name);
+      
     } else {
       await this.couchpotatoPluginConnector.activate(plugin.name);
     }

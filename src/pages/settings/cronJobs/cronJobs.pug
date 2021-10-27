@@ -9,7 +9,7 @@ div()
                 span() Visa endast Coucnpotatojobb
 
             label()
-                input-checkbox(v-model:value="showInactive" @input="loadJobs")
+                input-checkbox(v-model:value="showInactive" @update:value="loadJobs")
                 span(class="ml-2") Visa inaktiva jobb
 
     table(class="w-full table-fixed border border-gray-300 bg-white")

@@ -1,6 +1,6 @@
 {
     "name": "couchpotato-editor",
-    "version": "0.30.0-beta.10",
+    "version": "0.30.0-beta.12",
     "description": "Editor for Couchpotato",
     "main": "index.ts",
     "scripts": {
