@@ -38,20 +38,20 @@ module.exports = (env = {}) => {
                 {
                     test: /\.(css)$/,
                     exclude: /node_modules/,
-                    use: [ { loader: miniCssExtractPlugin.loader },
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                importLoaders: 2,
-                                sourceMap: false
-                            }
-                        },
-                        {
-                            loader: 'postcss-loader',
-                            options: {
-                                sourceMap: false,
-                            }
+                    use: [{ loader: miniCssExtractPlugin.loader },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 2,
+                            sourceMap: false
                         }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            sourceMap: false,
+                        }
+                    }
                     ],
                 },
                 {
@@ -82,7 +82,24 @@ module.exports = (env = {}) => {
                     }
                 }),
                 new CssMinimizerPlugin()
-            ]
+            ],
+            runtimeChunk: 'single',
+            splitChunks: {
+                chunks: 'all',
+                maxInitialRequests: Infinity,
+                minSize: 0,
+                cacheGroups: {
+                    vendor: {
+                        enforce: true,
+                        chunks: 'all',
+                        test: /[\\/]node_modules[\\/]/,
+                        name(module) {
+                            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+                            return `npm.${packageName.replace('@', '')}`;
+                        },
+                    },
+                },
+            },
         },
         plugins: [
             new HtmlWebpackPlugin({
