@@ -1,0 +1,12 @@
+div()
+    div
+        input-file-upload(@onChange="onUploadUpdate")
+        
+    div(class="w-full grid grid-cols-3 mb-2" v-for="(item, index) in logos")
+        div()
+            img(class="w-8" :src="item.path" @click="onSelect(item)")
+        div(class="flex items-center")
+            span() {{ item.name }}
+        div()
+            button(@click="remove(item, index)" class="text-gray-500 mr-4")
+                font-awesome-icon(icon="trash")

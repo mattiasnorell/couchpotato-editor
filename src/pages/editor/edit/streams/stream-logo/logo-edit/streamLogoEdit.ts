@@ -1,14 +1,15 @@
 import { Options, Vue } from "vue-class-component";
 import { Prop } from "vue-property-decorator";
 import { ModalBase } from "_models/modalBase";
-
+import { StreamLogoGallery} from "../logo-gallery/streamLogoGallery";
 import { InputText } from '_components/base/input-text/inputText';
 
 @Options({
   name: 'StreamLogoEdit',
   template: require('./streamLogoEdit.pug'),
   components: {
-    InputText
+    InputText,
+    StreamLogoGallery
   }
 })
 export class StreamLogoEdit extends ModalBase {
@@ -28,5 +29,13 @@ export class StreamLogoEdit extends ModalBase {
 
   private close(): void {
     super.closeModal();
+  }
+
+  private onGalleryChange(path: string){
+    this.newPath = path;
+  }
+
+  private onSetDefault(){
+    super.closeModal('');
   }
 }

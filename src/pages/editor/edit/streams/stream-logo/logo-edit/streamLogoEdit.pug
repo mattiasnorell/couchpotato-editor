@@ -6,9 +6,14 @@ div(class="modal")
 
             div(class="modal-content")
                 img(:src="newPath")
-                input-text(v-model:value="newPath" :placeholder="'Sökväg'")
+                
+                label(for="logoPathInput") Från url:
+                input-text(id="logoPathInput" v-model:value="newPath" :placeholder="'Sökväg'")
 
+                h2 Från fil:
+                stream-logo-gallery(@onChange="onGalleryChange")
 
             div(class="modal-footer")
                 button(class="btn" @click="close") {{ $filters.translate('cancel') }}
+                button(class="btn ml-2" @click="onSetDefault") Använd standardlogo
                 button(class="btn ml-auto" @click="ok") {{ $filters.translate('ok') }}

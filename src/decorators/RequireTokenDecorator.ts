@@ -20,16 +20,17 @@ export function RequireTokenDecorator(redirectToLogin: boolean = true): ClassDec
             const isValid = jwtHelper.isTokenValid(token);
             if (!isValid) {
 
-                this.$options.render = function () {
-                    return <VNode>{};
-                };
+                
 
                 this.$options.beforeCreate = undefined;
                 this.$options.beforeMount = undefined;
                 this.$options.created = undefined;
                 this.$options.mounted = undefined;
+                this.$options.render = function () {
+                    return <VNode>{};
+                };
 
-                this.$router.push('login');
+                this.$router.push({name: 'login'});
 
                 return;
             }

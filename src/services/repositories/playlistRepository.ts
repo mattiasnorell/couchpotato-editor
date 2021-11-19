@@ -31,7 +31,7 @@ export class PlaylistRepository {
       Expires: '0'
     };
     
-    const playlist = await axios.get(`${this.apiBasePath}/download?path=${encodeURIComponent(this.path)}`);
+    const playlist = await axios.get(`${this.apiBasePath}/file/download?path=${encodeURIComponent(this.path)}`);
 
     if (playlist.status !== 200) {
       return [];

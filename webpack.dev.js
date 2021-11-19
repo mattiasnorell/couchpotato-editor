@@ -85,7 +85,8 @@ module.exports = (env = {}) => {
                 filename: 'index.html'
             }),
             new webpack.DefinePlugin({
-                __VERSION__: JSON.stringify(pjson.version)
+                __VERSION__: JSON.stringify(pjson.version),
+                __APIURL__: JSON.stringify('http://couchpotato.automagiskdatabehandling.se/api')
             }),
             new MiniCss({
                 filename: cssFile

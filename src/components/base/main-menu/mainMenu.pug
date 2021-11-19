@@ -1,6 +1,6 @@
 div(class="menu-contents")
     div(class="menu-item" v-for="(item, index) in menuItems")
-        router-link(class="" :to="item.path")
+        router-link(:to="item.path")
             span(class="mr-2" v-if="item.meta.menuIcon")
                 font-awesome-icon(:icon="item.meta.menuIcon")
             span() {{ $filters.translate(item.meta.menuTranslationKey) }}

@@ -6,6 +6,7 @@ import { IModalHelper } from '_services/helpers/modalHelper';
 import { Prop } from 'vue-property-decorator';
 import { ILanguageRepository } from '_services/repositories/languageRepository';
 import { inject } from 'inversify-props';
+import { ILocalStorageHelper } from '_services/helpers/localStorageHelper';
 
 @Options({
   name: 'TriggerCouchpotato',
@@ -17,6 +18,7 @@ import { inject } from 'inversify-props';
 export class TriggerCouchpotato extends Vue {
   @inject() public languageRepository: ILanguageRepository;
   @inject() public modalHelper: IModalHelper;
+  @inject() public localStorageHelper: ILocalStorageHelper;
 
   @Prop()
   public configurationId: string;
@@ -24,12 +26,12 @@ export class TriggerCouchpotato extends Vue {
   @Prop({type: Boolean, default: false})
   public disabled: boolean;
 
-
-  private async onClick(): Promise<void> {
+  public async onClick(): Promise<void> {
+    const user = this.localStorageHelper.read<string>('user');
     const props: WebSocketModalProps = new WebSocketModalProps();
     props.title = `${this.languageRepository.get('triggerCouchpotato')} ${this.languageRepository.get('for')} ${this.configurationId}`;
     props.action = 'import';
-    props.url = this.configurationId;
+    props.url = `${user}/${this.configurationId}`;
 
     this.modalHelper.create<typeof WebSocketModal>(WebSocketModal, props);
   }

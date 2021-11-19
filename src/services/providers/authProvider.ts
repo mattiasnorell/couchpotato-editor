@@ -1,3 +1,5 @@
+declare var __APIURL__: string;
+
 import { IDateHelper } from '_services/helpers/dateHelper';
 import { ILocalStorageHelper } from '_services/helpers/localStorageHelper';
 import { inject, injectable } from 'inversify-props';
@@ -11,7 +13,7 @@ export interface IAuthProvider {
 
 @injectable()
 export class AuthProvider implements IAuthProvider {
-    private apiBasePath: string = 'http://couchpotato.automagiskdatabehandling.se/api';
+    private apiBasePath: string = __APIURL__;
 
     @inject() private localStorageHelper: ILocalStorageHelper;
     @inject() private dateHelper: IDateHelper;

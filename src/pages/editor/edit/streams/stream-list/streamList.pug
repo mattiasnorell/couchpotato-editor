@@ -1,5 +1,5 @@
-div(class="w-full")
-    div(class="fixed bottom-0 left-0 px-8 py-4 w-full h-16 bg-gray-500" v-if="hasSelected")
+div(class="w-full" :class="{'mb-12': hasSelected}")
+    div(class="fixed bottom-0 left-0 px-6 py-2 w-full h-12 bg-gray-500" v-if="hasSelected")
         div(class=" flex items-justify")
             button(class="btn" @click="deleteSelected")
                 span(class="mr-2" )

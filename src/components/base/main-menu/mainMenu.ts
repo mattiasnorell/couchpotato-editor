@@ -6,6 +6,8 @@ import { RequireTokenDecorator } from 'src/decorators/RequireTokenDecorator';
 import { IAuthProvider } from '_services/providers/authProvider';
 import { inject } from 'inversify-props';
 import { AuthDecorator } from 'src/decorators/AuthDecorator';
+import { RouteLink } from '_models/Route';
+import { RouteRecordRaw } from 'vue-router';
 
 @Options({
   name: 'mainMenu',
@@ -14,13 +16,11 @@ import { AuthDecorator } from 'src/decorators/AuthDecorator';
     FontAwesomeIcon
   }
 })
-@RequireTokenDecorator(false)
-@AuthDecorator()
 export class MainMenu extends Vue {
   @inject()
   private authProvider: IAuthProvider;
   
-  private menuItems: any[] | undefined = [];
+  private menuItems:  any[] = [];
 
   public created() {
     const routes = this.$router.options.routes;
@@ -37,6 +37,6 @@ export class MainMenu extends Vue {
 
   private logout(): void {
     this.authProvider.clearToken();
-    this.$router.push('login');
+    window.location.href = '';
   }
 }

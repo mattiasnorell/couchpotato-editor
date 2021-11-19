@@ -1,3 +1,4 @@
+declare var __APIURL__: string;
 import axios from 'axios';
 import { Configuration } from '_models/Configuration';
 import { ConfigurationListItem } from '_models/ConfigurationListItem';
@@ -12,13 +13,16 @@ export interface IConfigurationProvider {
   rename(id: string, newName: string): Promise<string | null>;
   delete(id: string): Promise<void>;
   copy(id: string): Promise<string | null>;
+  getLogos(): Promise<any[]>;
+  removeLogo(name: string): Promise<void>;
+  addLogo(formData: FormData): Promise<void>;
 }
 
 @injectable()
 export class ConfigurationProvider {
   @inject() private localStorageHelper: ILocalStorageHelper;
-  
-  private apiBasePath: string = 'http://couchpotato.automagiskdatabehandling.se/api';
+
+  private apiBasePath: string = __APIURL__;
 
   public async getAllForUser(): Promise<ConfigurationListItem[]> {
     const result = await axios.get<ConfigurationListItem[]>(`${this.apiBasePath}/configuration/list`, {
@@ -29,6 +33,36 @@ export class ConfigurationProvider {
 
     if (result.status !== 200) {
       return [];
+    }
+
+    return result.data;
+  }
+
+  public async getLogos(): Promise<any[]> {
+    const result = await axios.get(`${this.apiBasePath}/configuration/logos`);
+    if (result.status !== 200) {
+      return [];
+    }
+
+    return result.data;
+  }
+
+  public async removeLogo(name: string): Promise<void> {
+    await axios.delete(`${this.apiBasePath}/configuration/logos?logo=${name}`);
+  }
+
+  public async addLogo(formData: FormData): Promise<void> {
+    const result = await axios.post(
+      `${this.apiBasePath}/configuration/logos`,
+      formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    );
+
+    if (result.status !== 200) {
+      return;
     }
 
     return result.data;

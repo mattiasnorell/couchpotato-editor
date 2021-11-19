@@ -32,8 +32,8 @@ export class StreamLogo extends Vue {
     props.title = this.$options?.filters?.translate('catalogueModalTitle');
     props.path = this.value;
 
-    this.modalHelper.create<typeof StreamLogoEdit>(StreamLogoEdit, props, (result: string) => {
-      if (!result) {
+    this.modalHelper.create<typeof StreamLogoEdit>(StreamLogoEdit, props, (result: string | undefined) => {
+      if(result === null){
         return;
       }
 

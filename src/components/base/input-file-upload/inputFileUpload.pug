@@ -1,0 +1,33 @@
+div()
+    label(
+        :for="id" 
+        class="form-group__label pl-1") 
+        
+        slot
+
+    div(class="flex")
+        div(class="w-full relative")
+            div(
+                ref="fileUploadDropArea"
+                class="text-gray-700 bg-white rounded-xl border-gray-400 border p-4 flex flex-wrap text-center cursor-pointer"
+                :class="{'bg-gray-200': onFilesHover}"
+                )
+                div(
+                    class="w-full hover:text-black"
+                    @click="onOpenFileUploadClick")
+                    div(class="w-full")
+                        i(class="fas fa-cloud-upload-alt fa-5x")
+                    div(class="w-full")
+                        span(class="text-md font-bold text-center") Klick för att välja eller släpp filer här 
+
+                slot(name="fileList")
+
+            input(
+                ref="fileUploadInput"
+                type="file"
+                multiple
+                class="absolute"
+                style="left:-9999px;top:-9999px"
+                @change="onFileChange"
+                )
+            
