@@ -97,7 +97,8 @@ export class LanguageRepository implements ILanguageRepository {
     exportToFile: 'Exportera fil',
     copyToJson: 'Kopiera som JSON',
     plugin: 'Plugin',
-    username: 'Användarnamn'
+    username: 'Användarnamn',
+    targetCacheDuration: "Tid för cache av spellista"
   };
 
   get(key: string): string {

@@ -9,6 +9,7 @@ export class Configuration{
     }
 
     m3uPath: string = '';
+    playlistCacheDuration: number = 0;
     outputPath: string = '';
     defaultGroup: string = '';
     outputFilename: string = '';

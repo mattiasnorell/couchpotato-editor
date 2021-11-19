@@ -1,15 +1,28 @@
 div(class="flex")
     div(class="w-full")
         div(class="flex-row mb-4")
-            div(class="col w-full md:w-1/2")
+            div(class="col w-full md:w-1/3")
                 label() {{ $filters.translate('targetFolder') }}
                 div(class="input-group" class="w-full")
                     input-text(v-model:value="config.outputPath")
 
-            div(class="col w-full md:w-1/2")
+            div(class="col w-full md:w-1/3")
                 label() {{ $filters.translate('targetFilename') }}
                 div(class="input-group" class="w-full")
                     input-text(v-model:value="config.outputFilename")
+
+            div(class="col w-full md:w-1/3")
+                label() {{ $filters.translate('targetCacheDuration') }}
+                div(class="input-group" class="w-full")
+                    select(class="w-full border border-gray-300 rounded px-2 py-1" v-model="config.playlistCacheDuration")
+                        option(:value="0") Av
+                        option(:value="24") 1 dygn
+                        option(:value="72") 3 dygn
+                        option(:value="120") 5 dygn
+                        option(:value="168") 1 vecka
+                        option(:value="720") 1 månad
+                        option(:value="8760") 1 år
+                        option(:value="214748") Tillsvidare
                     
         div(class="flex-row")
             div(class="col w-full")
