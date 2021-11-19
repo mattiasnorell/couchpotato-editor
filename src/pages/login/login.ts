@@ -28,7 +28,7 @@ export default class Login extends Vue {
   }
 
   private async login(): Promise<void> {
-    if (!this.username) {
+    if (!this.username || !this.password) {
       return;
     }
 
