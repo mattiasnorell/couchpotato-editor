@@ -50,7 +50,7 @@ export class LanguageRepository implements ILanguageRepository {
     timeshift: 'Timeshift',
     epgId: 'EPG-Id',
     menuStart: 'Start',
-    menuEditor: 'Editor',
+    menuEditor: 'Spellistor',
     menuSettings: 'Inställningar',
     menuDashboard: 'Dashboard',
     updateCouchpotato: 'Uppdatera Couchpotato',

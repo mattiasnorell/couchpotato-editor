@@ -104,12 +104,22 @@
 }
 
 @media (min-width: 768px) {
-  .menu{ @apply block;}
+  .menu{ 
+    @apply block;
+    
+   
+  }
 }
 
 @media (max-width: 768px) {
   .menu{
     @apply fixed w-11/12 shadow-xl invisible z-30 h-full;
+
+    .menu-wrapper{
+      .menu-contents {
+        @apply flex-col;
+      }
+    }
   }
 }
 

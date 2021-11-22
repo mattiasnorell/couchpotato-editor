@@ -12,7 +12,7 @@ div(class="menu-contents")
                     font-awesome-icon(:icon="item.meta.menuIcon")
                 span() {{ $filters.translate(childItem.meta.menuTranslationKey) }}
     
-    div(class="menu-item ml-auto")
+    div(class="menu-item md:ml-auto")
         span(class="mr-2")
             font-awesome-icon(icon="sign-out-alt")
         button(@click="logout") {{ $filters.translate('logout') }}
