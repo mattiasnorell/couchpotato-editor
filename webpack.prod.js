@@ -114,8 +114,7 @@ module.exports = (env = {}) => {
                 __VERSION__: JSON.stringify(pjson.version),
                 __VUE_PROD_DEVTOOLS__: 'false',
                 __APIURL__: JSON.stringify('http://couchpotato.automagiskdatabehandling.se/api')
-            }),
-            new BundleAnalyzerPlugin()
+            })
         ]
     };
 
