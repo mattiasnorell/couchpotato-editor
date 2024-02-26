@@ -113,7 +113,7 @@ module.exports = (env = {}) => {
             new webpack.DefinePlugin({
                 __VERSION__: JSON.stringify(pjson.version),
                 __VUE_PROD_DEVTOOLS__: 'false',
-                __APIURL__: JSON.stringify('http://couchpotato.automagiskdatabehandling.se/api')
+                __APIURL__: JSON.stringify('https://couchpotato-api.azurewebsites.net')
             })
         ]
     };
