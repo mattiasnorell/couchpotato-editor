@@ -8,13 +8,13 @@ axios.interceptors.request.use((config: AxiosRequestConfig) => {
   const token = localStorageHelper.read<string>('token');
   const apiPath = localStorageHelper.read<string>('couchpotatoApiPath');
 
-  if (apiPath && config.url?.includes(apiPath) && token) {
+  /*if (apiPath && config.url?.includes(apiPath) && token) {
     config.headers['Authorization'] = `Bearer ${token}`;
   }
 
   if (config.url?.includes('couchpotato-webapp.azurewebsites.net') && token) {
-    config.headers['Authorization'] = `Bearer ${token}`;
-  }
+  }*/
+  config.headers['Authorization'] = `Bearer ${token}`;
 
   return config;
 });
