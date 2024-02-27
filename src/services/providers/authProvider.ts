@@ -38,7 +38,7 @@ export class AuthProvider implements IAuthProvider {
         }
 
         this.localStorageHelper.write('user', username);
-        this.localStorageHelper.write('token', result.data.token);
+        this.localStorageHelper.write('token', result.data);
 
         return true;
     }
