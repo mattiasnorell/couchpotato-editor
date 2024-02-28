@@ -69,8 +69,7 @@ export class ConfigurationProvider {
   }
 
   public async load(id: string): Promise<Configuration | null> {
-    const userName = this.localStorageHelper.read('user');
-    const result = await axios.get(`${this.apiBasePath}/configuration/${userName}/${id}`);
+    const result = await axios.get(`${this.apiBasePath}/configuration/${id}`);
     if (result.status !== 200) {
       return null;
     }
