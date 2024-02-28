@@ -23,7 +23,7 @@ export class CopyUrl extends Vue {
   private copy(): void {
     const configFolder = 'config';
     const username = this.localStorageHelper.read<string>('user');
-    const path = `${window.location.protocol}//${window.location.hostname}/${configFolder}/${username}/${this.configurationId}.json`;
+    const path = `https://couchpotato.blob.core.windows.net/configurations/${username}/${this.configurationId}.json`;
 
     if(!navigator.clipboard){
       window.prompt('Kopiera från fältet', path);
